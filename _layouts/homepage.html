@@ -8,6 +8,19 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/stylesheets/prism.css" media="screen">
+      <style>
+          .main-content .search {
+              background-image: url("{{site.baseurl}}/static/figure/searchicon.png"); /* Add a search icon to input */
+              background-position: 10px 12px; /* Position the search icon */
+              background-repeat: no-repeat; /* Do not repeat the icon image */
+              width: 100%; /* Full-width */
+              font-size: 16px; /* Increase font-size */
+              padding: 12px 20px 12px 40px; /* Add some padding */
+              border: 1px solid #ddd; /* Add a grey border */
+              margin-bottom: 12px; /* Add some space below the input */
+          }
+      </style>
   </head>
   <body>
     <section class="page-header">
@@ -17,7 +30,7 @@
       <!--<a href="https://github.com/ylimit/droidbot/zipball/master" class="btn">Download .zip</a>-->
     </section>
 
-    <section class="main-content">
+    <section class="main-content language-java">
 
       {{content}}
 
@@ -29,6 +42,7 @@
 
     </section>
 
+    <script src="{{site.baseurl}}/stylesheets/prism.js"></script>
   
   </body>
 </html>
