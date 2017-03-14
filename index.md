@@ -4,6 +4,7 @@ layout: homepage
 
 <div class="w3-cell-row" style="width:80%">
 <div class="w3-container w3-cell w3-cell-middle">
+<h3>What is PrivacyStreams?</h3>
 <p>PrivacyStreams is a framework for <strong>privacy-friendly personal data processing</strong>.</p>
 <p>Currently, it supports Android platform.</p>
 </div>
@@ -26,6 +27,7 @@ uqi.getDataItems(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
 </pre>
 </div>
 <div class="w3-container w3-cell w3-cell-middle">
+<h3>Easy-to-use</h3>
 <p><strong>App developers</strong> can use PrivacyStreams to access and process personal data with a unified query interface (<strong>UQI</strong>).</p>
 </div>
 </div>
@@ -34,6 +36,7 @@ uqi.getDataItems(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
 
 <div class="w3-cell-row" style="width:80%">
 <div class="w3-container w3-cell w3-cell-middle">
+<h3>Privacy benefits</h3>
 <p><strong>Apps</strong> developed with PrivacyStreams are more <strong>privacy-friendly</strong>.</p>
 <ul>
 <li>Easier for analysis.</li>
@@ -41,7 +44,7 @@ uqi.getDataItems(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
 </ul>
 </div>
 <div class="w3-container w3-cell w3-cell-middle w3-panel w3-leftbar w3-sand w3-xlarge w3-serif verified">
-  <p><i>"Microphone is used by this app to compute loudness periodically."</i></p>
+  <p><strong style="color:green;">Verified &#9989;</strong>: <i>"Microphone is used by this app to compute loudness periodically."</i></p>
 </div> 
 </div>
 
