@@ -3,9 +3,7 @@ layout: homepage
 title: Available data types in PrivacyStreams
 ---
 
-# privacystreams-core 0.0.2 API - Items
-
-This document contains all types of personal data available in PrivacyStreams.
+This document contains all types of personal data available in PrivacyStreams v0.0.2.
 
 - [BaseAccessibilityEvent](#baseaccessibilityevent)
 - [BrowserSearch](#browsersearch)

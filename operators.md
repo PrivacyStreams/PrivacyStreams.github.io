@@ -3,43 +3,12 @@ layout: homepage
 title: Available operators in PrivacyStreams
 ---
 
-<script>
-function myFunction() {
-  // Declare variables 
-  var type_input, content_input, type_filter, content_filter, table, tr, td, i;
-  
-  type_input = document.getElementById("typeSearch");
-  type_filter = type_input.value.toUpperCase();
-  content_input = document.getElementById("contentSearch");
-  content_filter = content_input.value.toUpperCase();
-  
-  table = document.getElementsByTagName("table")[0];
-  tr = table.getElementsByTagName("tr");
-    
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 2; i < tr.length; i++) {
-    type_td = tr[i].getElementsByTagName("td")[0];
-    content_td = tr[i].getElementsByTagName("td")[1];
-    
-    if (type_td) {
-      if (type_td.innerHTML.toUpperCase().indexOf(type_filter) > -1 && content_td.innerHTML.toUpperCase().indexOf(content_filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    } 
-  }
-}
-</script>
-
-# privacystreams-core 0.0.2 API - Operators
-
-This document contains all operators available in PrivacyStreams.
+This document contains all operators available in PrivacyStreams v0.0.2.
 
 
 | Type | Reference & Description |
 |----|----|
-|<input class="search" type="text" id="typeSearch" onkeyup="myFunction()" placeholder="Search for function type..">|<input class="search" type="text" id="contentSearch" onkeyup="myFunction()" placeholder="Search for reference or description..">|
+|<input class="search" type="text" id="typeSearch" onkeyup="tableSearch()" placeholder="Search for function type..">|<input class="search" type="text" id="contentSearch" onkeyup="tableSearch()" placeholder="Search for reference or description..">|
 | `Function<Void,MStream>` | `BaseAccessibilityEvent.asUpdates()` <br> Provide a live stream of BaseAccessibilityEvent items. |
 | `Function<Void,MStream>` | `BrowserSearch.asUpdates()` <br> Provide a live stream of BrowserSearch items. |
 | `Function<Void,MStream>` | `BrowserVisit.asUpdates()` <br> Provider a live stream of BrowserVisit items. |

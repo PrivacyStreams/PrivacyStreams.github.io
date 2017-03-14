@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>{{page.title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/stylesheets/normalize.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/stylesheets/github-light.css" media="screen">
+    <link rel="icon" href="{{site.baseurl}}/static/figure/logo_w_small.png">
+
+    <!--<link rel="stylesheet" type="text/css" href="{{site.baseurl}}/stylesheets/normalize.css" media="screen">-->
+    <!--<link rel="stylesheet" type="text/css" href="{{site.baseurl}}/stylesheets/github-light.css" media="screen">-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>-->
     <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/stylesheets/prism.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/stylesheets/stylesheet.css" media="screen">
+
+    <!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen">-->
       <style>
           .main-content .search {
               background-image: url("{{site.baseurl}}/static/figure/searchicon.png"); /* Add a search icon to input */
@@ -20,19 +25,49 @@
               border: 1px solid #ddd; /* Add a grey border */
               margin-bottom: 12px; /* Add some space below the input */
           }
+
+          /*.main-content table { width: 100%; table-layout: fixed; }*/
+          /*.main-content #typeSearch { width: 22vw; }*/
+          /*.main-content #contentSearch { width: 54vw; }*/
+
+          .header-inside {
+              background-image: url("{{site.baseurl}}/static/figure/logo_b_small.png"); /* Add a search icon to input */
+              background-position: 0 0; /* Position the search icon */
+              background-size: auto 100%;
+              background-repeat: no-repeat; /* Do not repeat the icon image */
+              padding-left: 100px;
+          }
+
+          .verified {
+              background-image: url("{{site.baseurl}}/static/figure/logo_w_verified.png"); /* Add a search icon to input */
+              background-position: bottom 10px right 10px; /* Position the search icon */
+              background-size: auto 50%;
+              background-repeat: no-repeat; /* Do not repeat the icon image */
+              padding-right: 50px;
+          }
       </style>
   </head>
   <body>
     <section class="page-header">
-      <!--<h1 class="project-name">Droidbot</h1>-->
-      <!--<a href="https://github.com/ylimit/droidbot" class="btn">View on GitHub</a>-->
-      <!--<a href="{{site.baseurl}}/" class="btn">Go to Homepage</a>-->
-      <!--<a href="https://github.com/ylimit/droidbot/zipball/master" class="btn">Download .zip</a>-->
+        <div class="header-inside">
+            <div>
+                <a href="{{site.baseurl}}/" class="project-name">PrivacyStreams</a>
+                <span>Transparent personal data processing.</span>
+            </div>
+            <a href="{{site.baseurl}}/get_started.html" class="btn">Get started</a>
+            <a href="{{site.baseurl}}/items.html" class="btn">Available data types</a>
+            <a href="{{site.baseurl}}/operators.html" class="btn">Available operators</a>
+            <a href="https://github.com/PrivacyStreams/" class="btn">View on GitHub</a>
+        </div>
     </section>
 
     <section class="main-content language-java">
 
-      {{content}}
+      <h1>{{page.title}}</h1>
+
+        <div>
+        {{content}}
+        </div>
 
       <footer class="site-footer">
         <span class="site-footer-owner">This page is maintained by Yuanchun Li.</span>
@@ -41,8 +76,10 @@
       </footer>
 
     </section>
+    <button onclick="topFunction()" id="toTopBtn" title="Go to top">Top</button>
 
     <script src="{{site.baseurl}}/stylesheets/prism.js"></script>
+    <script src="{{site.baseurl}}/stylesheets/privacystreams.js"></script>
   
   </body>
 </html>

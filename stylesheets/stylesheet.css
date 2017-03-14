@@ -17,6 +17,7 @@ a {
 
 .btn {
   display: inline-block;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   color: rgba(255, 255, 255, 0.7);
   background-color: rgba(255, 255, 255, 0.08);
@@ -60,33 +61,42 @@ a {
 
 .page-header {
   color: #fff;
-  text-align: center;
-  background-color: #159957;
-  background-image: linear-gradient(120deg, #155799, #159957); }
+  text-align: left;
+  padding-left: 3rem;
+  background-color: #155799;
+  background-image: linear-gradient(120deg, #155799, #159957);
+}
 
 @media screen and (min-width: 64em) {
   .page-header {
-    padding: 3rem 4rem; } }
+    padding: 3rem 6rem; } }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
   .page-header {
-    padding: 2rem 3rem; } }
+    padding: 2rem 4rem; } }
 
 @media screen and (max-width: 42em) {
   .page-header {
     padding: 2rem 1rem; } }
 
 .project-name {
+  color: #fff;
   margin-top: 0;
-  margin-bottom: 0.1rem; }
+  margin-bottom: 0.1rem;
+  margin-right: 1rem;
+  text-decoration: none; }
+  .project-name:hover {
+    text-decoration: none;
+    color: #b3d4fc;
+  }
 
 @media screen and (min-width: 64em) {
   .project-name {
-    font-size: 3.25rem; } }
+    font-size: 2.25rem; } }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
   .project-name {
-    font-size: 2.25rem; } }
+    font-size: 2.00rem; } }
 
 @media screen and (max-width: 42em) {
   .project-name {
@@ -251,4 +261,23 @@ a {
 .margin-small {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+#toTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: red; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+}
+
+#toTopBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
 }
