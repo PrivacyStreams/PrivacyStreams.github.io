@@ -17,6 +17,10 @@ layout: homepage
 
 <div class="w3-cell-row" style="width:80%">
 <div class="w3-container w3-cell w3-cell-middle">
+<h3>Easy-to-use</h3>
+<p><strong>App developers</strong> can use PrivacyStreams to access and process personal data with a unified query interface (<strong>UQI</strong>).</p>
+</div>
+<div class="w3-container w3-cell w3-cell-middle">
 <pre>
 <code>
 // Record audio periodically and callback if loudness changes.
@@ -25,10 +29,6 @@ uqi.getDataItems(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
    .onChange("loudness", callback)
 </code>
 </pre>
-</div>
-<div class="w3-container w3-cell w3-cell-middle">
-<h3>Easy-to-use</h3>
-<p><strong>App developers</strong> can use PrivacyStreams to access and process personal data with a unified query interface (<strong>UQI</strong>).</p>
 </div>
 </div>
 
