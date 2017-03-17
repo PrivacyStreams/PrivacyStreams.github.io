@@ -74,7 +74,7 @@ UQI stands for "unified query interface", which is the most important class in P
 
 The above code constructs a UQI instance, accesses a mock data stream and prints 10 items.
 The data being accessed is a stream of randomized data specified by `MockItem.asRandomUpdates(10, 10.0, 100)`.
-Each item in this stream is some random values. The definition of MockItem's format can be found [here]({{site.baseurl}}/items.html#mockitem).
+Each item in this stream is a map of some random values. The definition of MockItem's format can be found [here](items.html#mockitem).
 
 The second parameter of `uqi.getData()` specifies the purpose of data access.
 Explaining the purpose can help users understand your permission request, hence better for privacy.
