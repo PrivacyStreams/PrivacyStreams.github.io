@@ -149,7 +149,7 @@ To use the above code, you need to request the permission in `AndroidManifest.xm
         }
     }</code></pre>
 
-That's it! More details about exception handling will be discussed in [Permissions and exception handling](#permissons-and-exception-handling) section.
+That's it! More details about exception handling will be discussed in [Permissions and exception handling](#permissions-and-exception-handling) section.
 
 ## PrivacyStreams API
 
