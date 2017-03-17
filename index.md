@@ -50,7 +50,7 @@ uqi.getDataItems(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
 
 <br />
 
-<a href="({{site.baseurl}}/get_started.html">
+<a href="get_started.html">
 <button class="w3-button w3-white w3-border w3-border-red w3-round-large w3-xlarge">Get started!</button>
 </a>
 
