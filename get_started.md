@@ -23,6 +23,7 @@ Table of content:
 + [Debugging and testing](#debugging-and-testing)
     - [Mocking data source](#mocking-data-source)
     - [Printing the streams](#printing-the-streams)
++ [Read more](#read-more)
 
 ## Install PrivacyStreams
 
@@ -393,11 +394,11 @@ Most data types support serialization, i.e. you can easily print the streams and
     - `uqi.getData(...).step1(...).step2(...).debug()`;
     - ...
     
-## Thank you
+## Read more
 
 For more information about PrivacyStreams APIs, please refer to:
 
-- [PrivacyStreams Javadoc]();
+- [PrivacyStreams Javadoc](javadoc/index.html);
 - [Available data types](items.html);
 - [Available operators](operators.html).
 
