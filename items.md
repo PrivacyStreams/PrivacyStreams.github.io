@@ -42,7 +42,7 @@ Base Accessibility event.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `BaseAccessibilityEvent.asUpdates()` <br> Provide a live stream of BaseAccessibilityEvent items. |
+| `MStreamProvider` | `BaseAccessibilityEvent.asUpdates()` <br> Provide a live stream of BaseAccessibilityEvent items. |
 
 ## BrowserSearch
 
@@ -61,7 +61,7 @@ A browser search activity.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `BrowserSearch.asUpdates()` <br> Provide a live stream of BrowserSearch items. |
+| `MStreamProvider` | `BrowserSearch.asUpdates()` <br> Provide a live stream of BrowserSearch items. |
 
 ## BrowserVisit
 
@@ -82,7 +82,7 @@ A website visit event.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `BrowserVisit.asUpdates()` <br> Provider a live stream of BrowserVisit items. |
+| `MStreamProvider` | `BrowserVisit.asUpdates()` <br> Provide a live stream of BrowserVisit items. |
 
 ## TextEntry
 
@@ -106,7 +106,7 @@ User input text.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `TextEntry.asUpdates()` <br> Provide a live stream of TextEntry items. |
+| `MStreamProvider` | `TextEntry.asUpdates()` <br> Provide a live stream of TextEntry items. |
 
 ## UIAction
 
@@ -129,7 +129,7 @@ A UI action, such as a view is clicked, selected, etc.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `UIAction.asUpdates()` <br> Provide a live stream of UIAction items. |
+| `MStreamProvider` | `UIAction.asUpdates()` <br> Provide a live stream of UIAction items. |
 
 ## Audio
 
@@ -148,8 +148,8 @@ An audio record.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,SStream>` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.<br> - `duration`: the time duration of audio. |
-| `Function<Void,MStream>` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, <code>recordPeriodic(1000, 4000)</code> will record audio from 0s-1s, 5s-6s, 10s-11s, ...<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
+| `SStreamProvider` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.<br> - `duration`: the time duration of audio. |
+| `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, <code>recordPeriodic(1000, 4000)</code> will record audio from 0s-1s, 5s-6s, 10s-11s, ...<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
 
 ## Contact
 
@@ -170,7 +170,7 @@ The information of a contact.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `Contact.asList()` <br> Provide a list of Contact items from device's contacts database. |
+| `MStreamProvider` | `Contact.asList()` <br> Provide a list of Contact items from device's contacts database. |
 
 ## Message
 
@@ -192,9 +192,9 @@ A text message. It could be from SMS, WhatsApp, Facebook, etc.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `Message.asIMUpdates()` <br> Provide a live stream of Message items from IM apps, including WhatsApp and Facebook. |
-| `Function<Void,MStream>` | `Message.asSMSUpdates()` <br> Provide a live stream of Message items from the Android SMS app. |
-| `Function<Void,MStream>` | `Message.asSMSHistory()` <br> Provide a list of historic Message items from the Android SMS app. |
+| `MStreamProvider` | `Message.asIMUpdates()` <br> Provide a live stream of Message items from IM apps, including WhatsApp and Facebook. |
+| `MStreamProvider` | `Message.asSMSUpdates()` <br> Provide a live stream of Message items from the Android SMS app. |
+| `MStreamProvider` | `Message.asSMSHistory()` <br> Provide a list of historic Message items from the Android SMS app. |
 
 ## Phonecall
 
@@ -215,7 +215,7 @@ The information of a phonecall.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `Phonecall.asLogs()` <br> Provide a list of Phonecall items from the device call log. |
+| `MStreamProvider` | `Phonecall.asLogs()` <br> Provide a list of Phonecall items from the device call log. |
 
 ## MockItem
 
@@ -237,12 +237,12 @@ A random item for testing.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `MockItem.asUpdates(List<MockObject> mockObjects, long interval)` <br> Provide a live stream of MockItem items, which are from a given list.<br> - `mockObjects`: the list of mock data<br> - `interval`: the interval between each two items, in milliseconds |
-| `Function<Void,MStream>` | `MockItem.asRandomUpdates(int maxInt, double maxDouble, long interval)` <br> Provide a live stream of MockItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `interval`: the interval between each two items, in milliseconds |
-| `Function<Void,MStream>` | `MockItem.asHistory(List<MockObject> mockObjects)` <br> Provide a list of MockItem items, which are from a given list.<br> - `mockObjects`: the list of mock data |
-| `Function<Void,MStream>` | `MockItem.asRandomHistory(int maxInt, double maxDouble, int count)` <br> Provide a list of MockItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `count`: the number of random items |
-| `Function<Void,SStream>` | `MockItem.asItem(MockObject mockObject)` <br> Provide a MockItem item, which is based on an given MockObject.<br> - `mockObject`: the mock data |
-| `Function<Void,SStream>` | `MockItem.asRandomItem()` <br> Provide a MockItem item, which is randomly generated. |
+| `MStreamProvider` | `MockItem.asUpdates(List<MockObject> mockObjects, long interval)` <br> Provide a live stream of MockItem items, which are from a given list.<br> - `mockObjects`: the list of mock data<br> - `interval`: the interval between each two items, in milliseconds |
+| `MStreamProvider` | `MockItem.asRandomUpdates(int maxInt, double maxDouble, long interval)` <br> Provide a live stream of MockItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `interval`: the interval between each two items, in milliseconds |
+| `MStreamProvider` | `MockItem.asHistory(List<MockObject> mockObjects)` <br> Provide a list of MockItem items, which are from a given list.<br> - `mockObjects`: the list of mock data |
+| `MStreamProvider` | `MockItem.asRandomList(int maxInt, double maxDouble, int count)` <br> Provide a list of MockItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `count`: the number of random items |
+| `SStreamProvider` | `MockItem.asItem(MockObject mockObject)` <br> Provide a MockItem item, which is based on an given MockObject.<br> - `mockObject`: the mock data |
+| `SStreamProvider` | `MockItem.asRandomItem()` <br> Provide a MockItem item, which is randomly generated. |
 
 ## GroupItem
 
@@ -279,7 +279,7 @@ A DeviceEvent item represents an event about the device.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `DeviceEvent.asUpdates()` <br> Provide a live stream of device events, including screen/boot/battery/ringer events. |
+| `MStreamProvider` | `DeviceEvent.asUpdates()` <br> Provide a live stream of device events, including screen/boot/battery/ringer events. |
 
 ## WifiAp
 
@@ -302,7 +302,7 @@ A WifiAp item represents the information of a WIFI AP.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `WifiAp.asScanList()` <br> Provide a list of WifiAp items from WIFI scan result. |
+| `MStreamProvider` | `WifiAp.asScanList()` <br> Provide a list of WifiAp items from WIFI scan result. |
 
 ## Light
 
@@ -321,7 +321,7 @@ A Light item represents the data read from light sensor.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `Light.asUpdates()` <br> Provide a live stream of Light items that are read from the light sensor. |
+| `MStreamProvider` | `Light.asUpdates()` <br> Provide a live stream of Light items that are read from the light sensor. |
 
 ## Image
 
@@ -340,8 +340,8 @@ An Image item represents an image file.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,SStream>` | `Image.takeFromCamera()` <br> Provide an Image item, which represents a photo taken from camera. |
-| `Function<Void,MStream>` | `Image.readFromStorage()` <br> Provide a list of Image items that are read from file system. |
+| `SStreamProvider` | `Image.takeFromCamera()` <br> Provide an Image item, which represents a photo taken from camera. |
+| `MStreamProvider` | `Image.readFromStorage()` <br> Provide a list of Image items that are read from file system. |
 
 ## GeoLocation
 
@@ -363,7 +363,7 @@ An GeoLocation item represents a geolocation value.
 
 | Type | Reference & Description |
 |----|----|
-| `Function<Void,MStream>` | `GeoLocation.asUpdates(String provider, long minTime, float minDistance)` <br> Provide a live stream of GeoLocation items from device's location sensors.<br> - `provider`: the location provider, could be "gps", "network", etc.<br> - `minTime`: minimum time interval between location updates, in milliseconds.<br> - `minDistance`: minimum distance between location updates, in meters. |
-| `Function<Void,SStream>` | `GeoLocation.asLastKnown()` <br> Provide a GeoLocation item, which is the last known location. |
-| `Function<Void,MStream>` | `GeoLocation.asHistory()` <br> Provide a list of GeoLocation items, which are the location history of the device. |
+| `MStreamProvider` | `GeoLocation.asUpdates(String provider, long minTime, float minDistance)` <br> Provide a live stream of GeoLocation items from device's location sensors.<br> - `provider`: the location provider, could be "gps", "network", etc.<br> - `minTime`: minimum time interval between location updates, in milliseconds.<br> - `minDistance`: minimum distance between location updates, in meters. |
+| `SStreamProvider` | `GeoLocation.asLastKnown()` <br> Provide a GeoLocation item, which is the last known location. |
+| `MStreamProvider` | `GeoLocation.asHistory()` <br> Provide a list of GeoLocation items, which are the location history of the device. |
 

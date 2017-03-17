@@ -9,32 +9,6 @@ This document contains all operators available in PrivacyStreams v0.0.2.
 | Type | Reference & Description |
 |----|----|
 |<input class="search" type="text" id="typeSearch" onkeyup="tableSearch()" placeholder="Search for function type..">|<input class="search" type="text" id="contentSearch" onkeyup="tableSearch()" placeholder="Search for reference or description..">|
-| `Function<Void,MStream>` | `BaseAccessibilityEvent.asUpdates()` <br> Provide a live stream of BaseAccessibilityEvent items. |
-| `Function<Void,MStream>` | `BrowserSearch.asUpdates()` <br> Provide a live stream of BrowserSearch items. |
-| `Function<Void,MStream>` | `BrowserVisit.asUpdates()` <br> Provider a live stream of BrowserVisit items. |
-| `Function<Void,MStream>` | `TextEntry.asUpdates()` <br> Provide a live stream of TextEntry items. |
-| `Function<Void,MStream>` | `UIAction.asUpdates()` <br> Provide a live stream of UIAction items. |
-| `Function<Void,SStream>` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.<br> - `duration`: the time duration of audio. |
-| `Function<Void,MStream>` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, <code>recordPeriodic(1000, 4000)</code> will record audio from 0s-1s, 5s-6s, 10s-11s, ...<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
-| `Function<Void,MStream>` | `Contact.asList()` <br> Provide a list of Contact items from device's contacts database. |
-| `Function<Void,MStream>` | `Message.asIMUpdates()` <br> Provide a live stream of Message items from IM apps, including WhatsApp and Facebook. |
-| `Function<Void,MStream>` | `Message.asSMSUpdates()` <br> Provide a live stream of Message items from the Android SMS app. |
-| `Function<Void,MStream>` | `Message.asSMSHistory()` <br> Provide a list of historic Message items from the Android SMS app. |
-| `Function<Void,MStream>` | `Phonecall.asLogs()` <br> Provide a list of Phonecall items from the device call log. |
-| `Function<Void,MStream>` | `MockItem.asUpdates(List<MockObject> mockObjects, long interval)` <br> Provide a live stream of MockItem items, which are from a given list.<br> - `mockObjects`: the list of mock data<br> - `interval`: the interval between each two items, in milliseconds |
-| `Function<Void,MStream>` | `MockItem.asRandomUpdates(int maxInt, double maxDouble, long interval)` <br> Provide a live stream of MockItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `interval`: the interval between each two items, in milliseconds |
-| `Function<Void,MStream>` | `MockItem.asHistory(List<MockObject> mockObjects)` <br> Provide a list of MockItem items, which are from a given list.<br> - `mockObjects`: the list of mock data |
-| `Function<Void,MStream>` | `MockItem.asRandomHistory(int maxInt, double maxDouble, int count)` <br> Provide a list of MockItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `count`: the number of random items |
-| `Function<Void,SStream>` | `MockItem.asItem(MockObject mockObject)` <br> Provide a MockItem item, which is based on an given MockObject.<br> - `mockObject`: the mock data |
-| `Function<Void,SStream>` | `MockItem.asRandomItem()` <br> Provide a MockItem item, which is randomly generated. |
-| `Function<Void,MStream>` | `DeviceEvent.asUpdates()` <br> Provide a live stream of device events, including screen/boot/battery/ringer events. |
-| `Function<Void,MStream>` | `WifiAp.asScanList()` <br> Provide a list of WifiAp items from WIFI scan result. |
-| `Function<Void,MStream>` | `Light.asUpdates()` <br> Provide a live stream of Light items that are read from the light sensor. |
-| `Function<Void,SStream>` | `Image.takeFromCamera()` <br> Provide an Image item, which represents a photo taken from camera. |
-| `Function<Void,MStream>` | `Image.readFromStorage()` <br> Provide a list of Image items that are read from file system. |
-| `Function<Void,MStream>` | `GeoLocation.asUpdates(String provider, long minTime, float minDistance)` <br> Provide a live stream of GeoLocation items from device's location sensors.<br> - `provider`: the location provider, could be "gps", "network", etc.<br> - `minTime`: minimum time interval between location updates, in milliseconds.<br> - `minDistance`: minimum distance between location updates, in meters. |
-| `Function<Void,SStream>` | `GeoLocation.asLastKnown()` <br> Provide a GeoLocation item, which is the last known location. |
-| `Function<Void,MStream>` | `GeoLocation.asHistory()` <br> Provide a list of GeoLocation items, which are the location history of the device. |
 | `Function<Item,Integer>` | `AudioOperators.calcLoudness(String audioUriField)` <br> Calculate the loudness of an audio field. The loudness is an integer in dB.<br> - `audioUriField`: the name of the audio uri field. |
 | `Function<Item,Double>` | `ArithmeticOperators.roundUp(String numField, Number value)` <br> Round up a number.  For example, given an item with field "x"=17, <code>roundUp("x", 10)</code> will produce 20.<br> - `numField`: the name of the number field<br> - `value`: the value to round |
 | `Function<Item,Double>` | `ArithmeticOperators.roundDown(String numField, Number value)` <br> Round down a number.  For example, given an item with field "x"=0.027, roundUp("x", 0.01) will produce 0.02.<br> - `numField`: the name of the number field<br> - `value`: the value to round |
