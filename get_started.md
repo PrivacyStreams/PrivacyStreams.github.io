@@ -25,11 +25,11 @@ Table of content:
     - [Printing the streams](#printing-the-streams)
 + [Read more](#read-more)
 
-## Install PrivacyStreams
+## Installing PrivacyStreams
 
 To use PrivacyStreams in your Android app, you can either install it with Maven/Gradle or from source.
 
-### Install with Gradle
+### Installing with Gradle
 
 This is the most convenient way to install PrivacyStreams for most Android developers.
 Simply add the following line to `build.gradle` file under you app module.
@@ -41,7 +41,7 @@ Simply add the following line to `build.gradle` file under you app module.
 }</code>
 </pre>
 
-### Install from source
+### Installing from source
 
 If you are a contributor or want more flexibility, you can install PrivacyStreams from source code.
 For example, in Android Studio, the installation involves the following steps:
