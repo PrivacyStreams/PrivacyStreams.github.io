@@ -171,7 +171,7 @@ The code to do the task with PrivacyStreams is as follows:
         .output(ItemOperators.&lt;String&gt;getField(Phonecall.CONTACT));                                        // get the contact field of the item
 </code></pre>
 
-Looks messy? Don't worry, next I will tell you what happened and how to simplify it.
+Looks messy? Don't worry, next I will show you what happened and how to simplify it.
 
 ### Unified query interface (UQI)
 
@@ -273,7 +273,7 @@ We provide a method `fork(int)` to support stream reusing, where the `int` param
               uqi.getData(Phonecall.asLogs(), Purpose.SOCIAL("finding your closest contact."))
                  .filter(recent(Phonecall.TIMESTAMP, Duration.days(365)))
                  .groupBy(Phonecall.CONTACT)
-                 .fork(2);  // fork current stream for reuse
+                 .fork(2);  // fork current stream to reuse twice.
         
 String mostCalledContact = 
     streamToReuse.setGroupField("#calls", count())
@@ -287,16 +287,17 @@ String longestCalledContact =
 
 ### Non-blocking pipeline
 
-So far we have learnt how to build a blocking pipeline (the pipeline will block the execution until the result returns).
+So far I have shown how to build a blocking pipeline (the pipeline will block the execution until the result returns).
 
-In Android, non-blocking pipelines might be more common. A non-blocking pipeline will not pause the code execution, and its result will be returned asynchronously.
+In Android, non-blocking pipelines might be more common. A non-blocking pipeline will **NOT** pause the code execution, and its result will be returned asynchronously.
 
 PrivacyStreams provides many **callback Action**s (in `Callbacks` class) and **callback-based collector Action**s (in `Collectors` class) for building non-blocking pipeline.
 
 - For example, following code will not block, and each item will be printed asynchronously.
     - `.debug()` is the equivalence of `.output(Callbacks.forEach(ItemOperators.debug()))`.
     
-    <pre><code> uqi.getData(MockItem.asRandomUpdates(10, 10.0, 100), Purpose.TEST("Testing mock data query."))
+    <pre>
+    <code> uqi.getData(MockItem.asRandomUpdates(10, 10.0, 100), Purpose.TEST("Testing mock data query."))
         .debug();</code></pre>
        
 - The "most-called contact" example can also be implemented as non-blocking.
@@ -360,10 +361,10 @@ In Android, personal data is controlled with a permission-based access control m
 For Android 6.0+, apps must request permissions at runtime, including checking whether permissions are granted, prompting users to grant the permissions and handling users' access control decisions.
 With Android standard APIs, these are often headache.
 
-In PrivacyStreams, configuring permissions can be much easier, follow the steps below:
+In PrivacyStreams, configuring permissions can be much easier. Follow the steps below:
 
 1. Write your pipeline, and cache the exception;
-2. Print the exception, and you will see what permission is needed;
+2. Print the exception, and you will see which permissions are needed;
 3. Add the needed permissions to `AndroidManifest.xml`.
 
 That's it. PrivacyStream will automatically generate a dialog to ask users to grant permissions. If not granted, there will be a `PrivacyStreamsException`.
