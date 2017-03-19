@@ -3,7 +3,7 @@ layout: homepage
 title: Get started with PrivacyStreams
 ---
 
-Table of content:
+Table of contents:
 
 + [Installing PrivacyStreams](#installing-privacystreams)
     - [Installing with Gradle](#installing-with-gradle)

@@ -24,7 +24,7 @@ layout: homepage
 <pre>
 <code>
 // Record audio periodically and callback if loudness changes.
-uqi.getDataItems(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
+uqi.getData(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
    .setField("loudness", calcLoudness(Audio.AUDIO_URI))
    .onChange("loudness", callback)
 </code>
