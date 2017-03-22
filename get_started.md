@@ -36,7 +36,7 @@ Simply add the following line to `build.gradle` file under you app module.
 
 <pre>
 <code>dependencies {</code>
-    <code class="highlight">compile 'com.github.privacystreams:privacystreans-core:0.0.2'</code>
+    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.0.2'</code>
     <code>...
 }</code>
 </pre>

@@ -62,28 +62,29 @@ a {
 .page-header {
   color: #fff;
   text-align: left;
-  padding-left: 3rem;
+  /*padding-left: 3rem;*/
+  /*padding-bottom: 1rem;*/
   background-color: #155799;
   background-image: linear-gradient(120deg, #155799, #159957);
 }
 
-@media screen and (min-width: 64em) {
-  .page-header {
-    padding: 1rem 6rem; } }
+/*@media screen and (min-width: 64em) {*/
+  /*.page-header {*/
+    /*padding: 1rem 6rem; } }*/
 
-@media screen and (min-width: 42em) and (max-width: 64em) {
-  .page-header {
-    padding: 1rem 4rem; } }
+/*@media screen and (min-width: 42em) and (max-width: 64em) {*/
+  /*.page-header {*/
+    /*padding: 1rem 4rem; } }*/
 
-@media screen and (max-width: 42em) {
-  .page-header {
-    padding: 1rem 1rem; } }
+/*@media screen and (max-width: 42em) {*/
+  /*.page-header {*/
+    /*padding: 1rem 1rem; } }*/
 
 .project-name {
   color: #fff;
   margin-top: 0;
-  margin-bottom: 0.1rem;
-  margin-right: 1rem;
+  /*margin-bottom: 0.1rem;*/
+  /*margin-right: 1rem;*/
   text-decoration: none; }
   .project-name:hover {
     text-decoration: none;
@@ -92,15 +93,15 @@ a {
 
 @media screen and (min-width: 64em) {
   .project-name {
-    font-size: 2.25rem; } }
+    font-size: 2rem; } }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
   .project-name {
-    font-size: 2.00rem; } }
+    font-size: 1.75rem; } }
 
 @media screen and (max-width: 42em) {
   .project-name {
-    font-size: 1.75rem; } }
+    font-size: 1.5rem; } }
 
 .project-tagline {
   margin-bottom: 2rem;
@@ -122,7 +123,7 @@ a {
 .main-content :first-child {
   margin-top: 0; }
 .main-content img {
-  max-width: 100%; }
+  max-width: 90%; }
 .main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 {
   margin-top: 2rem;
   margin-bottom: 1rem;
@@ -219,15 +220,15 @@ a {
 
 @media screen and (min-width: 64em) {
   .main-content {
-    /*max-width: 64rem;*/
-    padding: 2rem 6rem;
+    max-width: 64rem;
+    padding: 2rem 1rem;
     margin: 0 auto;
-    font-size: 1.1rem; } }
+    font-size: 1rem; } }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
   .main-content {
-    padding: 2rem 4rem;
-    font-size: 1.1rem; } }
+    padding: 2rem 1rem;
+    font-size: 1rem; } }
 
 @media screen and (max-width: 42em) {
   .main-content {
@@ -285,4 +286,8 @@ a {
 .highlight {
     outline: .2em solid red;
     outline-offset: .2em;
+}
+
+figure {
+  text-align: center;
 }
