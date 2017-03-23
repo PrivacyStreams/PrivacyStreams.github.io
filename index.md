@@ -6,6 +6,7 @@ layout: homepage
 + [Installing PrivacyStreams](#installing-privacystreams)
     - [Installing with Gradle](#installing-with-gradle)
     - [Installing from source](#installing-from-source)
+    - [Test your installation](#test-your-installation)
 + [Quick examples](#quick-examples)
     - [Querying random data](#querying-random-data)
     - [Getting recent called contacts](#getting-recent-called-contacts)
@@ -23,32 +24,38 @@ layout: homepage
     - [Printing the streams](#printing-the-streams)
 + [Read more](#read-more)
 
-## Overview
 
-PrivacyStreams is a framework for **privacy-friendly personal data processing**.
-Currently, it supports Android platform.
+## Overview
 
 <figure>
 <img src="{{site.baseurl}}/static/figure/simple_explain.png" alt="PrivacyStreams simply explained." style="min-width: 300px">
 </figure>
 
-**App developers** can use PrivacyStreams to access and process personal data with a unified query interface (**UQI**).
+PrivacyStreams is a framework for **privacy-friendly personal data processing**.
+It provides **easy-to-use APIs** in Android to access and process various types of personal data.
+We focus on two related challenges for personal data:
+ 
+- It can be **difficult for developers** to access and process personal data, due to the wide range of APIs and data formats.
+- Today's smartphone APIs only offer all-or-nothing access, which can lead to **privacy concerns from end-users**.
+
+As an example of both of these issues,
+an sleep monitor app might only need the microphone to check how loud it currently is. 
+The developer would have to manually code for this feature, 
+and end-users might be concerned that the app needs full access to the microphone.
+
+**With PrivacyStreams**, an app can access and process personal data with few lines of code.
 <pre>
-<code>
-// Record audio periodically and callback if loudness changes.
+<code>// Record audio periodically and callback if loudness changes.
 uqi.getData(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
    .setField("loudness", calcLoudness(Audio.AUDIO_URI))
-   .onChange("loudness", callback)
-</code>
+   .onChange("loudness", callback)</code>
 </pre>
 
-**Apps** developed with PrivacyStreams are more **privacy-friendly**.
+Due to the simplicity, **apps developed with PrivacyStreams** can be easily analyzed and verified to reduce privacy concerns.
 
-- Easier for analysis.
-- More transparent for app users.
-
-<div class="w3-container w3-cell w3-cell-middle w3-panel w3-leftbar w3-sand w3-xlarge w3-serif verified">
-  <p><strong style="color:green;">Verified &#9989;</strong>: <i>"Microphone is used by this app to compute loudness periodically."</i></p>
+<div class="w3-container w3-cell w3-cell-middle w3-panel w3-leftbar w3-sand w3-large w3-serif verified">
+  &#9989; <i>Microphone is used by this app to calculate loudness periodically.</i>
+  <p style="text-align: right;"><strong style="color:green;">- Verified by PrivacyStreams.</strong></p>
 </div>
 
 ## Installing PrivacyStreams
@@ -80,22 +87,41 @@ For example, in Android Studio, the installation involves the following steps:
 3. Open the build.gradle file of the new module, add the following line to dependencies:
     - `compile project(':privacystreams-core')`
 
-## Quick examples
+### Test your installation
 
-Accessing and processing personal data with PrivacyStreams is simple. Let me show you two examples.
-
-### Querying random data
+To check whether you have successfully installed PrivacyStreams, modify the `onCreate` method in `MainActivity` class as follows:
 
 <pre class="line-numbers">
-<code>void foo(Context context) {
-    UQI uqi = new UQI(context);  // Initialize a UQI (unified query interface) instance.
-    
-    // Get random MockItem stream for testing.
-    uqi.getData(MockItem.asRandomUpdates(10, 10.0, 100), Purpose.TEST("Testing first data query."))
-       .limit(10)                // Limit the number of Items to at most 10.
-       .debug();                 // Print the items for debugging.
+<code>protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    UQI uqi = new UQI(MainActivity.this);  // Initialize a UQI (unified query interface) instance.
+    uqi.getData(TestItem.asRandomUpdates(10, 10.0, 100), Purpose.TEST("Checking installation."))
+                                           // Get random TestItem stream for testing purpose.
+       .limit(10)                          // Limit the number of Items to at most 10.
+       .debug();                           // Print the items for debugging.
 }</code>
 </pre>
+
+The above code constructs a UQI instance, accesses a test data stream and prints 10 items.
+If your PrivacyStreams installation was successful, you will see something like follows in ADB logcat:
+
+<pre>
+D/PrivacyStreams: {y=1, z=5.245425734292725, x=1, id=0, time_created=1489529999937}
+D/PrivacyStreams: {y=8, z=5.4303601061807, x=8, id=1, time_created=1489528265617}
+D/PrivacyStreams: {y=4, z=0.7657566725249387, x=4, id=2, time_created=1489528265718}
+D/PrivacyStreams: {y=5, z=0.49851207499276406, x=5, id=3, time_created=1489528265819}
+D/PrivacyStreams: {y=0, z=3.1471844164445564, x=0, id=4, time_created=1489528265920}
+D/PrivacyStreams: {y=6, z=6.541989969401724, x=6, id=5, time_created=1489528266021}
+D/PrivacyStreams: {y=1, z=5.484224955776141, x=1, id=6, time_created=1489528266122}
+D/PrivacyStreams: {y=8, z=0.01880078580959288, x=8, id=7, time_created=1489528266224}
+D/PrivacyStreams: {y=3, z=5.170116507338301, x=3, id=8, time_created=1489528266325}
+D/PrivacyStreams: {y=2, z=3.3222939911622795, x=2, id=9, time_created=1489528266427}
+</pre>
+
+## Quick examples
+
+### Querying random data
 
 UQI stands for "unified query interface", which is the most important class in PrivacyStreams.
 
