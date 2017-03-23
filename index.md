@@ -39,11 +39,17 @@ We focus on two related challenges for personal data:
 - Today's smartphone APIs only offer all-or-nothing access, which can lead to **privacy concerns from end-users**.
 
 As an example of both of these issues,
-an sleep monitor app might only need the microphone to check how loud it currently is. 
-The developer would have to manually code for this feature, 
+a sleep monitoring app might only need the microphone to check how loud it currently is. 
+The developer would have to write a lot of code to record and process audio using [MediaRecorder](https://developer.android.com/guide/topics/media/mediarecorder.html), 
 and end-users might be concerned that the app needs full access to the microphone.
 
-**With PrivacyStreams**, an app can access and process personal data with few lines of code.
+PrivacyStreams is designed to address these issues. Its main features include:
+
+- Providing a unified API and a functional programming approach for all kinds of personal data;
+- Making it easy for privacy analysis, thus users can see how their personal data is processed;
+- Offering many privacy-related functions (`hash`, `blur`, etc.) for developers to integrate privacy-friendly features in their apps.
+
+For example, with PrivacyStreams, a sleep monitor can access and process personal data with few lines of code.
 <pre>
 <code>// Record audio periodically and callback if loudness changes.
 uqi.getData(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
@@ -51,7 +57,7 @@ uqi.getData(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
    .onChange("loudness", callback)</code>
 </pre>
 
-Due to the simplicity, **apps developed with PrivacyStreams** can be easily analyzed and verified to reduce privacy concerns.
+Due to the simplicity, apps developed with PrivacyStreams can be easily analyzed and verified to reduce privacy concerns from users.
 
 <div class="w3-container w3-cell w3-cell-middle w3-panel w3-leftbar w3-sand w3-large w3-serif verified">
   &#9989; <i>Microphone is used by this app to calculate loudness periodically.</i>
@@ -120,6 +126,8 @@ D/PrivacyStreams: {y=2, z=3.3222939911622795, x=2, id=9, time_created=1489528266
 </pre>
 
 ## Quick examples
+
+Before going into 
 
 ### Querying random data
 
