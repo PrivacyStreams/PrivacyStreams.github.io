@@ -15,7 +15,7 @@ layout: homepage
     - [Simplifying the code](#simplifying-the-code)
     - [PrivacyStreams pipeline](#privacyStreams-pipeline)
     - [Reusing streams](#reusing-streams)
-+ [Permissions and exception handling](#permissions-and-exception-handling)
++ [Exceptions and permissions](#exceptions-and-permissions)
     - [Handling exceptions in blocking pipelines](#handling-exceptions-in-blocking-pipelines)
     - [Handling exceptions in non-blocking pipelines](#handling-exceptions-in-non-blocking-pipelines)
     - [Permission configuration](#permission-configuration)
@@ -23,7 +23,6 @@ layout: homepage
     - [Mocking data source](#mocking-data-source)
     - [Printing the streams](#printing-the-streams)
 + [Read more](#read-more)
-
 
 ## Overview
 
@@ -448,7 +447,7 @@ PrivacyStreams provides many **callback Action**s (in `Callbacks` class) and **c
 That's it. When you are developing you app, select either blocking or non-blocking pipeline to fulfill your need.
 
 
-## Permissions and exception handling
+## Exceptions and Permissions
 
 Sometimes the pipeline may be failed due to exceptions, such as InterruptedException, PermissionDeniedException, etc.
 

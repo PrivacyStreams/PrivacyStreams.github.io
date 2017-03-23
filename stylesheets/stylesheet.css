@@ -92,6 +92,11 @@ a {
   }
 
 @media screen and (min-width: 64em) {
+  .page-header {
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+  }
   .project-name {
     font-size: 2rem; } }
 
@@ -221,7 +226,7 @@ a {
 @media screen and (min-width: 64em) {
   .main-content {
     max-width: 64rem;
-    padding: 2rem 1rem;
+    padding: 4rem 1rem;
     margin: 0 auto;
     font-size: 1rem; } }
 
@@ -291,3 +296,12 @@ a {
 figure {
   text-align: center;
 }
+
+@media screen and (min-width: 80em) {
+  #sidebar {
+    display: block;
+    position: fixed; /* Fixed/sticky position */
+    top: 8rem; /* Place the button at the bottom of the page */
+    left: 4rem; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+  } }
