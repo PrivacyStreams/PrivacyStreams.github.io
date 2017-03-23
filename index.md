@@ -8,7 +8,7 @@ layout: homepage
     - [Installing from source](#installing-from-source)
     - [Test your installation](#test-your-installation)
 + [Quick examples](#quick-examples)
-    - [Querying random data](#querying-random-data)
+    - [Getting microphone loudness periodically](#getting-microphone-loudness-periodically)
     - [Getting recent called contacts](#getting-recent-called-contacts)
 + [PrivacyStreams API](#privacystreams-api)
     - [Unified query interface (UQI)](#unified-query-interface-uqi)
@@ -33,10 +33,10 @@ layout: homepage
 
 PrivacyStreams is a framework for **privacy-friendly personal data processing**.
 It provides **easy-to-use APIs** in Android to access and process various types of personal data.
-We focus on two related challenges for personal data:
+It is focused on two related challenges for personal data:
  
 - It can be **difficult for developers** to access and process personal data, due to the wide range of APIs and data formats.
-- Today's smartphone APIs only offer all-or-nothing access, which can lead to **privacy concerns from end-users**.
+- Existing Android APIs only offer all-or-nothing access, which can lead to **privacy concerns from end-users**.
 
 As an example of both of these issues,
 a sleep monitoring app might only need the microphone to check how loud it currently is. 
@@ -49,12 +49,12 @@ PrivacyStreams is designed to address these issues. Its main features include:
 - Making it easy for privacy analysis, thus users can see how their personal data is processed;
 - Offering many privacy-related functions (`hash`, `blur`, etc.) for developers to integrate privacy-friendly features in their apps.
 
-For example, with PrivacyStreams, a sleep monitor can access and process personal data with few lines of code.
+For example, with PrivacyStreams, a sleep monitor can access and process personal data with few lines of code:
 <pre>
-<code>// Record audio periodically and callback if loudness changes.
-uqi.getData(Audio.recordPeriodic(.., ..), Purpose.HEALTH(..))
-   .setField("loudness", calcLoudness(Audio.AUDIO_URI))
-   .onChange("loudness", callback)</code>
+<code>// Record a 10-second audio periodically with a 2-minute interval between each two records.
+uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
+   .setField("loudness", calcLoudness(Audio.AUDIO_URI))  // Set a field "loudness" for each record as the audio loudness
+   .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
 </pre>
 
 Due to the simplicity, apps developed with PrivacyStreams can be easily analyzed and verified to reduce privacy concerns from users.
@@ -66,7 +66,7 @@ Due to the simplicity, apps developed with PrivacyStreams can be easily analyzed
 
 ## Installing PrivacyStreams
 
-To use PrivacyStreams in your Android app, you can either install it with Maven/Gradle or from source.
+To use PrivacyStreams in your Android app, you can either install it with Maven/Gradle **or** from source.
 
 ### Installing with Gradle
 
@@ -127,38 +127,91 @@ D/PrivacyStreams: {y=2, z=3.3222939911622795, x=2, id=9, time_created=1489528266
 
 ## Quick examples
 
-Before going into 
+Before going into details, let's take a quick look at what it is like to use PrivacyStreams for personal data processing.
 
-### Querying random data
+### Getting microphone loudness periodically
 
-UQI stands for "unified query interface", which is the most important class in PrivacyStreams.
-
-The above code constructs a UQI instance, accesses a mock data stream and prints 10 items.
-The data being accessed is a stream of randomized data specified by `MockItem.asRandomUpdates(10, 10.0, 100)`.
-Each item in this stream is a map of some random values. The definition of MockItem's format can be found [here](items.html#mockitem).
-
-The second parameter of `uqi.getData()` specifies the purpose of data access.
-Explaining the purpose can help users understand your permission request, hence better for privacy.
-**We suggest you carefully define the purpose in your app.** We have several purpose categories (such as `Purpose.ADS(..)`, `Purpose.HEALTH(..)`, etc.) for you to select.
-
-If you execute the above code (for example, calling `foo(MainActivity.this)`), you will get some output in logcat like:
+First, let's review the sleep monitor example in [Overview](#overview) section,
+in which we want to get audio loudness periodically, in order to detect sleep state.
+We used the following code:
 
 <pre>
-D/PrivacyStreams: {y=1, z=5.245425734292725, x=1, id=0, time_created=1489529999937}
-D/PrivacyStreams: {y=8, z=5.4303601061807, x=8, id=1, time_created=1489528265617}
-D/PrivacyStreams: {y=4, z=0.7657566725249387, x=4, id=2, time_created=1489528265718}
-D/PrivacyStreams: {y=5, z=0.49851207499276406, x=5, id=3, time_created=1489528265819}
-D/PrivacyStreams: {y=0, z=3.1471844164445564, x=0, id=4, time_created=1489528265920}
-D/PrivacyStreams: {y=6, z=6.541989969401724, x=6, id=5, time_created=1489528266021}
-D/PrivacyStreams: {y=1, z=5.484224955776141, x=1, id=6, time_created=1489528266122}
-D/PrivacyStreams: {y=8, z=0.01880078580959288, x=8, id=7, time_created=1489528266224}
-D/PrivacyStreams: {y=3, z=5.170116507338301, x=3, id=8, time_created=1489528266325}
-D/PrivacyStreams: {y=2, z=3.3222939911622795, x=2, id=9, time_created=1489528266427}
+<code>// Record a 10-second audio periodically with a 2-minute interval between each two records.
+uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
+   .setField("loudness", calcLoudness(Audio.AUDIO_URI))  // Set a field "loudness" for each record as the audio loudness
+   .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
 </pre>
+
+UQI stands for "unified query interface", and it is the only interface in PrivacyStreams to access all kinds of personal data.
+
+The first parameter of `UQI.getData()` is called a "Provider", which declares the data we want to access.
+In the example, `Audio.recordPeriodic()` means we want to access audio data by recording audio periodically;
+The second parameter specifies the purpose of the personal data access.
+In the example, the purpose is "monitoring sleep", in HEALTH category.
+
+`UQI.getData()` will produce a stream of data items.
+In this example, each item represent an audio record. The format of an audio record is shown as follows:
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `Audio.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when current audio record is generated. |
+| `Audio.AUDIO_URI` | `"audio_uri"` | `String` | The URI of the audio file. |
+
+Below is an example of an audio record, in which the value of "audio_uri" field is the path to the recorded audio:
+<pre>
+    <code class="language-json">// An example of Audio Item.
+    {
+        "timestamp": 1489528266640,
+        "audio_uri": "file:///data/app/com.github.privacystreams/audio_1489528266640.3gp"
+    }</code></pre>
+
+Each data type has a list of providers that can produce such type of data.
+In this example, the provider is `Audio.recordPeriodic()`, which will provide a live stream of periodically-generated audio record items.
+
+| Type | Reference & Description |
+|----|----|
+| `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, <code>recordPeriodic(1000, 4000)</code> will record audio from 0s-1s, 5s-6s, 10s-11s, ...<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
+
+The list of all available data types and corresponding providers can be found [here](items.html).
+
+The second line, `.setField("loudness", calcLoudness(Audio.AUDIO_URI))`, transform the stream produced by the first line.
+Specifically, it set a new field "loudness" to each audio record item, indicating the loudness level (dB) of the audio.
+<pre>
+    <code class="language-json">// An example of Audio Item after setting "loudness" field.
+    {
+        "timestamp": 1489528266640,
+        "audio_uri": "file:///data/app/com.github.privacystreams/audio_1489528266640.3gp",
+        "loudness": 30
+    }</code></pre>
+The loudness value is calculated using a built-in operator `calcLoudness()`. You can find the list of all operators [here](operators.html).
+
+The third line, `.onChange("loudness", callback)`, outputs the transformed stream with a callback.
+Specifically, it monitors the value of "loudness", once the value changes, the callback will be invoked.
+To get the code work, you will need to define what `callback` is. A working example is shown as follows:
+
+<pre>
+<code>// Make sure you have included the following audio permission tag in manifest:
+// &lt;uses-permission android:name="android.permission.RECORD_AUDIO" /&gt;
+
+// Define a callback to handle loudness changes
+Callback&lt;Integer&gt; callback = new Callback&lt;&gt;() {
+    @Override
+    protected void onSuccess(Integer loudness) {
+        System.out.println("Current loudness is " + loudness + " dB.")
+        // ...
+    }
+}
+
+// Record a 10-second audio periodically with a 2-minute interval between each two records.
+uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
+   .setField("loudness", calcLoudness(Audio.AUDIO_URI))  // Set a field "loudness" for each record as the audio loudness
+   .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
+</pre>
+
 
 ### Getting recent called contacts
 
-Here is a more realistic example: getting a list of recent-called phone numbers.
+Here is another example: getting a list of recent-called phone numbers.
 
 <pre>
 <code>List&lt;String&gt; recentCalledNumbers = 
@@ -167,12 +220,12 @@ Here is a more realistic example: getting a list of recent-called phone numbers.
        .sortBy(Phonecall.TIMESTAMP)         // Sort the call logs according to timestamp, in ascending order
        .reverse()                           // Reverse the order, now the most recent call log comes first
        .limit(10)                           // Keep the most recent 10 logs
-       .asList(Phonecall.CONTACT)           // Output the CONTACT field (the phone number) to list</code>
+       .asList(Phonecall.CONTACT)           // Output the values of CONTACT field (the phone numbers) to a list</code>
 </pre>
 
 The above code accesses the call logs with `Phonecall.asLogs()` and processes the call logs with functions like `filter`, `sortBy`, etc.
 
-The functions operate on the item fields, and the fields of `Phonecall` item are shown as follows:
+The format of `Phonecall` item is shown as follows:
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
@@ -183,37 +236,40 @@ The functions operate on the item fields, and the fields of `Phonecall` item are
 
 Note that "Reference" is the equivalence to "Name", i.e. `filter(Phonecall.TYPE, "outgoing")` is the same as `filter("type", "outgoing")`.
 
-- **About permissions.** Accessing call logs requires *READ_CALL_LOG* permission in Android.
-To use the above code, you need to request the permission in `AndroidManifest.xml` and handle the exception if the permission is denied by user. For example:
+**About permissions.** Accessing call logs requires *READ_CALL_LOG* permission in Android.
+To use the above code, you need to add the permission tag in `AndroidManifest.xml` and handle the exception if the permission is denied by user. For example:
 
-    In your `AndroidManifest.xml`:
-    <pre><code>...</code>
-    <code class="highlight">&lt;uses-permission android:name="android.permission.READ_CALL_LOG" /&gt;</code>
-    
-    <code><application
-               android:theme="@style/AppTheme"
-               ...</code></pre>
-    
-    In your Java code:
-    
-    <pre>
-    <code>try {
-        List&lt;String&gt; recentCalledNumbers = 
-            uqi.getData(Phonecall.asLogs(), Purpose.SOCIAL("finding your closest friends."))
-               . ...  // filter, sortBy, etc.
-               .asList(Phonecall.CONTACT)
-    } catch (PrivacyStreamsException e) {
-        if (e.isPermissionDenied()) {
-            String[] deniedPermissions = e.getDeniedPermissions();
-            ...
-        }
-    }</code></pre>
+In `AndroidManifest.xml`:
+<pre><code>...</code>
+<code class="highlight">&lt;uses-permission android:name="android.permission.READ_CALL_LOG" /&gt;</code>
+
+<code><application
+           android:theme="@style/AppTheme"
+           ...</code></pre>
+
+In Java code:
+
+<pre>
+<code>try {
+    List&lt;String&gt; recentCalledNumbers = 
+        uqi.getData(Phonecall.asLogs(), Purpose.SOCIAL("finding your closest friends."))
+           .filter(Phonecall.TYPE, "outgoing")  // Only keep the outgoing call logs
+           .sortBy(Phonecall.TIMESTAMP)         // Sort the call logs according to timestamp, in ascending order
+           .reverse()                           // Reverse the order, now the most recent call log comes first
+           .limit(10)                           // Keep the most recent 10 logs
+           .asList(Phonecall.CONTACT)           // Output the values of CONTACT field (the phone numbers) to a list
+} catch (PrivacyStreamsException e) {
+    if (e.isPermissionDenied()) {
+        String[] deniedPermissions = e.getDeniedPermissions();
+        ...
+    }
+}</code></pre>
 
 That's it! More details about exception handling will be discussed in [Permissions and exception handling](#permissions-and-exception-handling) section.
 
 ## PrivacyStreams API
 
-This section will explain the details about PrivacyStreams pipeline with a more complicated example.
+This section will explain the details about PrivacyStreams APIs with a more complicated example.
 
 Suppose we want to do the following programming task with PrivacyStreams:
 
@@ -255,6 +311,13 @@ For example, `Filters.keep()` is a **Transformation**, and it accepts operator `
 
 - **The full list of available data types and corresponding providers is at [here](items.html);**
 - **The full list of available providers, transformations, actions and operators is at [here](operators.html).**
+
+Except for the functions, a query also requires a `Purpose` parameter to state the purpose of the data access.
+In the example, the purpose of accessing call logs is "finding your closest contact", in SOCIAL category.
+**We suggest you carefully explain the purposes in your app,**
+because explaining the purposes can help users understand why your app needs the data, hence improving the privacy friendliness of your app.
+We have several purpose categories (such as `Purpose.ADS(..)`, `Purpose.SOCIAL(..)`, etc.) for you to select from.
+
 
 ### Simplifying the code
 
