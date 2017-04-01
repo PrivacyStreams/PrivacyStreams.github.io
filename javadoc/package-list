@@ -1,9 +1,11 @@
 com.github.privacystreams.accessibility
 com.github.privacystreams.app_info
 com.github.privacystreams.audio
+com.github.privacystreams.calendar
 com.github.privacystreams.commons
 com.github.privacystreams.commons.arithmetic
 com.github.privacystreams.commons.comparison
+com.github.privacystreams.commons.debug
 com.github.privacystreams.commons.item
 com.github.privacystreams.commons.items
 com.github.privacystreams.commons.list
@@ -17,8 +19,8 @@ com.github.privacystreams.core.actions
 com.github.privacystreams.core.actions.callback
 com.github.privacystreams.core.actions.collect
 com.github.privacystreams.core.exceptions
+com.github.privacystreams.core.items
 com.github.privacystreams.core.providers
-com.github.privacystreams.core.providers.mock
 com.github.privacystreams.core.purposes
 com.github.privacystreams.core.transformations
 com.github.privacystreams.core.transformations.filter
@@ -29,12 +31,11 @@ com.github.privacystreams.core.transformations.reduce
 com.github.privacystreams.core.transformations.reorder
 com.github.privacystreams.core.transformations.select
 com.github.privacystreams.device
-com.github.privacystreams.dropbox
 com.github.privacystreams.environment
-com.github.privacystreams.google_awareness
 com.github.privacystreams.image
 com.github.privacystreams.location
 com.github.privacystreams.motion
+com.github.privacystreams.notification
 com.github.privacystreams.storage
 com.github.privacystreams.utils
 com.github.privacystreams.utils.annotations

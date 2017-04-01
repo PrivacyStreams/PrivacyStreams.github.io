@@ -52,7 +52,7 @@ For example, with PrivacyStreams, a sleep monitor can access and process persona
 <pre>
 <code>// Record a 10-second audio periodically with a 2-minute interval between each two records.
 uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-   .setField("loudness", calcLoudness(Audio.AUDIO_URI))  // Set a field "loudness" for each record as the audio loudness
+   .setField("loudness", calcLoudness(Audio.AUDIO_DATA))  // Set a field "loudness" for each record as the audio loudness
    .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
 </pre>
 
@@ -74,7 +74,7 @@ Simply add the following line to `build.gradle` file under you app module.
 
 <pre>
 <code>dependencies {</code>
-    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.0.2'</code>
+    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.0.4'</code>
     <code>...
 }</code>
 </pre>
@@ -137,7 +137,7 @@ We used the following code:
 <pre>
 <code>// Record a 10-second audio periodically with a 2-minute interval between each two records.
 uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-   .setField("loudness", calcLoudness(Audio.AUDIO_URI))  // Set a field "loudness" for each record as the audio loudness
+   .setField("loudness", calcLoudness(Audio.AUDIO_DATA))  // Set a field "loudness" for each record as the audio loudness
    .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
 </pre>
 
@@ -154,7 +154,7 @@ In this example, each item represent an audio record. The format of an audio rec
 | Reference | Name | Type | Description |
 |----|----|----|----|
 | `Audio.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when current audio record is generated. |
-| `Audio.AUDIO_URI` | `"audio_uri"` | `String` | The URI of the audio file. |
+| `Audio.AUDIO_DATA` | `"audio_data"` | `AudioData` | The abstraction of the audio . |
 
 Below is an example of an audio record, in which the value of "audio_uri" field is the path to the recorded audio:
 <pre>
