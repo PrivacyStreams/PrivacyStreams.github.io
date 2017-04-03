@@ -12,7 +12,7 @@ This document contains all types of personal data available in PrivacyStreams v0
 - [BrowserSearch](#browsersearch)
 - [BrowserVisit](#browservisit)
 - [CalendarEvent](#calendarevent)
-- [CallLog](#calllog)
+- [Call](#call)
 - [Contact](#contact)
 - [DeviceEvent](#deviceevent)
 - [DeviceState](#devicestate)
@@ -34,7 +34,8 @@ This document contains all types of personal data available in PrivacyStreams v0
 
 Package: `com.github.privacystreams.audio`
 
-An audio record.
+An Audio item represents an audio, could be an audio record from microphone,
+ an audio file from storage, etc.
 
 ### Fields
 
@@ -42,7 +43,7 @@ An audio record.
 |----|----|----|----|
 | `Audio.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
 | `Audio.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the audio/record was generated. |
-| `Audio.AUDIO_DATA` | `"audio_data"` | `AudioData` | The abstraction of audio data. |
+| `Audio.AUDIO_DATA` | `"audio_data"` | `AudioData` | The abstraction of audio data.  The value is an `AudioData` instance. |
 
 ### Providers
 
@@ -66,7 +67,7 @@ Base Accessibility event.
 | `BaseAccessibilityEvent.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the item is generated. |
 | `BaseAccessibilityEvent.EVENT_TYPE` | `"event_type"` | `Integer` | The type of the event, see Android official document of [AccessibilityEvent](https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent.html) for a list of event types. |
 | `BaseAccessibilityEvent.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the current app (could be null). |
-| `BaseAccessibilityEvent.ROOT_VIEW` | `"root_view"` | `AccessibilityNodeInfo` | The root view of current event, which is an instance of SerializedAccessibilityNodeInfo |
+| `BaseAccessibilityEvent.ROOT_VIEW` | `"root_view"` | `AccessibilityNodeInfo` | The root view of current event, which is an instance of AccessibilityNodeInfo. |
 | `BaseAccessibilityEvent.ITEM_COUNT` | `"item_count"` | `Integer` | The number of items in current event. |
 
 ### Providers
@@ -134,7 +135,7 @@ A browser search activity.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `BrowserSearch.asUpdates()` <br> Provide a live stream of BrowserSearch items. |
+| `MStreamProvider` | `BrowserSearch.asUpdates()` <br> Provide a live stream of BrowserSearch items.  An item will be generated once the user do a search in the browser. |
 
 ## BrowserVisit
 
@@ -156,7 +157,7 @@ A website visit event.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `BrowserVisit.asUpdates()` <br> Provide a live stream of BrowserVisit items. |
+| `MStreamProvider` | `BrowserVisit.asUpdates()` <br> Provide a live stream of BrowserVisit items.  An item will be generated once the user visit a website in the browser. |
 
 ## CalendarEvent
 
@@ -181,7 +182,7 @@ The meta information for a calendar event.
 |----|----|
 | `MStreamProvider` | `CalendarEvent.getAll()` <br> Provide all CalendarEvent items from device's calendar database. |
 
-## CallLog
+## Call
 
 Package: `com.github.privacystreams.communication`
 
@@ -191,18 +192,18 @@ The information of a phone call.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `CallLog.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
-| `CallLog.ID` | `"id"` | `Long` | The unique id of this call log. |
-| `CallLog.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the phone call is happened. |
-| `CallLog.CONTACT` | `"contact"` | `String` | The contact (phone number or name) of the phone call. |
-| `CallLog.DURATION` | `"duration"` | `Long` | The duration of the phone call, in milliseconds. |
-| `CallLog.TYPE` | `"type"` | `String` | The type of the phone call, could be "incoming", "outgoing" or "missed". |
+| `Call.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `Call.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the phone call is happened. |
+| `Call.CONTACT` | `"contact"` | `String` | The contact (phone number or name) of the phone call. |
+| `Call.DURATION` | `"duration"` | `Long` | The duration of the phone call, in milliseconds. |
+| `Call.TYPE` | `"type"` | `String` | The type of the phone call, could be "incoming", "outgoing" or "missed". |
 
 ### Providers
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `CallLog.getAll()` <br> Provide a list of CallLog items from the device call log. |
+| `MStreamProvider` | `Call.getLogs()` <br> Provide a list of Call items from the device call log. |
+| `MStreamProvider` | `Call.asUpdates()` <br> Provide a live stream of Call items.  A Call item will be generated if there is a new phone call event. |
 
 ## Contact
 
@@ -215,7 +216,7 @@ The information of a contact.
 | Reference | Name | Type | Description |
 |----|----|----|----|
 | `Contact.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
-| `Contact.ID` | `"id"` | `String` | The contact ID in Android database. |
+| `Contact.ID` | `"id"` | `String` | The contact's unique ID in Android database. |
 | `Contact.NAME` | `"name"` | `String` | The contact name. |
 | `Contact.PHONES` | `"phone_numbers"` | `List<>` | The phone numbers of the contact. |
 | `Contact.EMAILS` | `"emails"` | `List<>` | The emails of the contact. |
@@ -333,7 +334,7 @@ An item in a stream after grouping operation.
 
 Package: `com.github.privacystreams.image`
 
-An Image item represents an image file.
+An Image item represents an image, could be an image file from storage, etc.
 
 ### Fields
 
@@ -341,7 +342,7 @@ An Image item represents an image file.
 |----|----|----|----|
 | `Image.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
 | `Image.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the image was generated. |
-| `Image.IMAGE_DATA` | `"image_data"` | `ImageData` | The abstraction of image data. |
+| `Image.IMAGE_DATA` | `"image_data"` | `ImageData` | The abstraction of image data.  The value is an `ImageData` instance. |
 
 ### Providers
 
@@ -479,7 +480,7 @@ A random item for testing.
 
 Package: `com.github.privacystreams.accessibility`
 
-User input text.
+A user text input action.
 
 ### Fields
 
@@ -489,16 +490,16 @@ User input text.
 | `TextEntry.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the item is generated. |
 | `TextEntry.EVENT_TYPE` | `"event_type"` | `Integer` | The type of the event, see Android official document of [AccessibilityEvent](https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent.html) for a list of event types. |
 | `TextEntry.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the current app (could be null). |
-| `TextEntry.ROOT_VIEW` | `"root_view"` | `AccessibilityNodeInfo` | The root view of current event, which is an instance of SerializedAccessibilityNodeInfo |
+| `TextEntry.ROOT_VIEW` | `"root_view"` | `AccessibilityNodeInfo` | The root view of current event, which is an instance of AccessibilityNodeInfo. |
 | `TextEntry.ITEM_COUNT` | `"item_count"` | `Integer` | The number of items in current event. |
-| `TextEntry.SOURCE_NODE` | `"source_node"` | `AccessibilityNodeInfo` | The source node of current accessibility event, which is an instance of [AccessibilityNodeInfo](https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html). |
+| `TextEntry.SOURCE_NODE` | `"source_node"` | `AccessibilityNodeInfo` | The source node of the UI action, which is an instance of [AccessibilityNodeInfo](https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html). |
 | `TextEntry.CONTENT` | `"content"` | `String` | The user-typed text content. |
 
 ### Providers
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `TextEntry.asUpdates()` <br> Provide a live stream of TextEntry items. |
+| `MStreamProvider` | `TextEntry.asUpdates()` <br> Provide a live stream of TextEntry items.  The provider will generate a TextEntry item once the user type some text. |
 
 ## UIAction
 
@@ -514,15 +515,15 @@ A UI action, such as a view is clicked, selected, etc.
 | `UIAction.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the item is generated. |
 | `UIAction.EVENT_TYPE` | `"event_type"` | `Integer` | The type of the event, see Android official document of [AccessibilityEvent](https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent.html) for a list of event types. |
 | `UIAction.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the current app (could be null). |
-| `UIAction.ROOT_VIEW` | `"root_view"` | `AccessibilityNodeInfo` | The root view of current event, which is an instance of SerializedAccessibilityNodeInfo |
+| `UIAction.ROOT_VIEW` | `"root_view"` | `AccessibilityNodeInfo` | The root view of current event, which is an instance of AccessibilityNodeInfo. |
 | `UIAction.ITEM_COUNT` | `"item_count"` | `Integer` | The number of items in current event. |
-| `UIAction.SOURCE_NODE` | `"source_node"` | `AccessibilityNodeInfo` | The source node of current accessibility event, which is an instance of [AccessibilityNodeInfo](https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html). |
+| `UIAction.SOURCE_NODE` | `"source_node"` | `AccessibilityNodeInfo` | The source node of the UI action, which is an instance of [AccessibilityNodeInfo](https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html). |
 
 ### Providers
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `UIAction.asUpdates()` <br> Provide a live stream of UIAction items. |
+| `MStreamProvider` | `UIAction.asUpdates()` <br> Provide a live stream of UIAction items.  A UIAction item will be generated once there is a UI action happened. |
 
 ## WifiAp
 
