@@ -4,9 +4,6 @@ layout: homepage
 
 + [Overview](#overview)
 + [Installing PrivacyStreams](#installing-privacystreams)
-    - [Installing with Gradle](#installing-with-gradle)
-    - [Installing from source](#installing-from-source)
-    - [Test your installation](#test-your-installation)
 + [Quick examples](#quick-examples)
     - [Getting microphone loudness periodically](#getting-microphone-loudness-periodically)
     - [Getting recent called contacts](#getting-recent-called-contacts)
@@ -37,7 +34,7 @@ It is focused on two related challenges for personal data:
 - It can be **difficult for developers** to access and process personal data, due to the wide range of APIs and data formats.
 - End users don't know what granularity of data is accessed, which can lead to **privacy concerns**.
 
-As an example of both of these issues,
+As an example of both issues,
 a sleep monitoring app might only need the microphone to check how loud it currently is. 
 The developer would have to write a lot of code to record and process audio using [MediaRecorder](https://developer.android.com/guide/topics/media/mediarecorder.html), 
 and end-users might be concerned that the app needs full access to the microphone.
@@ -65,8 +62,7 @@ Due to the simplicity, apps developed with PrivacyStreams can be easily analyzed
 
 ## Installing PrivacyStreams
 
-To use PrivacyStreams in your Android app, you can install it with Gradle.
-Simply add the following line to `build.gradle` file under you app module.
+To use PrivacyStreams in your Android app, simply add the following line to `build.gradle` file under the app module.
 
 <pre>
 <code>dependencies {</code>
@@ -76,6 +72,77 @@ Simply add the following line to `build.gradle` file under you app module.
 </pre>
 
 That's it!
+
+### (Optional) Using Google Location API
+
+The Location APIs in PrivacyStreams are based on Google location service.
+In order to access location with PrivacyStreams, you will need to install Google Service.
+
+Specifically, add the following line to `build.gradle` file under the app module.
+
+<pre>
+<code>dependencies {
+    compile 'com.github.privacystreams:privacystreams-core:0.0.4'</code>
+    <code class="highlight">compile 'com.google.android.gms:play-services-location:10.2.1'</code>
+    <code>...
+}</code>
+</pre>
+
+Then in your app code, enable Google location service:
+
+<pre>
+<code>protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);</code>
+        <code class="highlight">Globals.LocationConfig.useGoogleService = true;</code>
+        <code>...
+}</code>
+</pre>
+
+### (Optional) Using Accessibility API
+
+Some types of personal data are based on Accessibility APIs, such as browser search events ()`BrowserSearch.asUpdates()`),
+WhatsApp & Facebook messages (`Message.asUpdatesInIM()`), etc.
+To use these types of data, you need to enable accessibility service by setting `accessibility_enabled` value to `true` in resource XML.
+
+Specifically, in `res/values/bools.xml` (create one if not exist), add the following line(s):
+
+<pre>
+<code><resources></code>
+    <code class="highlight"><item name="accessibility_enabled" type="bool" format="boolean">false</item></code>
+    <code>...
+</resources></code>
+</pre>
+
+### (Optional) Using Dropbox API
+
+If you are developing a data collector, PrivacyStreams offers a convenient feature:
+directly uploading the collected data to your Dropbox (using `DropboxOperators.uploadTo` APIs).
+
+To use Dropbox APIs, you need to install Dropbox library in your app. Specifically:
+ 
+1. Add Dropbox SDK dependency to `build.gradle`.
+
+<pre>
+<code>dependencies {
+    compile 'com.github.privacystreams:privacystreams-core:0.0.4'</code>
+    <code class="highlight">compile 'com.dropbox.core:dropbox-core-sdk:2.1.1'</code>
+    <code>...
+}</code>
+</pre>
+
+2. Set Dropbox global configurations.
+
+<pre>
+<code>protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Globals.DropboxConfig.accessToken = "<your dropbox access token>";  // Get your token from https://www.dropbox.com/developers
+        Globals.DropboxConfig.leastSyncInterval = 30*60*1000;  // Set the interval of uploading (30min in this example).
+        Globals.DropboxConfig.onlyOverWifi = false;  // Set whether to upload data only over WIFI. 
+        ...
+}</code>
+</pre>
+
+### Check your installation
 
 To check whether you have successfully installed PrivacyStreams, modify the `onCreate` method in `MainActivity` class as follows:
 
@@ -92,7 +159,7 @@ To check whether you have successfully installed PrivacyStreams, modify the `onC
 </pre>
 
 The above code constructs a UQI instance, accesses a test data stream and prints 10 items.
-If your PrivacyStreams installation was successful, you will see something like follows in ADB logcat:
+If your installation was successful, there will be some lines outputted in ADB logcat:
 
 <pre>
 D/PrivacyStreams: {y=1, z=5.245425734292725, x=1, id=0, time_created=1489529999937}
@@ -137,9 +204,9 @@ In this example, each item represent an audio record. The format of an audio rec
 | Reference | Name | Type | Description |
 |----|----|----|----|
 | `Audio.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when current audio record is generated. |
-| `Audio.AUDIO_DATA` | `"audio_data"` | `AudioData` | The abstraction of the audio . |
+| `Audio.AUDIO_DATA` | `"audio_data"` | `AudioData` | The abstraction of the audio data. |
 
-Below is an example of an audio record, in which the value of "audio_data" field is an abstraction of a recorded audio:
+Below is an example of an Audio item, in which the value of "audio_data" field is an abstraction of the recorded audio:
 <pre>
     <code class="language-json">// An example of Audio Item.
     {
