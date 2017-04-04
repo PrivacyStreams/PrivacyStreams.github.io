@@ -475,12 +475,12 @@ PrivacyStreams provides some simple interfaces to support debugging and testing.
 
 ### Mocking data source
 
-You can mock a data source using `MockItem` class for debugging and testing. For example:
+You can use `TestItem` and `MockItem` classes for debugging and testing.
 
-- Create a stream with random items. For example:
+- `TestItem` can create a stream with random items. For example:
     - `TestItem.asUpdates()` can provide a live MStream of random items periodically;
     - `TestItem.getOne()` can provide an SStream that contains a random item.
-- Mock a stream from a file.
+- `MockItem` can mock a stream from a file.
     - `uqi.getData(...).transform(...).archiveTo("/sdcard/data.json")` will archive the stream to a file;
     - `uqi.getData(MockItem.fromArchive("/sdcard/data.json"), ...)` will replay the stream from the file.
 
