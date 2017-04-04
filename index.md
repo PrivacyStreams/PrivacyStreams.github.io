@@ -35,7 +35,7 @@ It provides **easy-to-use APIs** in Android to access and process various types 
 It is focused on two related challenges for personal data:
  
 - It can be **difficult for developers** to access and process personal data, due to the wide range of APIs and data formats.
-- Existing Android APIs only offer all-or-nothing access, which can lead to **privacy concerns from end-users**.
+- End users don't know what granularity of data is accessed, which can lead to **privacy concerns**.
 
 As an example of both of these issues,
 a sleep monitoring app might only need the microphone to check how loud it currently is. 
@@ -45,14 +45,14 @@ and end-users might be concerned that the app needs full access to the microphon
 PrivacyStreams is designed to address these issues. Its main features include:
 
 - Providing a unified API and a functional programming approach for all kinds of personal data;
-- Making it easy for privacy analysis, thus users can see how their personal data is processed;
+- Making it easy for privacy analysis, thus users can see what granularity of data is accessed and how it is processed;
 - Offering many privacy-related functions (`hash`, `blur`, etc.) for developers to integrate privacy-friendly features in their apps.
 
 For example, with PrivacyStreams, a sleep monitor can access and process personal data with few lines of code:
 <pre>
 <code>// Record a 10-second audio periodically with a 2-minute interval between each two records.
 uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-   .setField("loudness", calcLoudness(Audio.AUDIO_DATA))  // Set a field "loudness" for each record as the audio loudness
+   .setField("loudness", calcLoudness(Audio.AUDIO_DATA)) // Set a field "loudness" for each record as the audio loudness
    .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
 </pre>
 
@@ -65,11 +65,7 @@ Due to the simplicity, apps developed with PrivacyStreams can be easily analyzed
 
 ## Installing PrivacyStreams
 
-To use PrivacyStreams in your Android app, you can either install it with Maven/Gradle **or** from source.
-
-### Installing with Gradle
-
-This is the most convenient way to install PrivacyStreams for most Android developers.
+To use PrivacyStreams in your Android app, you can install it with Gradle.
 Simply add the following line to `build.gradle` file under you app module.
 
 <pre>
@@ -79,20 +75,7 @@ Simply add the following line to `build.gradle` file under you app module.
 }</code>
 </pre>
 
-### Installing from source
-
-If you are a contributor or want more flexibility, you can install PrivacyStreams from source code.
-For example, in Android Studio, the installation involves the following steps:
-
-1. Create a new project from Github in Android Studio. 
-    - Click **File -> New -> Project from version control -> GitHub**;
-    - In **Git repository URL** field, input `https://github.com/PrivacyStreams/PrivacyStreams-Android`, and click **Clone**);
-2. In the new project, create a new module (your app module).
-    - Click **File -> New -> New module...**.
-3. Open the build.gradle file of the new module, add the following line to dependencies:
-    - `compile project(':privacystreams-core')`
-
-### Test your installation
+That's it!
 
 To check whether you have successfully installed PrivacyStreams, modify the `onCreate` method in `MainActivity` class as follows:
 
@@ -137,7 +120,7 @@ We used the following code:
 <pre>
 <code>// Record a 10-second audio periodically with a 2-minute interval between each two records.
 uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-   .setField("loudness", calcLoudness(Audio.AUDIO_DATA))  // Set a field "loudness" for each record as the audio loudness
+   .setField("loudness", calcLoudness(Audio.AUDIO_DATA)) // Set a field "loudness" for each record as the audio loudness
    .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
 </pre>
 
@@ -156,12 +139,12 @@ In this example, each item represent an audio record. The format of an audio rec
 | `Audio.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when current audio record is generated. |
 | `Audio.AUDIO_DATA` | `"audio_data"` | `AudioData` | The abstraction of the audio . |
 
-Below is an example of an audio record, in which the value of "audio_uri" field is the path to the recorded audio:
+Below is an example of an audio record, in which the value of "audio_data" field is an abstraction of a recorded audio:
 <pre>
     <code class="language-json">// An example of Audio Item.
     {
         "timestamp": 1489528266640,
-        "audio_uri": "file:///data/app/com.github.privacystreams/audio_1489528266640.3gp"
+        "audio_data": <AudioData@12416728>
     }</code></pre>
 
 Each data type has a list of providers that can produce such type of data.
@@ -173,13 +156,13 @@ In this example, the provider is `Audio.recordPeriodic()`, which will provide a 
 
 The list of all available data types and corresponding providers can be found [here](items.html).
 
-The second line, `.setField("loudness", calcLoudness(Audio.AUDIO_URI))`, transform the stream produced by the first line.
-Specifically, it set a new field "loudness" to each audio record item, indicating the loudness level (dB) of the audio.
+The second line, `.setField("loudness", calcLoudness(Audio.AUDIO_DATA))`, transform the stream produced by the first line.
+Specifically, it set a new customized field "loudness" to each audio record item, indicating the loudness level (dB) of the audio.
 <pre>
     <code class="language-json">// An example of Audio Item after setting "loudness" field.
     {
         "timestamp": 1489528266640,
-        "audio_uri": "file:///data/app/com.github.privacystreams/audio_1489528266640.3gp",
+        "audio_data": <AudioData@12416728>,
         "loudness": 30
     }</code></pre>
 The loudness value is calculated using a built-in operator `calcLoudness()`. You can find the list of all operators [here](operators.html).
@@ -203,7 +186,7 @@ Callback&lt;Integer&gt; callback = new Callback&lt;&gt;() {
 
 // Record a 10-second audio periodically with a 2-minute interval between each two records.
 uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-   .setField("loudness", calcLoudness(Audio.AUDIO_URI))  // Set a field "loudness" for each record as the audio loudness
+   .setField("loudness", calcLoudness(Audio.AUDIO_DATA))  // Set a field "loudness" for each record as the audio loudness
    .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
 </pre>
 
