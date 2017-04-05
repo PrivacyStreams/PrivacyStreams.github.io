@@ -3,8 +3,6 @@ layout: homepage
 title: Available data types in PrivacyStreams
 ---
 
-This document contains all types of personal data available in PrivacyStreams v0.0.4.
-
 - [Audio](#audio)
 - [BaseAccessibilityEvent](#baseaccessibilityevent)
 - [BatteryInfo](#batteryinfo)
@@ -473,6 +471,7 @@ A random item for testing.
 | `MStreamProvider` | `TestItem.asUpdatesFrom(List<TestObject> testObjects, long interval)` <br> Provide a live stream of TestItem items, which are from a given list.<br> - `testObjects`: the list of mock data<br> - `interval`: the interval between each two items, in milliseconds |
 | `MStreamProvider` | `TestItem.asUpdates(int maxInt, double maxDouble, long interval)` <br> Provide a live stream of TestItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `interval`: the interval between each two items, in milliseconds |
 | `MStreamProvider` | `TestItem.getAllFrom(List<TestObject> testObjects)` <br> Provide a stream of existing TestItem items, which are from a given list.<br> - `testObjects`: the list of mock data |
+| `MStreamProvider` | `TestItem.getAllRandom(int maxInt, double maxDouble, int count)` <br> Provide a list of TestItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `count`: the number of random items |
 | `SStreamProvider` | `TestItem.getOneFrom(TestObject testObject)` <br> Provide one TestItem item, which is based on an given TestObject.<br> - `testObject`: the mock data |
 | `SStreamProvider` | `TestItem.getOne()` <br> Provide one TestItem item, which is randomly generated. |
 

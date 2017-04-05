@@ -66,7 +66,7 @@ To use PrivacyStreams in your Android app, simply add the following line to `bui
 
 <pre>
 <code>dependencies {</code>
-    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.0.4'</code>
+    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.0.5'</code>
     <code>...
 }</code>
 </pre>
@@ -167,7 +167,7 @@ Callback&lt;Integer&gt; callback = new Callback&lt;&gt;() {
 
 // Record a 10-second audio periodically with a 2-minute interval between each two records.
 uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-   .setField("loudness", calcLoudness(Audio.AUDIO_DATA))  // Set a field "loudness" for each record as the audio loudness
+   .setField("loudness", calcLoudness(Audio.AUDIO_DATA)) // Set a field "loudness" for each record as the audio loudness
    .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
 </pre>
 
@@ -181,8 +181,8 @@ Here is another example: getting a list of recent-called phone numbers.
     uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your recent called contacts."))
        .filter(Call.TYPE, "outgoing")  // Only keep the outgoing call logs
        .sortBy(Call.TIMESTAMP)         // Sort the call logs according to timestamp, in ascending order
-       .reverse()                           // Reverse the order, now the most recent call log comes first
-       .limit(10)                           // Keep the most recent 10 logs
+       .reverse()                      // Reverse the order, now the most recent call log comes first
+       .limit(10)                      // Keep the most recent 10 logs
        .asList(Call.CONTACT)           // Output the values of CONTACT field (the phone numbers) to a list</code>
 </pre>
 
@@ -219,8 +219,8 @@ In Java code:
         uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest friends."))
            .filter(Call.TYPE, "outgoing")  // Only keep the outgoing call logs
            .sortBy(Call.TIMESTAMP)         // Sort the call logs according to timestamp, in ascending order
-           .reverse()                           // Reverse the order, now the most recent call log comes first
-           .limit(10)                           // Keep the most recent 10 logs
+           .reverse()                      // Reverse the order, now the most recent call log comes first
+           .limit(10)                      // Keep the most recent 10 logs
            .asList(Call.CONTACT)           // Output the values of CONTACT field (the phone numbers) to a list
 } catch (PSException e) {
     if (e.isPermissionDenied()) {
@@ -480,7 +480,7 @@ You can use `TestItem` and `MockItem` classes for debugging and testing.
 - `TestItem` can create a stream with random items. For example:
     - `TestItem.asUpdates()` can provide a live MStream of random items periodically;
     - `TestItem.getOne()` can provide an SStream that contains a random item.
-- `MockItem` can mock a stream from a file.
+- `MockItem` can mock a stream from a file (NOT IMPLEMENTED YET).
     - `uqi.getData(...).transform(...).archiveTo("/sdcard/data.json")` will archive the stream to a file;
     - `uqi.getData(MockItem.fromArchive("/sdcard/data.json"), ...)` will replay the stream from the file.
 

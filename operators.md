@@ -3,9 +3,6 @@ layout: homepage
 title: Available operators in PrivacyStreams
 ---
 
-This document contains all operators available in PrivacyStreams v0.0.4.
-
-
 | Type | Reference & Description |
 |----|----|
 |<input class="search" type="text" id="typeSearch" onkeyup="tableSearch()" placeholder="Search for function type..">|<input class="search" type="text" id="contentSearch" onkeyup="tableSearch()" placeholder="Search for reference or description..">|
@@ -133,6 +130,7 @@ This document contains all operators available in PrivacyStreams v0.0.4.
 | `MStreamProvider` | `TestItem.asUpdates(int maxInt, double maxDouble, long interval)` <br> Provide a live stream of TestItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `interval`: the interval between each two items, in milliseconds |
 | `MStreamProvider` | `TestItem.asUpdatesFrom(List<TestObject> testObjects, long interval)` <br> Provide a live stream of TestItem items, which are from a given list.<br> - `testObjects`: the list of mock data<br> - `interval`: the interval between each two items, in milliseconds |
 | `MStreamProvider` | `TestItem.getAllFrom(List<TestObject> testObjects)` <br> Provide a stream of existing TestItem items, which are from a given list.<br> - `testObjects`: the list of mock data |
+| `MStreamProvider` | `TestItem.getAllRandom(int maxInt, double maxDouble, int count)` <br> Provide a list of TestItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `count`: the number of random items |
 | `SStreamProvider` | `TestItem.getOne()` <br> Provide one TestItem item, which is randomly generated. |
 | `SStreamProvider` | `TestItem.getOneFrom(TestObject testObject)` <br> Provide one TestItem item, which is based on an given TestObject.<br> - `testObject`: the mock data |
 | `MStreamProvider` | `TextEntry.asUpdates()` <br> Provide a live stream of TextEntry items.  The provider will generate a TextEntry item once the user type some text. |
