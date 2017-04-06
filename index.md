@@ -28,24 +28,24 @@ layout: homepage
 </figure>
 
 PrivacyStreams is a framework for **privacy-friendly personal data processing**.
-It provides **easy-to-use APIs** in Android to access and process various types of personal data.
-It is focused on two related challenges for personal data:
+It provides **easy-to-use APIs** in Android for accessing and processing various types of personal data.
+It focused on two challenges for accessing and processing personal data:
  
 - It can be **difficult for developers** to access and process personal data, due to the wide range of APIs and data formats.
-- End users don't know what granularity of data is accessed, which can lead to **privacy concerns**.
+- End users don't know what granularity of personal data is accessed, which can lead to **privacy concerns**.
 
 As an example of both issues,
-a sleep monitoring app might only need the microphone to check how loud it currently is. 
+a sleep monitoring app might only need access to the microphone for checking loudness of the current environment. 
 The developer would have to write a lot of code to record and process audio using [MediaRecorder](https://developer.android.com/guide/topics/media/mediarecorder.html), 
-and end-users might be concerned that the app needs full access to the microphone.
+and end-users might be concerned because the app has full access to data collected by the microphone.
 
 PrivacyStreams is designed to address these issues. Its main features include:
 
-- Providing a unified API and a functional programming approach for all kinds of personal data;
-- Making it easy for privacy analysis, thus users can see what granularity of data is accessed and how it is processed;
-- Offering many privacy-related functions (`hash`, `blur`, etc.) for developers to integrate privacy-friendly features in their apps.
+- Providing a unified API and a functional programming approach for accessing and processing a large variety of personal data;
+- Making it easy for privacy analysis, thus users can monitor the granularity of data accessed and how they are processed;
+- Offering many privacy-related functions (`hash`, `blur`, etc.) for developers to implement privacy-friendly features in their apps.
 
-For example, with PrivacyStreams, a sleep monitor can access and process personal data with few lines of code:
+For example, with PrivacyStreams, a sleep monitor can access and process audio data from the microphone with few lines of code:
 <pre>
 <code>
  uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
@@ -54,7 +54,7 @@ For example, with PrivacyStreams, a sleep monitor can access and process persona
     .onChange("loudness", callback)                         // Callback with loudness value when "loudness" changes</code>
 </pre>
 
-Apps developed with PrivacyStreams can be easily analyzed and verified to reduce privacy concerns from users.
+Apps developed with PrivacyStreams can be easily analyzed and verified to address privacy concerns of users.
 
 <div class="w3-container w3-cell w3-cell-middle w3-panel w3-leftbar w3-sand w3-large w3-serif verified">
   &#9989; <i>Microphone is used by this app to calculate loudness periodically.</i>
@@ -63,7 +63,7 @@ Apps developed with PrivacyStreams can be easily analyzed and verified to reduce
 
 ## Installing PrivacyStreams
 
-To use PrivacyStreams in your Android app, please add the following line to `build.gradle` file under the app module.
+To use PrivacyStreams in your Android app, please add the following line to the `build.gradle` file under the app module.
 
 <pre>
 <code>dependencies {</code>
@@ -101,7 +101,7 @@ We used the following code to get audio loudness periodically.
     .onChange("loudness", callback)                         // Callback with loudness value when "loudness" changes</code>
 </pre>
 
-UQI stands for "unified query interface", which is the only interface in PrivacyStreams to access all kinds of personal data.
+UQI stands for "unified query interface", which is the only interface in PrivacyStreams for accessing all kinds of personal data.
 
 The first parameter of `UQI.getData()` is called a "Provider", which declares the data we want to access.
 In the example, `Audio.recordPeriodic()` provides audio data by recording from microphone periodically;
@@ -152,7 +152,7 @@ Developers can also customize their own operators.
 
 The third line, `.onChange("loudness", callback)`, outputs the items with a callback.
 Specifically, it monitors the value of "loudness", and fires a callback once the loudness value changes.
-To get the code work, you will need to define what the `callback` is. A working example is shown as follows:
+To get the code to work, you will need to define what the `callback` is. A working example is shown as follows:
 
 <pre>
 <code>// Make sure you have included the following audio permission tag in manifest:
@@ -188,7 +188,7 @@ Here is another example: getting a list of recent-called phone numbers.
        .asList(Call.CONTACT)           // Output the values of CONTACT field (the phone numbers) to a list</code>
 </pre>
 
-The above code accesses the call logs with `Call.getLogs()` and processes the call logs with functions like `filter`, `sortBy`, etc.
+The above query accesses the call logs with `Call.getLogs()` and processes the call logs with functions like `filter`, `sortBy`, etc.
 
 The pre-defined fields in a `Call` item include:
 
@@ -203,7 +203,7 @@ The pre-defined fields in a `Call` item include:
 Note that "Reference" is the equivalence to "Name", i.e. `filter(Call.TYPE, "outgoing")` is the same as `filter("type", "outgoing")`.
 
 **About permissions.** Accessing call logs requires *READ_CALL_LOG* permission in Android.
-To use the above code, you need to add the permission tag in `AndroidManifest.xml` and handle the exception if the permission is denied by user. For example:
+To use the above code, you need to add the permission tag in `AndroidManifest.xml` and handle the exception if the permission request is denied by user. For example:
 
 In `AndroidManifest.xml`:
 <pre><code>...</code>
@@ -282,13 +282,13 @@ meaning it only keeps the items whose TIMESTAMP field value is a recent time.
 Except for the functions, a query also requires a `Purpose` parameter to state the purpose of the data access.
 In the example, the purpose of accessing call logs is "finding your closest contact", in SOCIAL category.
 **We suggest you carefully explain the purposes in your app,**
-because explaining the purposes can help users understand why your app needs the data, hence improving the privacy friendliness of your app.
-We have several purpose categories (such as `Purpose.ADS(..)`, `Purpose.SOCIAL(..)`, etc.) for you to select from.
+because explaining the purposes can help users understand why your app needs the data, hence improving the privacy transparency of your app.
+We have several purpose categories (such as `Purpose.ADS(..)`, `Purpose.SOCIAL(..)`, etc.) available for you to select from.
 
 
 ### Simplifying the code
 
-In practice, the nested functions may be redundant, thus we wrap some common function combinations to one function for simplicity. 
+In practice, the nested functions may be redundant, thus we wrap some common function combinations to one function for simplicity's sake. 
 For example:
 
 - `.transform(Filters.keep(...))` can be simplified as `.filter(...)`;
@@ -296,7 +296,7 @@ For example:
 - `.transform(Mappers.mapEachItem(ItemOperators.setGroupField(...)))` can be simplified as `.setGroupField(...)`;
 - ...
 
-With the simplification, the code in the above example can be written as:
+After the simplification, the code in the above example can be written as:
 <pre>
 <code class="line-numbers">String mostCalledContact = 
      uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest contact."))
@@ -320,7 +320,7 @@ With static import, the above code can be simplified as:
 
 ### PrivacyStreams pipeline
 
-The figure below shows the overview of a **PrivacyStreams pipeline**:
+The figure below shows an overview of the **PrivacyStreams pipeline**:
 
 <figure>
 <img src="static/figure/overview.png" alt="PrivacyStreams overview" style="min-width: 500px">
@@ -457,7 +457,7 @@ For non-blocking pipelines, simply override the `onFail(PSException e)` method i
 
 ### Permission configuration
 
-In Android, personal data is controlled with a permission-based access control mechanism.
+In Android, access to personal data is controlled with a permission-based access control mechanism.
 Android apps need to declare permissions in `AndroidManifest.xml`.
 For Android 6.0+, apps must request permissions at runtime, including checking whether permissions are granted,
 prompting users to grant the permissions and handling users' access control decisions.
@@ -469,8 +469,8 @@ In PrivacyStreams, permission configuration can be much easier. Follow the steps
 2. Print the exception, and you will see which permissions are needed;
 3. Add the needed permissions to `AndroidManifest.xml`.
 
-That's it. PrivacyStream will automatically generate a dialog to ask users to grant permissions.
-If not granted, there will be a `PSException`.
+That's it. PrivacyStream will automatically generate a dialog to ask users for permissions.
+If the requested permissions are not granted, a `PSException` will be thrown.
 
 ## Debugging and testing
 
