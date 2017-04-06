@@ -4,7 +4,7 @@ title: Installing Google location service.
 ---
 
 The Location APIs in PrivacyStreams are based on Google location service.
-In order to access location with PrivacyStreams, you will need to install Google Service.
+In order to access location with PrivacyStreams, you will need to install Google location service.
 
 Specifically, add the following line to `build.gradle` file under the app module.
 
