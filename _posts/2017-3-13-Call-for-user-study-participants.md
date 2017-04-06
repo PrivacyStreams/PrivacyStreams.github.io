@@ -3,20 +3,20 @@ layout: homepage
 title: Call for user study participants
 ---
 
-We (researchers from CHIMPS Lab and SYNERGY Lab, including Yuanchun Li, Fanglin Chen, Toby Li, Yuvraj Agarwal and Jason Hong) designed and implemented PrivacyStreams (https://privacystreams.github.io/) - an Android library for privacy-friendly personal data processing, and we are seeking Android developers who are over 18 years old to join our user studies.
+We (researchers from CHIMPS Lab and SYNERGY Lab, including Yuanchun Li, Fanglin Chen, Toby Li, Yuvraj Agarwal and Jason Hong) designed and implemented PrivacyStreams (https://privacystreams.github.io/) - an Android library for privacy-friendly personal data processing. We are seeking Android developers who are over 18 years old to join our user studies.
 
 Sign up for any of the following two studies if you are interested:
 
-- 90-min lab session. In the study, participants will be asked to complete some programming tasks using our library. We will provide necessary Android development environment. The computer screen will be videotaped during the tasks. 
+- 90-min lab session. In the study, participants will be asked to complete some programming tasks using our library. We will provide the necessary Android development environment. The computer screen will be videotaped during the tasks. 
 Place: Newell-Simon Hall.
 Duration: 90 minutes.
-Compensation: $30-$40 (based on the completion quality).
+Compensation: $30-$40 (based on the task completion quality).
 
 - 2-week app development. The programming task in this study will be writing/rewriting an open-source Android app using our library. We will send you more details over email after you have signed up.
 
-Place: You can work on this task anywhere you like.
+Place: You can work on this task remotely.
 Duration: You will be given two weeks to finish this programming task. The estimated workload is around 5 hours.
-Compensation: $100 (only if the task is successfully completed).
+Compensation: $100 (upon the successful completion of the task).
 
 If you are interested, please sign up at https://tinyurl.com/AndroidLibStudy 
 If you have any question, please contact Yuanchun (yuanchun.li@cs.cmu.edu) for more information.
