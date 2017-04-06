@@ -3,18 +3,20 @@ layout: homepage
 title: Call for user study participants
 ---
 
-## Participants needed for an Android programming study!
+We (researchers from CHIMPS Lab and SYNERGY Lab, including Yuanchun Li, Fanglin Chen, Toby Li, Yuvraj Agarwal and Jason Hong) designed and implemented PrivacyStreams (https://privacystreams.github.io/) - an Android library for privacy-friendly personal data processing, and we are seeking Android developers who are over 18 years old to join our user studies.
 
-We designed an Android library named PrivacyStreams for personal data processing, and we want to see whether it is easy and useful for app developers.
+Sign up for any of the following two studies if you are interested:
 
-Please sign up our study if you are:
+- 90-min lab session. In the study, participants will be asked to complete some programming tasks using our library. We will provide necessary Android development environment. The computer screen will be videotaped during the tasks. 
+Place: Newell-Simon Hall.
+Duration: 90 minutes.
+Compensation: $30-$40 (based on the completion quality).
 
-+ 18+ years old;
-+ An Android developer.
+- 2-week app development. The programming task in this study will be writing/rewriting an open-source Android app using our library. We will send you more details over email after you have signed up.
 
-You can choose:
+Place: You can work on this task anywhere you like.
+Duration: You will be given two weeks to finish this programming task. The estimated workload is around 5 hours.
+Compensation: $100 (only if the task is successfully completed).
 
-+ A 90-minute lab study in NSH at Carnegie Mellon University **($30-$40)** doing some programming tasks.
-+ **Or** a free-form field study **($100)** writing/rewriting an app with our library.
-
-Interested? Please sign up [here](https://tinyurl.com/AndroidLibStudy)!
+If you are interested, please sign up at https://tinyurl.com/AndroidLibStudy 
+If you have any question, please contact Yuanchun (yuanchun.li@cs.cmu.edu) for more information.
