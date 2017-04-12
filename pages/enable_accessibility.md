@@ -3,7 +3,7 @@ layout: homepage
 title: Enabling Accessibility service.
 ---
 
-Some types of personal data are based on Accessibility APIs, such as browser search events (`BrowserSearch.asUpdates()`),
+Some types of personal data are based on Android Accessibility service, such as browser search events (`BrowserSearch.asUpdates()`),
 WhatsApp & Facebook messages (`Message.asUpdatesInIM()`), etc.
 To use these types of data, you need to enable accessibility service by setting `accessibility_enabled` value to `true` in resource XML.
 
