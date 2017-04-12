@@ -28,6 +28,31 @@ title: Available data types in PrivacyStreams
 - [UIAction](#uiaction)
 - [WifiAp](#wifiap)
 
+- [Audio](#audio)
+- [BaseAccessibilityEvent](#baseaccessibilityevent)
+- [BatteryInfo](#batteryinfo)
+- [BluetoothDevice](#bluetoothdevice)
+- [BrowserSearch](#browsersearch)
+- [BrowserVisit](#browservisit)
+- [CalendarEvent](#calendarevent)
+- [Call](#call)
+- [Contact](#contact)
+- [DeviceEvent](#deviceevent)
+- [DeviceState](#devicestate)
+- [EmptyItem](#emptyitem)
+- [Geolocation](#geolocation)
+- [GroupItem](#groupitem)
+- [Image](#image)
+- [Item](#item)
+- [LightEnv](#lightenv)
+- [Message](#message)
+- [MockItem](#mockitem)
+- [Notification](#notification)
+- [TestItem](#testitem)
+- [TextEntry](#textentry)
+- [UIAction](#uiaction)
+- [WifiAp](#wifiap)
+
 ## Audio
 
 Package: `com.github.privacystreams.audio`
@@ -39,7 +64,7 @@ An Audio item represents an audio, could be an audio record from microphone,
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `Audio.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `Audio.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `Audio.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the audio/record was generated. |
 | `Audio.AUDIO_DATA` | `"audio_data"` | `AudioData` | The abstraction of audio data.  The value is an `AudioData` instance. |
 
@@ -61,7 +86,7 @@ Base Accessibility event.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `BaseAccessibilityEvent.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `BaseAccessibilityEvent.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `BaseAccessibilityEvent.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the item is generated. |
 | `BaseAccessibilityEvent.EVENT_TYPE` | `"event_type"` | `Integer` | The type of the event, see Android official document of [AccessibilityEvent](https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent.html) for a list of event types. |
 | `BaseAccessibilityEvent.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the current app (could be null). |
@@ -84,7 +109,7 @@ A BatteryInfo item represents an event about the device.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `BatteryInfo.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `BatteryInfo.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `BatteryInfo.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the state is requested. |
 | `BatteryInfo.LEVEL` | `"level"` | `Float` | The level of when the state is requested. |
 
@@ -104,7 +129,7 @@ A BluetoothDevice represents a bluetooth device.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `BluetoothDevice.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `BluetoothDevice.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `BluetoothDevice.NAME` | `"name"` | `String` | The name of the scanned bluetooth device. |
 | `BluetoothDevice.MAC_ADDRESS` | `"mac_address"` | `String` | The mac address of the scanned bluetooth device. |
 | `BluetoothDevice.BONDED` | `"bonded"` | `Boolean` | The boolean value indicating whether the bluetooth device is connected to the user's phone. |
@@ -125,7 +150,7 @@ A browser search activity.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `BrowserSearch.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `BrowserSearch.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `BrowserSearch.TEXT` | `"text"` | `String` | The searched text. |
 | `BrowserSearch.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the search event is happened. |
 
@@ -145,7 +170,7 @@ A website visit event.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `BrowserVisit.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `BrowserVisit.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `BrowserVisit.TITLE` | `"title"` | `String` | The title of current webpage. |
 | `BrowserVisit.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the browser used to visit webpage. |
 | `BrowserVisit.URL` | `"url"` | `String` | The URL of the visited website. |
@@ -167,7 +192,7 @@ The meta information for a calendar event.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `CalendarEvent.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `CalendarEvent.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `CalendarEvent.ID` | `"id"` | `String` | Event ID. |
 | `CalendarEvent.TITLE` | `"title"` | `String` | Event title. |
 | `CalendarEvent.START_TIME` | `"start_time"` | `Long` | Event start time. |
@@ -190,7 +215,7 @@ The information of a phone call.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `Call.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `Call.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `Call.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the phone call is happened. |
 | `Call.CONTACT` | `"contact"` | `String` | The contact (phone number or name) of the phone call. |
 | `Call.DURATION` | `"duration"` | `Long` | The duration of the phone call, in milliseconds. |
@@ -213,7 +238,7 @@ The information of a contact.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `Contact.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `Contact.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `Contact.ID` | `"id"` | `String` | The contact's unique ID in Android database. |
 | `Contact.NAME` | `"name"` | `String` | The contact name. |
 | `Contact.PHONES` | `"phone_numbers"` | `List<>` | The phone numbers of the contact. |
@@ -235,7 +260,7 @@ A DeviceEvent item represents an event about the device.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `DeviceEvent.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `DeviceEvent.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `DeviceEvent.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the event is happened. |
 | `DeviceEvent.TYPE` | `"type"` | `String` | The type of the event, could be "screen", "boot", "battery", "ringer", etc. |
 | `DeviceEvent.EVENT` | `"event"` | `String` | The event name. For screen events, could be on/off/user_present;  For boot events, could be boot_completed/shutdown;  For battery events, could be low/okay/ac_connected/ac_disconnected;  For ringer events, could be silent/vibrate/normal. |
@@ -256,7 +281,7 @@ A DeviceEvent item represents a snapshot of device state.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `DeviceState.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `DeviceState.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `DeviceState.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the state is requested. |
 | `DeviceState.BLUETOOTH_DEVICE_LIST` | `"bluetooth_device_list"` | `List<>` | The list of currently scanned bluetooth device. |
 | `DeviceState.WIFI_AP_LIST` | `"wifi_ap_list"` | `List<>` | The list of currently scanned Wifi APs. |
@@ -278,7 +303,7 @@ An empty item.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `EmptyItem.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `EmptyItem.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 
 ### Providers
 
@@ -296,7 +321,7 @@ An Geolocation item represents a geolocation value.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `Geolocation.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `Geolocation.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `Geolocation.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of the location. |
 | `Geolocation.LAT_LNG` | `"lat_lng"` | `LatLng` | The coordinates of the location.  The value is a LatLng instance. |
 | `Geolocation.SPEED` | `"speed"` | `Float` | The speed at the location, in meters/second. |
@@ -307,8 +332,9 @@ An Geolocation item represents a geolocation value.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Geolocation.asUpdates(long interval, String level)` <br>  |
-| `SStreamProvider` | `Geolocation.asLastKnown(String level)` <br> Provide a Geolocation item, which is the last known location. |
+| `MStreamProvider` | `Geolocation.asUpdates(long interval, String level)` <br> Provide a live stream of Geolocation as the location updates.<br> - `interval`: The interval between each two location updates.<br> - `level`: The location granularity level, could be               "country"/"city"/"neighborhood"/"building"/"exact".               "exact" level requires ACCESS_FINE_LOCATION permission,               other levels requires ACCESS_COARSE_LOCATION. |
+| `SStreamProvider` | `Geolocation.asLastKnown(String level)` <br> Provide an SStream of a Geolocation item, as the last known location. |
+| `SStreamProvider` | `Geolocation.asCurrent(String level)` <br> Provide an SStream of a Geolocation item, as the current location. |
 
 ## GroupItem
 
@@ -325,7 +351,7 @@ An item in a stream after grouping operation.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `GroupItem.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `GroupItem.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `GroupItem.GROUPED_ITEMS` | `"grouped_items"` | `List<>` | A list of the grouped items. |
 
 ## Image
@@ -338,7 +364,7 @@ An Image item represents an image, could be an image file from storage, etc.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `Image.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `Image.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `Image.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the image was generated. |
 | `Image.IMAGE_DATA` | `"image_data"` | `ImageData` | The abstraction of image data.  The value is an `ImageData` instance. |
 
@@ -359,7 +385,7 @@ An Item is a basic element in a stream.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `Item.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `Item.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 
 ## LightEnv
 
@@ -371,7 +397,7 @@ A LightEnv item represents the data read from light environment sensor.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `LightEnv.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `LightEnv.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `LightEnv.INTENSITY` | `"intensity"` | `Float` | The light intensity, in lumens. |
 | `LightEnv.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the light sensor value is read. |
 
@@ -391,7 +417,7 @@ A text message. It could be from SMS, WhatsApp, Facebook, etc.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `Message.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `Message.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `Message.CONTENT` | `"content"` | `String` | The message content. |
 | `Message.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the app where message is captured.  For example, if it is a Facebook message, package_name will be "com.facebook.orca";  If it is an SMS message, package_name will be "system". |
 | `Message.CONTACT` | `"contact"` | `String` | The contact (phone number or name) of the message. |
@@ -416,7 +442,7 @@ A mock item. The content of a MockItem is mocked from another item.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `MockItem.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `MockItem.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 
 ### Providers
 
@@ -434,8 +460,8 @@ An Notification item represents a received notification.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `Notification.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
-| `Notification.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of the notification. |
+| `Notification.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `Notification.POST_TIME` | `"post_time"` | `Long` | The timestamp of when the notification was posted. |
 | `Notification.ACTION` | `"action"` | `String` | The action associated with the notification.  It could be "removed" or "posted". |
 | `Notification.CATEGORY` | `"category"` | `String` | The category of the notification.  One of the predefined notification categories  (see the `CATEGORY_*` constants in `android.app.Notification` class.)  that best describes this Notification.  Such as "sys", "social", etc. |
 | `Notification.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the notification. |
@@ -458,7 +484,7 @@ A random item for testing.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `TestItem.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `TestItem.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `TestItem.ID` | `"id"` | `Long` | The index of current item. |
 | `TestItem.X` | `"x"` | `Integer` | A random integer. |
 | `TestItem.Y` | `"y"` | `String` | A random String. |
@@ -485,7 +511,7 @@ A user text input action.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `TextEntry.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `TextEntry.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `TextEntry.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the item is generated. |
 | `TextEntry.EVENT_TYPE` | `"event_type"` | `Integer` | The type of the event, see Android official document of [AccessibilityEvent](https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent.html) for a list of event types. |
 | `TextEntry.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the current app (could be null). |
@@ -510,7 +536,7 @@ A UI action, such as a view is clicked, selected, etc.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `UIAction.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `UIAction.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `UIAction.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the item is generated. |
 | `UIAction.EVENT_TYPE` | `"event_type"` | `Integer` | The type of the event, see Android official document of [AccessibilityEvent](https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent.html) for a list of event types. |
 | `UIAction.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the current app (could be null). |
@@ -534,7 +560,7 @@ A WifiAp item represents the information of a WIFI AP.
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `WifiAp.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when the Item is created. |
+| `WifiAp.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `WifiAp.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the WIFI AP information is found. |
 | `WifiAp.BSSID` | `"bssid"` | `String` | The BSSID. |
 | `WifiAp.SSID` | `"ssid"` | `String` | The SSID. |

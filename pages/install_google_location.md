@@ -10,7 +10,7 @@ Specifically, add the following line to `build.gradle` file under the app module
 
 <pre>
 <code>dependencies {
-    compile 'com.github.privacystreams:privacystreams-core:0.0.5'</code>
+    compile 'com.github.privacystreams:privacystreams-core:0.0.6'</code>
     <code class="highlight">compile 'com.google.android.gms:play-services-location:10.2.1'</code>
     <code>...
 }</code>

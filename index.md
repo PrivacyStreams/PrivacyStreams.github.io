@@ -66,7 +66,7 @@ To use PrivacyStreams in your Android app, simply add the following line to `bui
 
 <pre>
 <code>dependencies {</code>
-    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.0.5'</code>
+    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.0.6'</code>
     <code>...
 }</code>
 </pre>
