@@ -28,31 +28,6 @@ title: Available data types in PrivacyStreams
 - [UIAction](#uiaction)
 - [WifiAp](#wifiap)
 
-- [Audio](#audio)
-- [BaseAccessibilityEvent](#baseaccessibilityevent)
-- [BatteryInfo](#batteryinfo)
-- [BluetoothDevice](#bluetoothdevice)
-- [BrowserSearch](#browsersearch)
-- [BrowserVisit](#browservisit)
-- [CalendarEvent](#calendarevent)
-- [Call](#call)
-- [Contact](#contact)
-- [DeviceEvent](#deviceevent)
-- [DeviceState](#devicestate)
-- [EmptyItem](#emptyitem)
-- [Geolocation](#geolocation)
-- [GroupItem](#groupitem)
-- [Image](#image)
-- [Item](#item)
-- [LightEnv](#lightenv)
-- [Message](#message)
-- [MockItem](#mockitem)
-- [Notification](#notification)
-- [TestItem](#testitem)
-- [TextEntry](#textentry)
-- [UIAction](#uiaction)
-- [WifiAp](#wifiap)
-
 ## Audio
 
 Package: `com.github.privacystreams.audio`
@@ -365,13 +340,18 @@ An Image item represents an image, could be an image file from storage, etc.
 | Reference | Name | Type | Description |
 |----|----|----|----|
 | `Image.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
-| `Image.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the image was generated. |
+| `Image.DATE_ADDED` | `"date_added"` | `Long` | The timestamp of when the image was generated. |
 | `Image.IMAGE_DATA` | `"image_data"` | `ImageData` | The abstraction of image data.  The value is an `ImageData` instance. |
+| `Image.BUCKET_ID` | `"bucket_id"` | `Integer` | The id of the bucket (folder) that the image belongs to.  This field is only available with `getFromStorage` provider. |
+| `Image.BUCKET_NAME` | `"bucket_name"` | `String` | The name of the bucket (folder) that the image belongs to.  This field is only available with `getFromStorage` provider. |
+| `Image.IMAGE_ID` | `"image_id"` | `Integer` | The id of the image in Android media database.  This field is only available with `getFromStorage` provider. |
+| `Image.IMAGE_NAME` | `"image_name"` | `String` | The name of the image.  This field is only available with `getFromStorage` provider. |
 
 ### Providers
 
 | Type | Reference & Description |
 |----|----|
+| `SStreamProvider` | `Image.takeFromCamera()` <br> Provide an SStream with an Image item, which represents a photo taken from camera. |
 | `MStreamProvider` | `Image.getFromStorage()` <br> Provide a stream of all Image items in local file system. |
 
 ## Item
