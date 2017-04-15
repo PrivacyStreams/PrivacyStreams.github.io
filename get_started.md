@@ -311,7 +311,7 @@ PrivacyStreams provides many **callback Action**s (in `Callbacks` class) and **c
         .select(getItemWithMax("#calls"))
         .output(ItemOperators.&lt;String&gt;getField(Phonecall.CONTACT), new Callback&lt;String&gt;() {
             @Override
-            protected void onSuccess(String contact) {
+            protected void onInput(String contact) {
                 System.out.println("Most-called contact: " + contact);
             }
         });</code></pre>
@@ -345,7 +345,7 @@ For non-blocking pipelines, simply override the `onFail(PrivacyStreamsException 
         .transform(...)
         .output(..., new Callback&lt;Object&gt;() {
             @Override
-            protected void onSuccess(Object result) {
+            protected void onInput(Object result) {
                 ...
             }
             
