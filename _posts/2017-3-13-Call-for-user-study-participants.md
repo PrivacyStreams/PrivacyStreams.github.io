@@ -16,7 +16,7 @@ Compensation: $30-$40 (based on the task completion quality).
 
 Place: You can work on this task remotely.
 Duration: You will be given two weeks to finish this programming task. The estimated workload is around 5 hours.
-Compensation: $100 (upon the successful completion of the task).
+Compensation: $70 (upon the successful completion of the task).
 
 If you are interested, please sign up at https://tinyurl.com/AndroidLibStudy 
 If you have any question, please contact Yuanchun (yuanchun.li@cs.cmu.edu) for more information.

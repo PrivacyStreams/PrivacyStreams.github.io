@@ -161,7 +161,7 @@ To get the code to work, you will need to define what the `callback` is. A worki
 // Define a callback to handle loudness changes
 Callback&lt;Integer&gt; callback = new Callback&lt;&gt;() {
     @Override
-    protected void onSuccess(Integer loudness) {
+    protected void onInput(Integer loudness) {
         System.out.println("Current loudness is " + loudness + " dB.")
         // ...
     }
@@ -413,7 +413,7 @@ and **callback-based collector Action**s (such as `collectItems`, `toItemList`, 
         .select(getItemWithMax("#calls"))
         .output(ItemOperators.&lt;String&gt;getField(Call.CONTACT), new Callback&lt;String&gt;() {
             @Override
-            protected void onSuccess(String contact) {
+            protected void onInput(String contact) {
                 System.out.println("Most-called contact: " + contact);
             }
         });</code></pre>
@@ -445,7 +445,7 @@ For non-blocking pipelines, simply override the `onFail(PSException e)` method i
         .transform(...)
         .output(..., new Callback&lt;Object&gt;() {
             @Override
-            protected void onSuccess(Object result) {
+            protected void onInput(Object result) {
                 ...
             }
             
