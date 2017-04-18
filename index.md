@@ -82,6 +82,8 @@ For example:
 
 You may also want to [check whether your installation is successful](pages/check_installation.html).
 
+- **Take a look at the walk-through example [here](pages/walkthrough.pdf).**
+
 ## Quick examples
 
 Before going into details, let's take a quick look at what it is like to use PrivacyStreams for personal data processing.
@@ -168,9 +170,9 @@ Callback&lt;Integer&gt; callback = new Callback&lt;&gt;() {
     }
 }
 
-uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-   .setField("loudness", AudioOperators.calcLoudness("audio_data"))
-   .onChange("loudness", callback)
+ uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
+    .setField("loudness", AudioOperators.calcLoudness("audio_data"))
+    .onChange("loudness", callback)
 </code></pre>
 
 
@@ -379,7 +381,8 @@ for building non-blocking pipelines. You can find all non-blocking actions [here
     - `.output(getField(...), callback)` is the equivalence of `.output(Collectors.collectItem(getField(...), callback))`
     
     <pre>
-    <code> uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest contact."))
+    <code>
+     uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest contact."))
         .filter(recent("timestamp", 365*24*60*60*1000))
         .groupBy("contact")
         .setGroupField("#calls", count())
