@@ -40,16 +40,16 @@ An Audio item represents an audio, could be an audio record from microphone,
 | Reference | Name | Type | Description |
 |----|----|----|----|
 | `Audio.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
-| `Audio.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the audio/record was generated. |
+| `Audio.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the Audio item was generated. |
 | `Audio.AUDIO_DATA` | `"audio_data"` | `AudioData` | The abstraction of audio data.  The value is an `AudioData` instance. |
 
 ### Providers
 
 | Type | Reference & Description |
 |----|----|
-| `SStreamProvider` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.<br> - `duration`: the time duration of audio. |
-| `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, <code>recordPeriodic(1000, 4000)</code> will record audio from 0s-1s, 5s-6s, 10s-11s, ...<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
-| `MStreamProvider` | `Audio.getFromStorage()` <br> Provide all Audio items in local file system. |
+| `SStreamProvider` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.  This provider requires `Manifest.permission.RECORD_AUDIO` permission.<br> - `duration`: the time duration of audio. |
+| `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, <code>recordPeriodic(1000, 4000)</code> will record audio from 0s-1s, 5s-6s, 10s-11s, ...  This provider requires `Manifest.permission.RECORD_AUDIO` permission.<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
+| `MStreamProvider` | `Audio.getFromStorage()` <br> Provide all Audio items in local file system.  This provider requires `Manifest.permission.READ_EXTERNAL_STORAGE` permission. |
 
 ## BaseAccessibilityEvent
 
@@ -92,7 +92,7 @@ A BatteryInfo item represents an event about the device.
 
 | Type | Reference & Description |
 |----|----|
-| `SStreamProvider` | `BatteryInfo.asSnapshot()` <br>  |
+| `SStreamProvider` | `BatteryInfo.asSnapshot()` <br> Provider an SStream of current battery info. |
 
 ## BluetoothDevice
 
@@ -113,7 +113,7 @@ A BluetoothDevice represents a bluetooth device.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `BluetoothDevice.getScanResults()` <br>  |
+| `MStreamProvider` | `BluetoothDevice.getScanResults()` <br> Get a stream of scanned bluetooth devices.  This provider requires `Manifest.permission.BLUETOOTH` permission  and `Manifest.permission.BLUETOOTH_ADMIN` permission. |
 
 ## BrowserSearch
 
@@ -178,7 +178,7 @@ The meta information for a calendar event.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `CalendarEvent.getAll()` <br> Provide all CalendarEvent items from device's calendar database. |
+| `MStreamProvider` | `CalendarEvent.getAll()` <br> Provide all CalendarEvent items from device's calendar database.  This provider requires `Manifest.permission.READ_CALENDAR` permission. |
 
 ## Call
 
@@ -200,8 +200,8 @@ The information of a phone call.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Call.getLogs()` <br> Provide a list of Call items from the device call log. |
-| `MStreamProvider` | `Call.asUpdates()` <br> Provide a live stream of Call items.  A Call item will be generated if there is a new phone call event. |
+| `MStreamProvider` | `Call.getLogs()` <br> Provide a list of Call items from the device call log.  This provider requires `Manifest.permission.READ_CALL_LOG` permission. |
+| `MStreamProvider` | `Call.asUpdates()` <br> Provide a live stream of Call items.  A Call item will be generated if there is a new phone call event.  This provider requires `Manifest.permission.PROCESS_OUTGOING_CALLS` permission  and `Manifest.permission.READ_PHONE_STATE` permission. |
 
 ## Contact
 
@@ -223,7 +223,7 @@ The information of a contact.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Contact.getAll()` <br> Provide all Contact items in device's contacts database. |
+| `MStreamProvider` | `Contact.getAll()` <br> Provide all Contact items in device's contacts database.  This provider requires `Manifest.permission.READ_CONTACTS` permission. |
 
 ## DeviceEvent
 
@@ -237,8 +237,8 @@ A DeviceEvent item represents an event about the device.
 |----|----|----|----|
 | `DeviceEvent.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `DeviceEvent.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the event is happened. |
-| `DeviceEvent.TYPE` | `"type"` | `String` | The type of the event, could be "screen", "boot", "battery", "ringer", etc. |
-| `DeviceEvent.EVENT` | `"event"` | `String` | The event name. For screen events, could be on/off/user_present;  For boot events, could be boot_completed/shutdown;  For battery events, could be low/okay/ac_connected/ac_disconnected;  For ringer events, could be silent/vibrate/normal. |
+| `DeviceEvent.TYPE` | `"type"` | `String` | The type of the event, could be "screen", "boot", "battery", or "ringer". |
+| `DeviceEvent.EVENT` | `"event"` | `String` | The event name. For screen events, could be "on", "off", or "user_present";  For boot events, could be "boot_completed", or "shutdown";  For battery events, could be "low", "okay", "ac_connected", or "ac_disconnected";  For ringer events, could be "silent", "vibrate", or "normal". |
 
 ### Providers
 
@@ -307,9 +307,9 @@ An Geolocation item represents a geolocation value.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Geolocation.asUpdates(long interval, String level)` <br> Provide a live stream of Geolocation as the location updates.<br> - `interval`: The interval between each two location updates.<br> - `level`: The location granularity level, could be               "country"/"city"/"neighborhood"/"building"/"exact".               "exact" level requires ACCESS_FINE_LOCATION permission,               other levels requires ACCESS_COARSE_LOCATION. |
-| `SStreamProvider` | `Geolocation.asLastKnown(String level)` <br> Provide an SStream of a Geolocation item, as the last known location. |
-| `SStreamProvider` | `Geolocation.asCurrent(String level)` <br> Provide an SStream of a Geolocation item, as the current location. |
+| `MStreamProvider` | `Geolocation.asUpdates(long interval, String level)` <br> Provide a live stream of Geolocation as the location updates.  This provider requires a location permission based on the location level.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `Manifest.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `Manifest.permission.ACCESS_FINE_LOCATION` permission.<br> - `interval`: The interval between each two location updates.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`, `Geolocation.LEVEL_NEIGHBORHOOD`,               `Geolocation.LEVEL_BUILDING`, or `Geolocation.LEVEL_EXACT`. |
+| `SStreamProvider` | `Geolocation.asLastKnown(String level)` <br> Provide an SStream of a Geolocation item, as the last known location.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `Manifest.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `Manifest.permission.ACCESS_FINE_LOCATION` permission.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`, `Geolocation.LEVEL_NEIGHBORHOOD`,               `Geolocation.LEVEL_BUILDING`, or `Geolocation.LEVEL_EXACT`. |
+| `SStreamProvider` | `Geolocation.asCurrent(String level)` <br> Provide an SStream of a Geolocation item, as the current location.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `Manifest.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `Manifest.permission.ACCESS_FINE_LOCATION` permission.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`,               `Geolocation.LEVEL_NEIGHBORHOOD`, `Geolocation.LEVEL_BUILDING`,               or `Geolocation.LEVEL_EXACT`. |
 
 ## GroupItem
 
@@ -340,7 +340,7 @@ An Image item represents an image, could be an image file from storage, etc.
 | Reference | Name | Type | Description |
 |----|----|----|----|
 | `Image.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
-| `Image.DATE_ADDED` | `"date_added"` | `Long` | The timestamp of when the image was generated. |
+| `Image.DATE_ADDED` | `"date_added"` | `Long` | The timestamp of when the Image item was generated. |
 | `Image.IMAGE_DATA` | `"image_data"` | `ImageData` | The abstraction of image data.  The value is an `ImageData` instance. |
 | `Image.BUCKET_ID` | `"bucket_id"` | `Integer` | The id of the bucket (folder) that the image belongs to.  This field is only available with `getFromStorage` provider. |
 | `Image.BUCKET_NAME` | `"bucket_name"` | `String` | The name of the bucket (folder) that the image belongs to.  This field is only available with `getFromStorage` provider. |
@@ -351,8 +351,8 @@ An Image item represents an image, could be an image file from storage, etc.
 
 | Type | Reference & Description |
 |----|----|
-| `SStreamProvider` | `Image.takeFromCamera()` <br> Provide an SStream with an Image item, which represents a photo taken from camera. |
-| `MStreamProvider` | `Image.getFromStorage()` <br> Provide a stream of all Image items in local file system. |
+| `SStreamProvider` | `Image.takeFromCamera()` <br> Provide an SStream with an Image item, which represents a photo taken from camera.  This provider requires `Manifest.permission.CAMERA` permission  and `Manifest.permission.WRITE_EXTERNAL_STORAGE` permission. |
+| `MStreamProvider` | `Image.getFromStorage()` <br> Provide a stream of all Image items in local file system.  This provider requires `Manifest.permission.READ_EXTERNAL_STORAGE` permission. |
 
 ## Item
 
@@ -401,16 +401,16 @@ A text message. It could be from SMS, WhatsApp, Facebook, etc.
 | `Message.CONTENT` | `"content"` | `String` | The message content. |
 | `Message.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the app where message is captured.  For example, if it is a Facebook message, package_name will be "com.facebook.orca";  If it is an SMS message, package_name will be "system". |
 | `Message.CONTACT` | `"contact"` | `String` | The contact (phone number or name) of the message. |
-| `Message.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the message is sent/received. |
-| `Message.TYPE` | `"type"` | `String` | The message type, could be "received"/"sent"/"draft"/"pending"/"unknown". |
+| `Message.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the message is sent or received. |
+| `Message.TYPE` | `"type"` | `String` | The message type, could be "received", "sent", "draft", "pending", or "unknown". |
 
 ### Providers
 
 | Type | Reference & Description |
 |----|----|
 | `MStreamProvider` | `Message.asUpdatesInIM()` <br> Provide a live stream of new Message items in Instant Messenger (IM) apps, including WhatsApp and Facebook.  This provider requires Accessibility service turned on. |
-| `MStreamProvider` | `Message.asIncomingSMS()` <br> Provide a live stream of new incoming Message items from the Android Short Message Service (SMS). |
-| `MStreamProvider` | `Message.getAllSMS()` <br> Provide all Message items from Android Short Message Service SMS. |
+| `MStreamProvider` | `Message.asIncomingSMS()` <br> Provide a live stream of new incoming Message items from the Android Short Message Service (SMS).  This provider requires `Manifest.permission.RECEIVE_SMS` permission. |
+| `MStreamProvider` | `Message.getAllSMS()` <br> Provide all Message items from Android Short Message Service SMS.  This provider requires `Manifest.permission.READ_SMS` permission. |
 
 ## MockItem
 
@@ -552,5 +552,5 @@ A WifiAp item represents the information of a WIFI AP.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `WifiAp.getScanResults()` <br> Provide a list of WifiAp items from WIFI scan result. |
+| `MStreamProvider` | `WifiAp.getScanResults()` <br> Provide a list of WifiAp items from WIFI scan result.  This provider requires `Manifest.permission.ACCESS_COARSE_LOCATION`,  `Manifest.permission.CHANGE_WIFI_STATE`, and `Manifest.permission.ACCESS_WIFI_STATE` permission. |
 

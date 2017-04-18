@@ -9,7 +9,6 @@ layout: homepage
     - [Getting recent called contacts](#getting-recent-called-contacts)
 + [PrivacyStreams API](#privacystreams-api)
     - [Unified query interface (UQI)](#unified-query-interface-uqi)
-    - [Simplifying the code](#simplifying-the-code)
     - [PrivacyStreams pipeline](#privacyStreams-pipeline)
     - [Reusing streams](#reusing-streams)
 + [Exceptions and permissions](#exceptions-and-permissions)
@@ -50,7 +49,7 @@ For example, with PrivacyStreams, a sleep monitor can access and process audio d
 <code>
  uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
                                                             // Record a 10-second audio periodically with a 2-minute interval between each two records.
-    .setField("loudness", calcLoudness(Audio.AUDIO_DATA))   // Set a customized field "loudness" for each record as the audio loudness
+    .setField("loudness", calcLoudness("audio_data"))       // Set a customized field "loudness" for each record as the audio loudness
     .onChange("loudness", callback)                         // Callback with loudness value when "loudness" changes</code>
 </pre>
 
@@ -97,7 +96,7 @@ We used the following code to get audio loudness periodically.
 <code>
  uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
                                                             // Record a 10-second audio periodically with a 2-minute interval between each two records.
-    .setField("loudness", calcLoudness(Audio.AUDIO_DATA))   // Set a customized field "loudness" for each record as the audio loudness
+    .setField("loudness", calcLoudness("audio_data"))       // Set a customized field "loudness" for each record as the audio loudness
     .onChange("loudness", callback)                         // Callback with loudness value when "loudness" changes</code>
 </pre>
 
@@ -136,7 +135,7 @@ In this example, the provider is `Audio.recordPeriodic()`, which will provide a 
 
 The list of all available data types and corresponding providers can be found [here](items.html).
 
-The second line, `.setField("loudness", calcLoudness(Audio.AUDIO_DATA))`, transforms the stream produced by the first line.
+The second line, `.setField("loudness", calcLoudness("audio_data"))`, transforms the stream produced by the first line.
 Specifically, it sets a new customized field "loudness" to each audio record item, indicating the loudness (dB) of the audio.
 <pre>
     <code class="language-json">// An example of Audio Item after setting "loudness" field.
@@ -169,7 +168,7 @@ Callback&lt;Integer&gt; callback = new Callback&lt;&gt;() {
 
 // Record a 10-second audio periodically with a 2-minute interval between each two records.
 uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-   .setField("loudness", calcLoudness(Audio.AUDIO_DATA)) // Set a field "loudness" for each record as the audio loudness
+   .setField("loudness", calcLoudness("audio_data")) // Set a field "loudness" for each record as the audio loudness
    .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
 </pre>
 
@@ -181,11 +180,11 @@ Here is another example: getting a list of recent-called phone numbers.
 <pre>
 <code>List&lt;String&gt; recentCalledNumbers = 
     uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your recent called contacts."))
-       .filter(Call.TYPE, "outgoing")  // Only keep the outgoing call logs
-       .sortBy(Call.TIMESTAMP)         // Sort the call logs according to timestamp, in ascending order
-       .reverse()                      // Reverse the order, now the most recent call log comes first
-       .limit(10)                      // Keep the most recent 10 logs
-       .asList(Call.CONTACT)           // Output the values of CONTACT field (the phone numbers) to a list</code>
+       .filter("type", "outgoing")    // Only keep the call logs whose "type" field is "outgoing"
+       .sortBy("timestamp")           // Sort the call logs according to "timestamp" field, in ascending order
+       .reverse()                     // Reverse the order, now the most recent call log comes first
+       .limit(10)                     // Keep the most recent 10 logs
+       .asList("contact")             // Output the values of "contact" field (the phone numbers) to a list</code>
 </pre>
 
 The above query accesses the call logs with `Call.getLogs()` and processes the call logs with functions like `filter`, `sortBy`, etc.
@@ -200,7 +199,7 @@ The pre-defined fields in a `Call` item include:
 | `Call.DURATION` | `"duration"` | `Long` | The duration of the phone call, in milliseconds. |
 | `Call.TYPE` | `"type"` | `String` | The type of the phone call, could be "incoming", "outgoing" or "missed". |
 
-Note that "Reference" is the equivalence to "Name", i.e. `filter(Call.TYPE, "outgoing")` is the same as `filter("type", "outgoing")`.
+Note that "Reference" is the equivalence to "Name", i.e. `filter("type", "outgoing")` is the same as `filter("type", "outgoing")`.
 
 **About permissions.** Accessing call logs requires *READ_CALL_LOG* permission in Android.
 To use the above code, you need to add the permission tag in `AndroidManifest.xml` and handle the exception if the permission request is denied by user. For example:
@@ -219,11 +218,11 @@ In Java code:
 <code>try {
     List&lt;String&gt; recentCalledNumbers = 
         uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest friends."))
-           .filter(Call.TYPE, "outgoing")  // Only keep the outgoing call logs
-           .sortBy(Call.TIMESTAMP)         // Sort the call logs according to timestamp, in ascending order
-           .reverse()                      // Reverse the order, now the most recent call log comes first
-           .limit(10)                      // Keep the most recent 10 logs
-           .asList(Call.CONTACT)           // Output the values of CONTACT field (the phone numbers) to a list
+           .filter("type", "outgoing")  // Only keep the outgoing call logs
+           .sortBy("timestamp")         // Sort the call logs according to timestamp, in ascending order
+           .reverse()                   // Reverse the order, now the most recent call log comes first
+           .limit(10)                   // Keep the most recent 10 logs
+           .asList("contact")           // Output the values of CONTACT field (the phone numbers) to a list
 } catch (PSException e) {
     if (e.isPermissionDenied()) {
         String[] deniedPermissions = e.getDeniedPermissions();
@@ -245,15 +244,12 @@ The code to do the task with PrivacyStreams is as follows:
 
 <pre>
 <code class="line-numbers">String mostCalledContact = 
-     uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest contact."))                          // Get a stream of call logs
-        .transform(Filters.keep(TimeOperators.recent(Call.TIMESTAMP, 365*24*60*60*1000)))                  // keep the call logs in recent 365 days
-        .transform(Groupers.groupBy(Call.CONTACT))                                                         // group by "contact" field (phone number)
-        .transform(Mappers.mapEachItem(ItemOperators.setGroupField("#calls", StatisticOperators.count()))) // set "#calls" to the number of logs in each group
-        .transform(Selectors.select(ItemsOperators.getItemWithMax("#calls")))                              // select the item with largest "#calls"
-        .output(ItemOperators.&lt;String&gt;getField(Call.CONTACT));                                       // get the contact field of the item
-</code></pre>
-
-Looks messy? Don't worry, I will show you how to understand and simplify it in the next sections.
+     uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding closest contact."))  // get a stream of call logs
+        .filter(TimeOperators.recent("timestamp", 365*24*60*60*1000))  // keep the call logs in recent 365 days
+        .groupBy("contact")  // group by "contact" field (phone number)
+        .setGroupField("#calls", StatisticOperators.count())  // create "#calls" field as the number of grouped call logs in each group
+        .select(ItemsOperators.getItemWithMax("#calls"))  // select the item with largest "#calls"
+        .getField("contact");  // get the "contact" field of the item</code></pre>
 
 ### Unified query interface (UQI)
 
@@ -268,55 +264,23 @@ The query describes a **PrivacyStreams pipeline**, which is a sequence of three 
 - **1** data providing function (i.e. **Provider**) that gets raw data from data sources and converts raw data to a stream.
     - For example, `Call.getLogs()` convert raw call logs in Android database to a stream of `Call` items;
 - **N (N=0,1,2,...)** transforming functions (i.e. **Transformation**s), each of which takes a stream as the input and produce another stream as the output.
-    - For example, `filter(Call.TYPE, "outgoing")` filters the stream and only keeps the items whose `TYPE` is `"outgoing"`;
+    - For example, `filter("type", "outgoing")` filters the stream and only keeps the items whose `TYPE` is `"outgoing"`;
 - **1** data outputting function (i.e. **Action**), which outputs the stream as the result needed by the app.
-    - For example, `asList(Call.CONTACT)` collects the `CONTACT` field of items to a list.
+    - For example, `asList("contact")` collects the `CONTACT` field of items to a list.
 
 The **Transformation** and **Action** functions are based on a lot of operators, including comparators, arithmetic operators, etc..
-For example, `Filters.keep()` is a **Transformation**, and it takes `TimeOperators.recent()` operator as the parameter,
+For example, `filter()` is a **Transformation**, and it can take `TimeOperators.recent()` operator as the parameter,
 meaning it only keeps the items whose TIMESTAMP field value is a recent time.
 
 - **The full list of available data types and corresponding providers is at [here](items.html);**
-- **The full list of available providers, transformations, actions and operators is at [here](operators.html).**
+- **The full list of transformations and actions is at [here](pipeline.html).**
+- **The full list of built-in operators is at [here](operators.html).**
 
 Except for the functions, a query also requires a `Purpose` parameter to state the purpose of the data access.
 In the example, the purpose of accessing call logs is "finding your closest contact", in SOCIAL category.
 **We suggest you carefully explain the purposes in your app,**
 because explaining the purposes can help users understand why your app needs the data, hence improving the privacy transparency of your app.
 We have several purpose categories (such as `Purpose.ADS(..)`, `Purpose.SOCIAL(..)`, etc.) available for you to select from.
-
-
-### Simplifying the code
-
-In practice, the nested functions may be redundant, thus we wrap some common function combinations to one function for simplicity's sake. 
-For example:
-
-- `.transform(Filters.keep(...))` can be simplified as `.filter(...)`;
-- `.transform(Groupers.groupBy(...)` can be simplified as `.groupBy(...)`;
-- `.transform(Mappers.mapEachItem(ItemOperators.setGroupField(...)))` can be simplified as `.setGroupField(...)`;
-- ...
-
-After the simplification, the code in the above example can be written as:
-<pre>
-<code class="line-numbers">String mostCalledContact = 
-     uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest contact."))
-        .filter(TimeOperators.recent(Call.TIMESTAMP, 365*24*60*60*1000))
-        .groupBy(Call.CONTACT)
-        .setGroupField("#calls", StatisticOperators.count())
-        .select(ItemsOperators.getItemWithMax("#calls"))
-        .getField(Call.CONTACT);</code></pre>
-
-If you use static import, the code can be even briefer.
-For example, with `import static com.github.privacystreams.commons.time.TimeOperators.recent;`, you can simplify `TimeOperators.recent(...)` with `recent(...)`.
-With static import, the above code can be simplified as:
-<pre>
-<code class="line-numbers">String mostCalledContact = 
-     uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest contact."))
-        .filter(recent(Call.TIMESTAMP, 365*24*60*60*1000))
-        .groupBy(Call.CONTACT)
-        .setGroupField("#calls", count())
-        .select(getItemWithMax("#calls"))
-        .getField(Call.CONTACT);</code></pre>
 
 ### PrivacyStreams pipeline
 
@@ -354,6 +318,8 @@ A **Stream** is a sequence of **Item**s. In PrivacyStreams, we have two kinds of
 <img src="static/figure/state_machine.png" alt="PrivacyStreams data processing state machine." style="min-width: 600px">
 </figure>
 
+- **The list of all pipeline functions (Transformation & Action) is at [here](pipeline.html).**
+
 The pipeline of the running example is illustrated as follows (note that some field names are simplified and the field values are mocked):
 
 <figure>
@@ -371,19 +337,19 @@ We provide a method `fork(int)` to support stream reusing, where the `int` param
 <pre>
 <code class="line-numbers">MStreamInterface streamToReuse = 
               uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest contact."))
-                 .filter(recent(Call.TIMESTAMP, 365*24*60*60*1000))
-                 .groupBy(Call.CONTACT)
+                 .filter(recent("timestamp", 365*24*60*60*1000))
+                 .groupBy("contact")
                  .fork(2);  // fork current stream to reuse twice.
         
 String mostCalledContact = 
     streamToReuse.setGroupField("#calls", count())
                  .select(getItemWithMax("#calls"))
-                 .getField(Call.CONTACT);
+                 .getField("contact");
                  
 String longestCalledContact = 
-    streamToReuse.setGroupField("durationOfCalls", sum(Call.DURATION))
+    streamToReuse.setGroupField("durationOfCalls", sum("duration"))
                  .select(getItemWithMax("durationOfCalls"))
-                 .getField(Call.CONTACT);</code></pre>
+                 .getField("contact");</code></pre>
 
 ### Non-blocking pipeline
 
@@ -407,11 +373,11 @@ and **callback-based collector Action**s (such as `collectItems`, `toItemList`, 
     
     <pre>
     <code> uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest contact."))
-        .filter(recent(Call.TIMESTAMP, 365*24*60*60*1000))
-        .groupBy(Call.CONTACT)
+        .filter(recent("timestamp", 365*24*60*60*1000))
+        .groupBy("contact")
         .setGroupField("#calls", count())
         .select(getItemWithMax("#calls"))
-        .output(ItemOperators.&lt;String&gt;getField(Call.CONTACT), new Callback&lt;String&gt;() {
+        .output(ItemOperators.&lt;String&gt;getField("contact"), new Callback&lt;String&gt;() {
             @Override
             protected void onInput(String contact) {
                 System.out.println("Most-called contact: " + contact);
@@ -509,9 +475,10 @@ you can print any step you want to see what is going on:
 For more information about PrivacyStreams APIs, please refer to:
 
 - [PrivacyStreams Javadoc](javadoc/index.html);
-- [Available data types](items.html);
-- [Available operators](operators.html);
-- [More examples](pages/more_examples.html).
+- [Data types and corresponding providers](items.html);
+- [Transformations and Actions](pipeline.html);
+- [All built-in operators](operators.html);
+- [More examples](https://github.com/ylimit/PrivacyStreams/blob/master/app/src/main/java/com/github/privacystreams/Examples.java).
 
 
 ### News & Posts
