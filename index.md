@@ -82,8 +82,6 @@ For example:
 
 You may also want to [check whether your installation is successful](pages/check_installation.html).
 
-- **Take a look at the walk-through example [here](pages/walkthrough.pdf).**
-
 ## Quick examples
 
 Before going into details, let's take a quick look at what it is like to use PrivacyStreams for personal data processing.
@@ -490,6 +488,7 @@ For more information about PrivacyStreams APIs, please refer to:
 - [Data types and corresponding providers](items.html);
 - [Transformations and Actions](pipeline.html);
 - [All built-in operators](operators.html);
+- [Walk-through slides](pages/walkthrough.pdf);
 - [More examples](https://github.com/ylimit/PrivacyStreams/blob/master/app/src/main/java/com/github/privacystreams/Examples.java).
 
 
