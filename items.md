@@ -48,7 +48,7 @@ An Audio item represents an audio, could be an audio record from microphone,
 | Type | Reference & Description |
 |----|----|
 | `SStreamProvider` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.  This provider requires `Manifest.permission.RECORD_AUDIO` permission.<br> - `duration`: the time duration of audio. |
-| `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, <code>recordPeriodic(1000, 4000)</code> will record audio from 0s-1s, 5s-6s, 10s-11s, ...  This provider requires `Manifest.permission.RECORD_AUDIO` permission.<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
+| `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, `recordPeriodic(1000, 4000)` will record audio from 0s-1s, 5s-6s, 10s-11s, ...  This provider requires `Manifest.permission.RECORD_AUDIO` permission.<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
 | `MStreamProvider` | `Audio.getFromStorage()` <br> Provide all Audio items in local file system.  This provider requires `Manifest.permission.READ_EXTERNAL_STORAGE` permission. |
 
 ## BaseAccessibilityEvent
@@ -216,7 +216,7 @@ The information of a contact.
 | `Contact.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `Contact.ID` | `"id"` | `String` | The contact's unique ID in Android database. |
 | `Contact.NAME` | `"name"` | `String` | The contact name. |
-| `Contact.PHONES` | `"phone_numbers"` | `List<>` | The phone numbers of the contact. |
+| `Contact.PHONES` | `"phones"` | `List<>` | The phone numbers of the contact. |
 | `Contact.EMAILS` | `"emails"` | `List<>` | The emails of the contact. |
 
 ### Providers
@@ -316,11 +316,11 @@ An Geolocation item represents a geolocation value.
 Package: `com.github.privacystreams.core.transformations.group`
 
 An item in a stream after grouping operation.
- GroupItem cannot be produced directly, instead, it can be generated using <code>groupBy</code> or <code>localGroupBy</code> operators.
+ GroupItem cannot be produced directly, instead, it can be generated using `groupBy` or `localGroupBy` operators.
  An GroupItem contains two initial fields:
- 1. The field name is the same as the field used to group (e.g. the 1st parameter of <code>groupBy</code>), and the value is the field value;
+ 1. The field name is the same as the field used to group (e.g. the 1st parameter of `groupBy`), and the value is the field value;
  2. The field name is `grouped_items`, and the value is a list of the grouped items.
- More fields can be produced with <code>setGroupField</code> operators.
+ More fields can be produced with `setGroupField` operators.
 
 ### Fields
 

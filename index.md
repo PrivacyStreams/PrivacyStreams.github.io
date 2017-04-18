@@ -47,10 +47,9 @@ PrivacyStreams is designed to address these issues. Its main features include:
 For example, with PrivacyStreams, a sleep monitor can access and process audio data from the microphone with few lines of code:
 <pre>
 <code>
- uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-                                                            // Record a 10-second audio periodically with a 2-minute interval between each two records.
-    .setField("loudness", calcLoudness("audio_data"))       // Set a customized field "loudness" for each record as the audio loudness
-    .onChange("loudness", callback)                         // Callback with loudness value when "loudness" changes</code>
+ uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep")) // Record a 10-second audio periodically with a 2-minute interval between each two records.
+    .setField("loudness", AudioOperators.calcLoudness("audio_data")) // Set a customized field "loudness" for each record as the audio loudness
+    .onChange("loudness", callback) // Callback with loudness value when "loudness" changes</code>
 </pre>
 
 Apps developed with PrivacyStreams can be easily analyzed and verified to address privacy concerns of users.
@@ -66,7 +65,7 @@ To use PrivacyStreams in your Android app, please add the following line to the 
 
 <pre>
 <code>dependencies {</code>
-    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.0.8'</code>
+    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.0.9'</code>
     <code>...
 }</code>
 </pre>
@@ -94,10 +93,9 @@ We used the following code to get audio loudness periodically.
 
 <pre>
 <code>
- uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-                                                            // Record a 10-second audio periodically with a 2-minute interval between each two records.
-    .setField("loudness", calcLoudness("audio_data"))       // Set a customized field "loudness" for each record as the audio loudness
-    .onChange("loudness", callback)                         // Callback with loudness value when "loudness" changes</code>
+ uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep")) // Record a 10-second audio periodically with a 2-minute interval between each two records.
+    .setField("loudness", AudioOperators.calcLoudness("audio_data")) // Set a customized field "loudness" for each record as the audio loudness
+    .onChange("loudness", callback) // Callback with loudness value when "loudness" changes</code>
 </pre>
 
 UQI stands for "unified query interface", which is the only interface in PrivacyStreams for accessing all kinds of personal data.
@@ -119,12 +117,14 @@ In this example, each item represents an audio record. The format of an audio re
 It means each Audio item has 3 pre-defined fields: `"time_created"`, `"timestamp"` and `"audio_data"`.
 Below is an example of an Audio item:
 <pre>
-    <code class="language-json">// An example of an Audio Item.
-    {
-        "time_created": 1489528276655,
-        "timestamp": 1489528266640,
-        "audio_data": <AudioData@12416728>
-    }</code></pre>
+<code class="language-json">
+// An example of an Audio Item.
+{
+    Long "time_created": 1489528276655,
+    Long "timestamp": 1489528266640,
+    AudioData "audio_data": <AudioData@12416728>
+}
+</code></pre>
 
 Each data type has a list of providers that can produce such type of data.
 In this example, the provider is `Audio.recordPeriodic()`, which will provide a live stream of periodically-generated audio record items.
@@ -135,16 +135,18 @@ In this example, the provider is `Audio.recordPeriodic()`, which will provide a 
 
 The list of all available data types and corresponding providers can be found [here](items.html).
 
-The second line, `.setField("loudness", calcLoudness("audio_data"))`, transforms the stream produced by the first line.
+The second line, `.setField("loudness", AudioOperators.calcLoudness("audio_data"))`, transforms the stream produced by the first line.
 Specifically, it sets a new customized field "loudness" to each audio record item, indicating the loudness (dB) of the audio.
 <pre>
-    <code class="language-json">// An example of Audio Item after setting "loudness" field.
-    {
-        "time_created": 1489528276655,
-        "timestamp": 1489528266640,
-        "audio_data": <AudioData@12416728>,
-        "loudness": 30
-    }</code></pre>
+<code class="language-json">
+// An example of Audio Item after setting "loudness" field.
+{
+    Long "time_created": 1489528276655,
+    Long "timestamp": 1489528266640,
+    AudioData "audio_data": <AudioData@12416728>,
+    Double "loudness": 30.0
+}
+</code></pre>
 The loudness value is calculated using a built-in operator `calcLoudness()`.
 You can find the list of all built-in operators [here](operators.html).
 Developers can also customize their own operators.
@@ -153,8 +155,8 @@ The third line, `.onChange("loudness", callback)`, outputs the items with a call
 Specifically, it monitors the value of "loudness", and fires a callback once the loudness value changes.
 To get the code to work, you will need to define what the `callback` is. A working example is shown as follows:
 
-<pre>
-<code>// Make sure you have included the following audio permission tag in manifest:
+<pre><code>
+// Make sure you have included the following audio permission tag in manifest:
 // &lt;uses-permission android:name="android.permission.RECORD_AUDIO" /&gt;
 
 // Define a callback to handle loudness changes
@@ -166,26 +168,25 @@ Callback&lt;Integer&gt; callback = new Callback&lt;&gt;() {
     }
 }
 
-// Record a 10-second audio periodically with a 2-minute interval between each two records.
 uqi.getData(Audio.recordPeriodic(10*1000, 2*60*1000), Purpose.HEALTH("monitoring sleep"))
-   .setField("loudness", calcLoudness("audio_data")) // Set a field "loudness" for each record as the audio loudness
-   .onChange("loudness", callback)                       // Callback with loudness value when "loudness" changes</code>
-</pre>
+   .setField("loudness", AudioOperators.calcLoudness("audio_data"))
+   .onChange("loudness", callback)
+</code></pre>
 
 
 ### Getting recent called contacts
 
 Here is another example: getting a list of recent-called phone numbers.
 
-<pre>
-<code>List&lt;String&gt; recentCalledNumbers = 
+<pre><code>
+List&lt;String&gt; recentCalledNumbers = 
     uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your recent called contacts."))
        .filter("type", "outgoing")    // Only keep the call logs whose "type" field is "outgoing"
        .sortBy("timestamp")           // Sort the call logs according to "timestamp" field, in ascending order
        .reverse()                     // Reverse the order, now the most recent call log comes first
        .limit(10)                     // Keep the most recent 10 logs
-       .asList("contact")             // Output the values of "contact" field (the phone numbers) to a list</code>
-</pre>
+       .asList("contact")             // Output the values of "contact" field (the phone numbers) to a list
+</code></pre>
 
 The above query accesses the call logs with `Call.getLogs()` and processes the call logs with functions like `filter`, `sortBy`, etc.
 
@@ -215,7 +216,8 @@ In `AndroidManifest.xml`:
 In Java code:
 
 <pre>
-<code>try {
+<code>
+try {
     List&lt;String&gt; recentCalledNumbers = 
         uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest friends."))
            .filter("type", "outgoing")  // Only keep the outgoing call logs
@@ -228,7 +230,8 @@ In Java code:
         String[] deniedPermissions = e.getDeniedPermissions();
         ...
     }
-}</code></pre>
+}
+</code></pre>
 
 That's it! More details about exception handling will be discussed in [Permissions and exception handling](#permissions-and-exception-handling) section.
 
@@ -243,13 +246,15 @@ Suppose we want to do the following programming task with PrivacyStreams:
 The code to do the task with PrivacyStreams is as follows:
 
 <pre>
-<code class="line-numbers">String mostCalledContact = 
+<code class="line-numbers">
+String mostCalledContact = 
      uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding closest contact."))  // get a stream of call logs
         .filter(TimeOperators.recent("timestamp", 365*24*60*60*1000))  // keep the call logs in recent 365 days
         .groupBy("contact")  // group by "contact" field (phone number)
         .setGroupField("#calls", StatisticOperators.count())  // create "#calls" field as the number of grouped call logs in each group
         .select(ItemsOperators.getItemWithMax("#calls"))  // select the item with largest "#calls"
-        .getField("contact");  // get the "contact" field of the item</code></pre>
+        .getField("contact");  // get the "contact" field of the item
+</code></pre>
 
 ### Unified query interface (UQI)
 
@@ -264,16 +269,16 @@ The query describes a **PrivacyStreams pipeline**, which is a sequence of three 
 - **1** data providing function (i.e. **Provider**) that gets raw data from data sources and converts raw data to a stream.
     - For example, `Call.getLogs()` convert raw call logs in Android database to a stream of `Call` items;
 - **N (N=0,1,2,...)** transforming functions (i.e. **Transformation**s), each of which takes a stream as the input and produce another stream as the output.
-    - For example, `filter("type", "outgoing")` filters the stream and only keeps the items whose `TYPE` is `"outgoing"`;
+    - For example, `filter("type", "outgoing")` filters the stream and only keeps the items whose "type" field is `"outgoing"`;
 - **1** data outputting function (i.e. **Action**), which outputs the stream as the result needed by the app.
-    - For example, `asList("contact")` collects the `CONTACT` field of items to a list.
+    - For example, `asList("contact")` collects the "contact" field of items to a list.
 
 The **Transformation** and **Action** functions are based on a lot of operators, including comparators, arithmetic operators, etc..
 For example, `filter()` is a **Transformation**, and it can take `TimeOperators.recent()` operator as the parameter,
 meaning it only keeps the items whose TIMESTAMP field value is a recent time.
 
 - **The full list of available data types and corresponding providers is at [here](items.html);**
-- **The full list of transformations and actions is at [here](pipeline.html).**
+- **The full list of transformations and actions is at [here](pipeline.html);**
 - **The full list of built-in operators is at [here](operators.html).**
 
 Except for the functions, a query also requires a `Purpose` parameter to state the purpose of the data access.
@@ -298,11 +303,11 @@ The basic data types in PrivacyStreams include **Item** and **Stream**.
     <pre>
     <code class="language-json">// An example of a call log Item.
     {
-        "time_created": 1489528276655,
-        "timestamp": 1489528267720,
-        "contact": "14120001234",
-        "type": "outgoing",
-        "duration": 30000
+        Long "time_created": 1489528276655,
+        Long "timestamp": 1489528267720,
+        String "contact": "14120001234",
+        String "type": "outgoing",
+        Long "duration": 30000
     }</code></pre>
 - **Stream** is what being produced, transformed and outputted in PrivacyStreams pipelines.
 A **Stream** is a sequence of **Item**s. In PrivacyStreams, we have two kinds of Streams:
@@ -332,14 +337,15 @@ Sometimes you may need to reuse a stream for different actions.
 For example, in the above example, if we also want to get the phone number that has the longest total duration of calls,
 we may need to reuse the call log stream.
 
-We provide a method `fork(int)` to support stream reusing, where the `int` parameter means the number of reuses.
+We provide a method `reuse(int)` to support stream reusing, where the `int` parameter means the number of reuses.
 
 <pre>
-<code class="line-numbers">MStreamInterface streamToReuse = 
+<code class="line-numbers">
+MStreamInterface streamToReuse = 
               uqi.getData(Call.getLogs(), Purpose.SOCIAL("finding your closest contact."))
                  .filter(recent("timestamp", 365*24*60*60*1000))
                  .groupBy("contact")
-                 .fork(2);  // fork current stream to reuse twice.
+                 .reuse(2);  // reuse current stream twice.
         
 String mostCalledContact = 
     streamToReuse.setGroupField("#calls", count())
@@ -349,7 +355,8 @@ String mostCalledContact =
 String longestCalledContact = 
     streamToReuse.setGroupField("durationOfCalls", sum("duration"))
                  .select(getItemWithMax("durationOfCalls"))
-                 .getField("contact");</code></pre>
+                 .getField("contact");
+</code></pre>
 
 ### Non-blocking pipeline
 
@@ -358,8 +365,8 @@ The UQI query with return values is called a blocking pipeline (which will block
 In Android, non-blocking pipelines might be more common. A non-blocking pipeline will **NOT** pause the code execution,
 and its result will be returned asynchronously.
 
-PrivacyStreams provides many **callback Action**s (such as `forEach`, `onChange`, `ifPresent`, etc. in `Callbacks` class.) 
-and **callback-based collector Action**s (such as `collectItems`, `toItemList`, etc. in `Collectors` class) for building non-blocking pipelines.
+PrivacyStreams provides many **non-blocking Action**s (such as `forEach`, `onChange`, `ifPresent`, etc.)
+for building non-blocking pipelines. You can find all non-blocking actions [here](pipeline.html).
 
 - For example, following code will not block, and each item will be printed asynchronously.
     - `.debug()` is the equivalence of `.output(Callbacks.forEach(ItemOperators.debug()))`.
@@ -377,7 +384,7 @@ and **callback-based collector Action**s (such as `collectItems`, `toItemList`, 
         .groupBy("contact")
         .setGroupField("#calls", count())
         .select(getItemWithMax("#calls"))
-        .output(ItemOperators.&lt;String&gt;getField("contact"), new Callback&lt;String&gt;() {
+        .ifPresent("contact", new Callback&lt;String&gt;() {
             @Override
             protected void onInput(String contact) {
                 System.out.println("Most-called contact: " + contact);
@@ -395,31 +402,33 @@ In PrivacyStreams, exception handling is extremely easy for both blocking pipeli
 
 For blocking pipelines, simply put your query in a try block and catch `PSException`. For example:
 
-<pre>
-    <code>try {
-        result = uqi.getData(...).transform(...).output(...); // A blocking pipeline.
-    } catch (PSException e) {
-        System.out.println(e.getMessage());
-    }</code></pre>
+<pre><code>
+try {
+    result = uqi.getData(...).transform(...).output(...); // A blocking pipeline.
+} catch (PSException e) {
+    System.out.println(e.getMessage());
+}
+</code></pre>
 
 ### Handling exceptions in non-blocking pipelines
 
 For non-blocking pipelines, simply override the `onFail(PSException e)` method in your result handler. For example:
 
-<pre>
-    <code> uqi.getData(...)
-        .transform(...)
-        .output(..., new Callback&lt;Object&gt;() {
-            @Override
-            protected void onInput(Object result) {
-                ...
-            }
-            
-            @Override
-            protected void onFail(PSException e) {
-                System.out.println(e.getMessage());
-            }
-        });</code></pre>
+<pre><code>
+ uqi.getData(...)
+    .transform(...)
+    .ifPresent(..., new Callback&lt;Object&gt;() {
+        @Override
+        protected void onInput(Object result) {
+            ...
+        }
+        
+        @Override
+        protected void onFail(PSException e) {
+            System.out.println(e.getMessage());
+        }
+    });
+</code></pre>
 
 ### Permission configuration
 
