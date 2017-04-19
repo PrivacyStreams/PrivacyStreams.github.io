@@ -3,6 +3,8 @@ layout: homepage
 title: Available pipeline (Transformation and Action) functions in PrivacyStreams
 ---
 
+Transformations:
+
 | Input -> Output | Tag | Reference & Description |
 |----|----|----|
 | `MStream->MStream` |  | `filter(Function<Item,Boolean> itemChecker)` <br> Filter the stream by testing an item with a function.  Specifically, keep the items that satisfy the function (aka. the function returns true).  Eg. `filter(eq("x", 100))` will keep the items whose x field is equal to 100.<br> - `itemChecker`:     the function to check each item. |
