@@ -20,3 +20,10 @@ Compensation: $70 (upon the successful completion of the task).
 
 If you are interested, please sign up at https://tinyurl.com/AndroidLibStudy 
 If you have any question, please contact Yuanchun (yuanchun.li@cs.cmu.edu) for more information.
+
+Useful links:
+
+- [Sign up form](https://goo.gl/forms/Jkpj5C1mIZo7CGDV2);
+- [Lab study: Post study questionnaire for using Android.](https://goo.gl/forms/HSmlgeSEyHyn2Rzv2);
+- [Lab study: Post study questionnaire for using PrivacyStreams.](https://goo.gl/forms/zqM9AUi6k65GkHJD3);
+- [Field study: Post study questionnaire for using PrivacyStreams to develop an app.](https://goo.gl/forms/HSmlgeSEyHyn2Rzv2).
