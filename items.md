@@ -302,6 +302,7 @@ An Geolocation item represents a geolocation value.
 | `Geolocation.SPEED` | `"speed"` | `Float` | The speed at the location, in meters/second. |
 | `Geolocation.PROVIDER` | `"provider"` | `String` | The provider of the location data, e.g., "gps" or "network". |
 | `Geolocation.ACCURACY` | `"accuracy"` | `Float` | The accuracy of the location data, in meters. |
+| `Geolocation.BEARING` | `"bearing"` | `Float` | The bearing of the location data.  Bearing is the horizontal direction of travel of this device,  and is not related to the device orientation. It is guaranteed to  be in the range (0.0, 360.0] if the device has a bearing.  If this location does not have a bearing, then the bearing value will be0.0. |
 
 ### Providers
 
@@ -346,6 +347,7 @@ An Image item represents an image, could be an image file from storage, etc.
 | `Image.BUCKET_NAME` | `"bucket_name"` | `String` | The name of the bucket (folder) that the image belongs to.  This field is only available with `getFromStorage` provider. |
 | `Image.IMAGE_ID` | `"image_id"` | `Integer` | The id of the image in Android media database.  This field is only available with `getFromStorage` provider. |
 | `Image.IMAGE_NAME` | `"image_name"` | `String` | The name of the image.  This field is only available with `getFromStorage` provider. |
+| `Image.IMAGE_PATH` | `"image_path"` | `String` | The file path of the image.  This field is only available with `getFromStorage` provider. |
 
 ### Providers
 
