@@ -47,9 +47,9 @@ An Audio item represents an audio, could be an audio record from microphone,
 
 | Type | Reference & Description |
 |----|----|
-| `SStreamProvider` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.  This provider requires `Manifest.permission.RECORD_AUDIO` permission.<br> - `duration`: the time duration of audio. |
-| `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, `recordPeriodic(1000, 4000)` will record audio from 0s-1s, 5s-6s, 10s-11s, ...  This provider requires `Manifest.permission.RECORD_AUDIO` permission.<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
-| `MStreamProvider` | `Audio.getFromStorage()` <br> Provide all Audio items in local file system.  This provider requires `Manifest.permission.READ_EXTERNAL_STORAGE` permission. |
+| `SStreamProvider` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.  This provider requires `android.permission.RECORD_AUDIO` permission.<br> - `duration`: the time duration of audio. |
+| `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, `recordPeriodic(1000, 4000)` will record audio from 0s-1s, 5s-6s, 10s-11s, ...  This provider requires `android.permission.RECORD_AUDIO` permission.<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
+| `MStreamProvider` | `Audio.getFromStorage()` <br> Provide all Audio items in local file system.  This provider requires `android.permission.READ_EXTERNAL_STORAGE` permission. |
 
 ## BaseAccessibilityEvent
 
@@ -113,7 +113,7 @@ A BluetoothDevice represents a bluetooth device.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `BluetoothDevice.getScanResults()` <br> Get a stream of scanned bluetooth devices.  This provider requires `Manifest.permission.BLUETOOTH` permission  and `Manifest.permission.BLUETOOTH_ADMIN` permission. |
+| `MStreamProvider` | `BluetoothDevice.getScanResults()` <br> Get a stream of scanned bluetooth devices.  This provider requires `android.permission.BLUETOOTH` permission  and `android.permission.BLUETOOTH_ADMIN` permission. |
 
 ## BrowserSearch
 
@@ -178,7 +178,7 @@ The meta information for a calendar event.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `CalendarEvent.getAll()` <br> Provide all CalendarEvent items from device's calendar database.  This provider requires `Manifest.permission.READ_CALENDAR` permission. |
+| `MStreamProvider` | `CalendarEvent.getAll()` <br> Provide all CalendarEvent items from device's calendar database.  This provider requires `android.permission.READ_CALENDAR` permission. |
 
 ## Call
 
@@ -200,8 +200,8 @@ The information of a phone call.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Call.getLogs()` <br> Provide a list of Call items from the device call log.  This provider requires `Manifest.permission.READ_CALL_LOG` permission. |
-| `MStreamProvider` | `Call.asUpdates()` <br> Provide a live stream of Call items.  A Call item will be generated if there is a new phone call event.  This provider requires `Manifest.permission.PROCESS_OUTGOING_CALLS` permission  and `Manifest.permission.READ_PHONE_STATE` permission. |
+| `MStreamProvider` | `Call.getLogs()` <br> Provide a list of Call items from the device call log.  This provider requires `android.permission.READ_CALL_LOG` permission. |
+| `MStreamProvider` | `Call.asUpdates()` <br> Provide a live stream of Call items.  A Call item will be generated if there is a new phone call event.  This provider requires `android.permission.PROCESS_OUTGOING_CALLS` permission  and `android.permission.READ_PHONE_STATE` permission. |
 
 ## Contact
 
@@ -223,7 +223,7 @@ The information of a contact.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Contact.getAll()` <br> Provide all Contact items in device's contacts database.  This provider requires `Manifest.permission.READ_CONTACTS` permission. |
+| `MStreamProvider` | `Contact.getAll()` <br> Provide all Contact items in device's contacts database.  This provider requires `android.permission.READ_CONTACTS` permission. |
 
 ## DeviceEvent
 
@@ -308,9 +308,9 @@ An Geolocation item represents a geolocation value.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Geolocation.asUpdates(long interval, String level)` <br> Provide a live stream of Geolocation as the location updates.  This provider requires a location permission based on the location level.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `Manifest.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `Manifest.permission.ACCESS_FINE_LOCATION` permission.<br> - `interval`: The interval between each two location updates.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`, `Geolocation.LEVEL_NEIGHBORHOOD`,               `Geolocation.LEVEL_BUILDING`, or `Geolocation.LEVEL_EXACT`. |
-| `SStreamProvider` | `Geolocation.asLastKnown(String level)` <br> Provide an SStream of a Geolocation item, as the last known location.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `Manifest.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `Manifest.permission.ACCESS_FINE_LOCATION` permission.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`, `Geolocation.LEVEL_NEIGHBORHOOD`,               `Geolocation.LEVEL_BUILDING`, or `Geolocation.LEVEL_EXACT`. |
-| `SStreamProvider` | `Geolocation.asCurrent(String level)` <br> Provide an SStream of a Geolocation item, as the current location.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `Manifest.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `Manifest.permission.ACCESS_FINE_LOCATION` permission.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`,               `Geolocation.LEVEL_NEIGHBORHOOD`, `Geolocation.LEVEL_BUILDING`,               or `Geolocation.LEVEL_EXACT`. |
+| `MStreamProvider` | `Geolocation.asUpdates(long interval, String level)` <br> Provide a live stream of Geolocation as the location updates.  This provider requires a location permission based on the location level.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `android.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `android.permission.ACCESS_FINE_LOCATION` permission.<br> - `interval`: The interval between each two location updates.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`, `Geolocation.LEVEL_NEIGHBORHOOD`,               `Geolocation.LEVEL_BUILDING`, or `Geolocation.LEVEL_EXACT`. |
+| `SStreamProvider` | `Geolocation.asLastKnown(String level)` <br> Provide an SStream of a Geolocation item, as the last known location.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `android.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `android.permission.ACCESS_FINE_LOCATION` permission.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`, `Geolocation.LEVEL_NEIGHBORHOOD`,               `Geolocation.LEVEL_BUILDING`, or `Geolocation.LEVEL_EXACT`. |
+| `SStreamProvider` | `Geolocation.asCurrent(String level)` <br> Provide an SStream of a Geolocation item, as the current location.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `android.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `android.permission.ACCESS_FINE_LOCATION` permission.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`,               `Geolocation.LEVEL_NEIGHBORHOOD`, `Geolocation.LEVEL_BUILDING`,               or `Geolocation.LEVEL_EXACT`. |
 
 ## GroupItem
 
@@ -353,8 +353,8 @@ An Image item represents an image, could be an image file from storage, etc.
 
 | Type | Reference & Description |
 |----|----|
-| `SStreamProvider` | `Image.takeFromCamera()` <br> Provide an SStream with an Image item, which represents a photo taken from camera.  This provider requires `Manifest.permission.CAMERA` permission  and `Manifest.permission.WRITE_EXTERNAL_STORAGE` permission. |
-| `MStreamProvider` | `Image.getFromStorage()` <br> Provide a stream of all Image items in local file system.  This provider requires `Manifest.permission.READ_EXTERNAL_STORAGE` permission. |
+| `SStreamProvider` | `Image.takeFromCamera()` <br> Provide an SStream with an Image item, which represents a photo taken from camera.  This provider requires `android.permission.CAMERA` permission  and `android.permission.WRITE_EXTERNAL_STORAGE` permission. |
+| `MStreamProvider` | `Image.getFromStorage()` <br> Provide a stream of all Image items in local file system.  This provider requires `android.permission.READ_EXTERNAL_STORAGE` permission. |
 
 ## Item
 
@@ -411,8 +411,8 @@ A text message. It could be from SMS, WhatsApp, Facebook, etc.
 | Type | Reference & Description |
 |----|----|
 | `MStreamProvider` | `Message.asUpdatesInIM()` <br> Provide a live stream of new Message items in Instant Messenger (IM) apps, including WhatsApp and Facebook.  This provider requires Accessibility service turned on. |
-| `MStreamProvider` | `Message.asIncomingSMS()` <br> Provide a live stream of new incoming Message items from the Android Short Message Service (SMS).  This provider requires `Manifest.permission.RECEIVE_SMS` permission. |
-| `MStreamProvider` | `Message.getAllSMS()` <br> Provide all Message items from Android Short Message Service SMS.  This provider requires `Manifest.permission.READ_SMS` permission. |
+| `MStreamProvider` | `Message.asIncomingSMS()` <br> Provide a live stream of new incoming Message items from the Android Short Message Service (SMS).  This provider requires `android.permission.RECEIVE_SMS` permission. |
+| `MStreamProvider` | `Message.getAllSMS()` <br> Provide all Message items from Android Short Message Service SMS.  This provider requires `android.permission.READ_SMS` permission. |
 
 ## MockItem
 
@@ -554,5 +554,5 @@ A WifiAp item represents the information of a WIFI AP.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `WifiAp.getScanResults()` <br> Provide a list of WifiAp items from WIFI scan result.  This provider requires `Manifest.permission.ACCESS_COARSE_LOCATION`,  `Manifest.permission.CHANGE_WIFI_STATE`, and `Manifest.permission.ACCESS_WIFI_STATE` permission. |
+| `MStreamProvider` | `WifiAp.getScanResults()` <br> Provide a list of WifiAp items from WIFI scan result.  This provider requires `android.permission.ACCESS_COARSE_LOCATION`,  `android.permission.CHANGE_WIFI_STATE`, and `android.permission.ACCESS_WIFI_STATE` permission. |
 
