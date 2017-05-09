@@ -298,7 +298,7 @@ An Geolocation item represents a geolocation value.
 |----|----|----|----|
 | `Geolocation.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `Geolocation.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of the location. |
-| `Geolocation.LAT_LNG` | `"lat_lng"` | `LatLng` | The coordinates of the location.  The value is a LatLng instance. |
+| `Geolocation.LAT_LON` | `"lat_lon"` | `LatLon` | The coordinates of the location.  The value is a LatLon instance. |
 | `Geolocation.SPEED` | `"speed"` | `Float` | The speed at the location, in meters/second. |
 | `Geolocation.PROVIDER` | `"provider"` | `String` | The provider of the location data, e.g., "gps" or "network". |
 | `Geolocation.ACCURACY` | `"accuracy"` | `Float` | The accuracy of the location data, in meters. |
