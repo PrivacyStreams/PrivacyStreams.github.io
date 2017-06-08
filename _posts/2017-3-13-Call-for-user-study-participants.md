@@ -1,6 +1,6 @@
 ---
 layout: homepage
-title: Call for user study participants
+title: (EXPIRED) Call for user study participants
 ---
 
 We (researchers from CHIMPS Lab and SYNERGY Lab, including Yuanchun Li, Fanglin Chen, Toby Li, Yuvraj Agarwal and Jason Hong) designed and implemented PrivacyStreams (https://privacystreams.github.io/) - an Android library for privacy-friendly personal data processing. We are seeking Android developers who are over 18 years old to join our user studies.
@@ -27,3 +27,4 @@ Useful links:
 - [Lab study: Post study questionnaire for using Android](https://goo.gl/forms/HSmlgeSEyHyn2Rzv2);
 - [Lab study: Post study questionnaire for using PrivacyStreams](https://goo.gl/forms/zqM9AUi6k65GkHJD3);
 - [Field study: Post study questionnaire for using PrivacyStreams to develop an app](https://goo.gl/forms/HSmlgeSEyHyn2Rzv2).
+
