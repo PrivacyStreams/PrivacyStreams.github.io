@@ -162,7 +162,7 @@ To get the code to work, you will need to define what the `callback` is. A worki
 // Define a callback to handle loudness changes
 Callback&lt;Integer&gt; callback = new Callback&lt;&gt;() {
     @Override
-    protected void onInput(Integer loudness) {
+    protected void onInput(Double loudness) {
         System.out.println("Current loudness is " + loudness + " dB.")
         // ...
     }
