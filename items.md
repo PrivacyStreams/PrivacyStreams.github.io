@@ -4,7 +4,6 @@ title: Available data types in PrivacyStreams
 ---
 
 - [Audio](#audio)
-- [BaseAccessibilityEvent](#baseaccessibilityevent)
 - [BatteryInfo](#batteryinfo)
 - [BluetoothDevice](#bluetoothdevice)
 - [BrowserSearch](#browsersearch)
@@ -14,6 +13,7 @@ title: Available data types in PrivacyStreams
 - [Contact](#contact)
 - [DeviceEvent](#deviceevent)
 - [DeviceState](#devicestate)
+- [Email](#email)
 - [EmptyItem](#emptyitem)
 - [Geolocation](#geolocation)
 - [GroupItem](#groupitem)
@@ -24,8 +24,6 @@ title: Available data types in PrivacyStreams
 - [MockItem](#mockitem)
 - [Notification](#notification)
 - [TestItem](#testitem)
-- [TextEntry](#textentry)
-- [UIAction](#uiaction)
 - [WifiAp](#wifiap)
 
 ## Audio
@@ -50,29 +48,6 @@ An Audio item represents an audio, could be an audio record from microphone,
 | `SStreamProvider` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.  This provider requires `android.permission.RECORD_AUDIO` permission.<br> - `duration`: the time duration of audio. |
 | `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, `recordPeriodic(1000, 4000)` will record audio from 0s-1s, 5s-6s, 10s-11s, ...  This provider requires `android.permission.RECORD_AUDIO` permission.<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
 | `MStreamProvider` | `Audio.getFromStorage()` <br> Provide all Audio items in local file system.  This provider requires `android.permission.READ_EXTERNAL_STORAGE` permission. |
-
-## BaseAccessibilityEvent
-
-Package: `com.github.privacystreams.accessibility`
-
-Base Accessibility event.
-
-### Fields
-
-| Reference | Name | Type | Description |
-|----|----|----|----|
-| `BaseAccessibilityEvent.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
-| `BaseAccessibilityEvent.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the item is generated. |
-| `BaseAccessibilityEvent.EVENT_TYPE` | `"event_type"` | `Integer` | The type of the event, see Android official document of [AccessibilityEvent](https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent.html) for a list of event types. |
-| `BaseAccessibilityEvent.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the current app (could be null). |
-| `BaseAccessibilityEvent.ROOT_VIEW` | `"root_view"` | `AccessibilityNodeInfo` | The root view of current event, which is an instance of AccessibilityNodeInfo. |
-| `BaseAccessibilityEvent.ITEM_COUNT` | `"item_count"` | `Integer` | The number of items in current event. |
-
-### Providers
-
-| Type | Reference & Description |
-|----|----|
-| `MStreamProvider` | `BaseAccessibilityEvent.asUpdates()` <br> Provide a live stream of BaseAccessibilityEvent items. |
 
 ## BatteryInfo
 
@@ -119,7 +94,7 @@ A BluetoothDevice represents a bluetooth device.
 
 Package: `com.github.privacystreams.accessibility`
 
-A browser search activity.
+Browser search activity.
 
 ### Fields
 
@@ -127,7 +102,6 @@ A browser search activity.
 |----|----|----|----|
 | `BrowserSearch.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `BrowserSearch.TEXT` | `"text"` | `String` | The searched text. |
-| `BrowserSearch.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the search event is happened. |
 
 ### Providers
 
@@ -139,7 +113,7 @@ A browser search activity.
 
 Package: `com.github.privacystreams.accessibility`
 
-A website visit event.
+Website visiting event.
 
 ### Fields
 
@@ -147,9 +121,8 @@ A website visit event.
 |----|----|----|----|
 | `BrowserVisit.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `BrowserVisit.TITLE` | `"title"` | `String` | The title of current webpage. |
-| `BrowserVisit.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the browser used to visit webpage. |
+| `BrowserVisit.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the browser used to visit the webpage. |
 | `BrowserVisit.URL` | `"url"` | `String` | The URL of the visited website. |
-| `BrowserVisit.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the web page is visited. |
 
 ### Providers
 
@@ -267,6 +240,31 @@ A DeviceEvent item represents a snapshot of device state.
 | Type | Reference & Description |
 |----|----|
 | `MStreamProvider` | `DeviceState.asUpdates(long interval, int mask)` <br> Provide a live stream of device states, including bluetooth, wifi, battery level, and/or foreground apps etc.<br> - `interval`: the interval between each two device state snapshots<br> - `mask`: the mask of device state type, could be `DeviceState.Masks.BLUETOOTH_DEVICE_LIST`, `DeviceState.Masks.WIFI_AP_LIST`, etc. |
+
+## Email
+
+Package: `com.github.privacystreams.communication`
+
+A received or sent email.
+
+### Fields
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `Email.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `Email.BODY` | `"body"` | `String` | The email body. |
+| `Email.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the email app. |
+| `Email.FROM` | `"from"` | `String` | The sender of the email |
+| `Email.TO` | `"to"` | `String` | The receiver of the email |
+| `Email.SUBJECT` | `"subject"` | `String` | The subject of the email |
+| `Email.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the message is sent or received. |
+
+### Providers
+
+| Type | Reference & Description |
+|----|----|
+| `MStreamProvider` | `Email.asGmailList(long afterTime, long beforeTime, int maxNumberOfResults)` <br> Provide a list of Email items from the Gmail app.  List will be generated given a time window (in ms) and  a max number of returned results for query. |
+| `MStreamProvider` | `Email.asGmailUpdates()` <br> Provide a live stream of Email items from the Gmail app.  Updates will be generated if there are emails sent or received per hour. |
 
 ## EmptyItem
 
@@ -449,12 +447,13 @@ An Notification item represents a received notification.
 | `Notification.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the notification. |
 | `Notification.TITLE` | `"title"` | `String` | The title of the notification. |
 | `Notification.TEXT` | `"text"` | `String` | The text of the notification. |
+| `Notification.EXTRA` | `"extra"` | `Bundle` | The extra bundle of the notification. |
 
 ### Providers
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Notification.asUpdates()` <br> Provide a list of WifiAp items from WIFI scan result. |
+| `MStreamProvider` | `Notification.asUpdates()` <br> Provide a list of Notification items from Notification catch result. |
 
 ## TestItem
 
@@ -482,55 +481,6 @@ A random item for testing.
 | `MStreamProvider` | `TestItem.getAllRandom(int maxInt, double maxDouble, int count)` <br> Provide a list of TestItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `count`: the number of random items |
 | `SStreamProvider` | `TestItem.getOneFrom(TestObject testObject)` <br> Provide one TestItem item, which is based on an given TestObject.<br> - `testObject`: the mock data |
 | `SStreamProvider` | `TestItem.getOne()` <br> Provide one TestItem item, which is randomly generated. |
-
-## TextEntry
-
-Package: `com.github.privacystreams.accessibility`
-
-A user text input action.
-
-### Fields
-
-| Reference | Name | Type | Description |
-|----|----|----|----|
-| `TextEntry.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
-| `TextEntry.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the item is generated. |
-| `TextEntry.EVENT_TYPE` | `"event_type"` | `Integer` | The type of the event, see Android official document of [AccessibilityEvent](https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent.html) for a list of event types. |
-| `TextEntry.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the current app (could be null). |
-| `TextEntry.ROOT_VIEW` | `"root_view"` | `AccessibilityNodeInfo` | The root view of current event, which is an instance of AccessibilityNodeInfo. |
-| `TextEntry.ITEM_COUNT` | `"item_count"` | `Integer` | The number of items in current event. |
-| `TextEntry.SOURCE_NODE` | `"source_node"` | `AccessibilityNodeInfo` | The source node of the UI action, which is an instance of [AccessibilityNodeInfo](https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html). |
-| `TextEntry.CONTENT` | `"content"` | `String` | The user-typed text content. |
-
-### Providers
-
-| Type | Reference & Description |
-|----|----|
-| `MStreamProvider` | `TextEntry.asUpdates()` <br> Provide a live stream of TextEntry items.  The provider will generate a TextEntry item once the user type some text. |
-
-## UIAction
-
-Package: `com.github.privacystreams.accessibility`
-
-A UI action, such as a view is clicked, selected, etc.
-
-### Fields
-
-| Reference | Name | Type | Description |
-|----|----|----|----|
-| `UIAction.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
-| `UIAction.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the item is generated. |
-| `UIAction.EVENT_TYPE` | `"event_type"` | `Integer` | The type of the event, see Android official document of [AccessibilityEvent](https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent.html) for a list of event types. |
-| `UIAction.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the current app (could be null). |
-| `UIAction.ROOT_VIEW` | `"root_view"` | `AccessibilityNodeInfo` | The root view of current event, which is an instance of AccessibilityNodeInfo. |
-| `UIAction.ITEM_COUNT` | `"item_count"` | `Integer` | The number of items in current event. |
-| `UIAction.SOURCE_NODE` | `"source_node"` | `AccessibilityNodeInfo` | The source node of the UI action, which is an instance of [AccessibilityNodeInfo](https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html). |
-
-### Providers
-
-| Type | Reference & Description |
-|----|----|
-| `MStreamProvider` | `UIAction.asUpdates()` <br> Provide a live stream of UIAction items.  A UIAction item will be generated once there is a UI action happened. |
 
 ## WifiAp
 

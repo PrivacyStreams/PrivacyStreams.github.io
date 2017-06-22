@@ -65,7 +65,7 @@ To use PrivacyStreams in your Android app, please add the following line to the 
 
 <pre>
 <code>dependencies {</code>
-    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.1.3'</code>
+    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.1.4'</code>
     <code>...
 }</code>
 </pre>
@@ -489,7 +489,7 @@ For more information about PrivacyStreams APIs, please refer to:
 - [Transformations and Actions](pipeline.html);
 - [All built-in operators](operators.html);
 - [Walk-through slides](pages/walkthrough.pdf);
-- [More examples](https://github.com/ylimit/PrivacyStreams/blob/master/app/src/main/java/com/github/privacystreams/Examples.java).
+- [More examples](https://github.com/PrivacyStreams/PrivacyStreams/blob/master/app/src/main/java/com/github/privacystreams/Examples.java).
 
 
 ### News & Posts
