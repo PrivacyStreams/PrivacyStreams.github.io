@@ -65,7 +65,7 @@ a {
   /*padding-left: 3rem;*/
   /*padding-bottom: 1rem;*/
   background-color: #155799;
-  background-image: linear-gradient(120deg, #155799, #159957);
+  /*background-image: linear-gradient(120deg, #155799, #159957);*/
 }
 
 /*@media screen and (min-width: 64em) {*/
@@ -98,15 +98,15 @@ a {
     z-index: 99;
   }
   .project-name {
-    font-size: 2rem; } }
+    font-size: 1.75rem; } }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
   .project-name {
-    font-size: 1.75rem; } }
+    font-size: 1.5rem; } }
 
 @media screen and (max-width: 42em) {
   .project-name {
-    font-size: 1.5rem; } }
+    font-size: 1.25rem; } }
 
 .project-tagline {
   margin-bottom: 2rem;
