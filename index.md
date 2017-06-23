@@ -77,7 +77,7 @@ For example:
 
 - To access location with PrivacyStreams, you may need to [install Google location service](pages/install_google_location.html);
 - To collect data to Dropbox, you need to [install Dropbox service](pages/install_dropbox_service.html);
-- To access browser search events, WhatsApp/Facebook messages, etc., you need to [enable Accessibility service](pages/enable_accessibility.html);
+- To access data based on accessibility service (such as browser search events, messages in IM apps, etc.), you need to [enable Accessibility service](pages/enable_accessibility.html);
 - To read system notifications, you need to [enable notification service](pages/enable_notification_service.html).
 
 You may also want to [check whether your installation is successful](pages/check_installation.html).

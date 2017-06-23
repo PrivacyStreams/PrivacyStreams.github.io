@@ -32,9 +32,9 @@ com.github.privacystreams.core.transformations.select
 com.github.privacystreams.device
 com.github.privacystreams.environment
 com.github.privacystreams.image
+com.github.privacystreams.io
 com.github.privacystreams.location
 com.github.privacystreams.motion
 com.github.privacystreams.notification
-com.github.privacystreams.storage
 com.github.privacystreams.utils
 com.github.privacystreams.utils.annotations

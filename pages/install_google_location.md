@@ -24,7 +24,7 @@ Then in your app code, enable Google location service:
     <code class="highlight">Globals.LocationConfig.useGoogleService = true;</code>
     <code>// Then the location API will be used on Google location service.
      uqi.getData(Geolocation.asUpdates(1000, Geolocation.LEVEL_CITY), Purpose.TEST("test"))
-        .setField("distorted_lat_lng", GeolocationOperators.distort(Geolocation.LAT_LNG, 1000))
+        .setField("distorted_lat_lon", GeolocationOperators.distort(Geolocation.LAT_LON, 1000))
         .debug();
 }</code>
 </pre>
