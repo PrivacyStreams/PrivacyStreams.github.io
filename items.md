@@ -3,6 +3,9 @@ layout: homepage
 title: Available data types in PrivacyStreams
 ---
 
+- [Acceleration](#acceleration)
+- [AirPressure](#airpressure)
+- [AmbientTemperature](#ambienttemperature)
 - [Audio](#audio)
 - [BatteryInfo](#batteryinfo)
 - [BluetoothDevice](#bluetoothdevice)
@@ -16,19 +19,84 @@ title: Available data types in PrivacyStreams
 - [Email](#email)
 - [EmptyItem](#emptyitem)
 - [Geolocation](#geolocation)
+- [Gravity](#gravity)
 - [GroupItem](#groupitem)
+- [Gyroscope](#gyroscope)
 - [Image](#image)
 - [Item](#item)
-- [LightEnv](#lightenv)
+- [Light](#light)
+- [LinearAcceleration](#linearacceleration)
 - [Message](#message)
 - [MockItem](#mockitem)
 - [Notification](#notification)
+- [RelativeHumidity](#relativehumidity)
+- [RotationVector](#rotationvector)
+- [StepCounter](#stepcounter)
 - [TestItem](#testitem)
 - [WifiAp](#wifiap)
 
+## Acceleration
+
+Package: `io.github.privacystreams.sensor`
+
+Acceleration.
+
+### Fields
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `Acceleration.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `Acceleration.X` | `"x"` | `Float` | Acceleration force along the x axis (including gravity). |
+| `Acceleration.Y` | `"y"` | `Float` | Acceleration force along the y axis (including gravity). |
+| `Acceleration.Z` | `"z"` | `Float` | Acceleration force along the z axis (including gravity). |
+
+### Providers
+
+| Type | Reference & Description |
+|----|----|
+| `PStreamProvider` | `Acceleration.asUpdates(int sensorDelay)` <br> Provide a live stream of sensor readings from accelerometer. |
+
+## AirPressure
+
+Package: `io.github.privacystreams.sensor`
+
+Air pressure environment sensor.
+
+### Fields
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `AirPressure.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `AirPressure.PRESSURE` | `"pressure"` | `Float` | Ambient air pressure. Unit: hPa or mbar. |
+
+### Providers
+
+| Type | Reference & Description |
+|----|----|
+| `PStreamProvider` | `AirPressure.asUpdates(int sensorDelay)` <br> Provide a live stream of sensor readings from air pressure sensor. |
+
+## AmbientTemperature
+
+Package: `io.github.privacystreams.sensor`
+
+Ambient air temperature sensor.
+
+### Fields
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `AmbientTemperature.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `AmbientTemperature.TEMPERATURE` | `"temperature"` | `Float` | Ambient air temperature. Unit: °C. |
+
+### Providers
+
+| Type | Reference & Description |
+|----|----|
+| `PStreamProvider` | `AmbientTemperature.asUpdates(int sensorDelay)` <br> Provide a live stream of sensor readings from air temperature sensor. |
+
 ## Audio
 
-Package: `com.github.privacystreams.audio`
+Package: `io.github.privacystreams.audio`
 
 An Audio item represents an audio, could be an audio record from microphone,
  an audio file from storage, etc.
@@ -45,13 +113,13 @@ An Audio item represents an audio, could be an audio record from microphone,
 
 | Type | Reference & Description |
 |----|----|
-| `SStreamProvider` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.  This provider requires `android.permission.RECORD_AUDIO` permission.<br> - `duration`: the time duration of audio. |
-| `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, `recordPeriodic(1000, 4000)` will record audio from 0s-1s, 5s-6s, 10s-11s, ...  This provider requires `android.permission.RECORD_AUDIO` permission.<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
-| `MStreamProvider` | `Audio.getFromStorage()` <br> Provide all Audio items in local file system.  This provider requires `android.permission.READ_EXTERNAL_STORAGE` permission. |
+| `PStreamProvider` | `Audio.record(long duration)` <br> Provide an Audio item.  The audio is recorded from microphone for a certain duration of time.  This provider requires `android.permission.RECORD_AUDIO` permission.<br> - `duration`: the time duration of audio. |
+| `PStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, `recordPeriodic(1000, 4000)` will record audio from 0s-1s, 5s-6s, 10s-11s, ...  This provider requires `android.permission.RECORD_AUDIO` permission.<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
+| `PStreamProvider` | `Audio.getFromStorage()` <br> Provide all Audio items in local file system.  This provider requires `android.permission.READ_EXTERNAL_STORAGE` permission. |
 
 ## BatteryInfo
 
-Package: `com.github.privacystreams.device`
+Package: `io.github.privacystreams.device`
 
 A BatteryInfo item represents an event about the device.
 
@@ -67,11 +135,11 @@ A BatteryInfo item represents an event about the device.
 
 | Type | Reference & Description |
 |----|----|
-| `SStreamProvider` | `BatteryInfo.asSnapshot()` <br> Provider an SStream of current battery info. |
+| `PStreamProvider` | `BatteryInfo.asSnapshot()` <br> Provide current battery info. |
 
 ## BluetoothDevice
 
-Package: `com.github.privacystreams.device`
+Package: `io.github.privacystreams.device`
 
 A BluetoothDevice represents a bluetooth device.
 
@@ -88,11 +156,11 @@ A BluetoothDevice represents a bluetooth device.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `BluetoothDevice.getScanResults()` <br> Get a stream of scanned bluetooth devices.  This provider requires `android.permission.BLUETOOTH` permission  and `android.permission.BLUETOOTH_ADMIN` permission. |
+| `PStreamProvider` | `BluetoothDevice.getScanResults()` <br> Get a stream of scanned bluetooth devices.  This provider requires `android.permission.BLUETOOTH` permission  and `android.permission.BLUETOOTH_ADMIN` permission. |
 
 ## BrowserSearch
 
-Package: `com.github.privacystreams.accessibility`
+Package: `io.github.privacystreams.accessibility`
 
 Browser search activity.
 
@@ -107,11 +175,11 @@ Browser search activity.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `BrowserSearch.asUpdates()` <br> Provide a live stream of BrowserSearch items.  An item will be generated once the user do a search in the browser. |
+| `PStreamProvider` | `BrowserSearch.asUpdates()` <br> Provide a live stream of BrowserSearch items.  An item will be generated once the user do a search in the browser. |
 
 ## BrowserVisit
 
-Package: `com.github.privacystreams.accessibility`
+Package: `io.github.privacystreams.accessibility`
 
 Website visiting event.
 
@@ -128,11 +196,11 @@ Website visiting event.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `BrowserVisit.asUpdates()` <br> Provide a live stream of BrowserVisit items.  An item will be generated once the user visit a website in the browser. |
+| `PStreamProvider` | `BrowserVisit.asUpdates()` <br> Provide a live stream of BrowserVisit items.  An item will be generated once the user visit a website in the browser. |
 
 ## CalendarEvent
 
-Package: `com.github.privacystreams.calendar`
+Package: `io.github.privacystreams.calendar`
 
 The meta information for a calendar event.
 
@@ -151,11 +219,11 @@ The meta information for a calendar event.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `CalendarEvent.getAll()` <br> Provide all CalendarEvent items from device's calendar database.  This provider requires `android.permission.READ_CALENDAR` permission. |
+| `PStreamProvider` | `CalendarEvent.getAll()` <br> Provide all CalendarEvent items from device's calendar database.  This provider requires `android.permission.READ_CALENDAR` permission. |
 
 ## Call
 
-Package: `com.github.privacystreams.communication`
+Package: `io.github.privacystreams.communication`
 
 The information of a phone call.
 
@@ -173,12 +241,12 @@ The information of a phone call.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Call.getLogs()` <br> Provide a list of Call items from the device call log.  This provider requires `android.permission.READ_CALL_LOG` permission. |
-| `MStreamProvider` | `Call.asUpdates()` <br> Provide a live stream of Call items.  A Call item will be generated if there is a new phone call event.  This provider requires `android.permission.PROCESS_OUTGOING_CALLS` permission  and `android.permission.READ_PHONE_STATE` permission. |
+| `PStreamProvider` | `Call.getLogs()` <br> Provide a list of Call items from the device call log.  This provider requires `android.permission.READ_CALL_LOG` permission. |
+| `PStreamProvider` | `Call.asUpdates()` <br> Provide a live stream of Call items.  A Call item will be generated if there is a new phone call event.  This provider requires `android.permission.PROCESS_OUTGOING_CALLS` permission  and `android.permission.READ_PHONE_STATE` permission. |
 
 ## Contact
 
-Package: `com.github.privacystreams.communication`
+Package: `io.github.privacystreams.communication`
 
 The information of a contact.
 
@@ -196,11 +264,11 @@ The information of a contact.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Contact.getAll()` <br> Provide all Contact items in device's contacts database.  This provider requires `android.permission.READ_CONTACTS` permission. |
+| `PStreamProvider` | `Contact.getAll()` <br> Provide all Contact items in device's contacts database.  This provider requires `android.permission.READ_CONTACTS` permission. |
 
 ## DeviceEvent
 
-Package: `com.github.privacystreams.device`
+Package: `io.github.privacystreams.device`
 
 A DeviceEvent item represents an event about the device.
 
@@ -217,11 +285,11 @@ A DeviceEvent item represents an event about the device.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `DeviceEvent.asUpdates()` <br> Provide a live stream of device events, including screen/boot/battery/ringer events. |
+| `PStreamProvider` | `DeviceEvent.asUpdates()` <br> Provide a live stream of device events, including screen/boot/battery/ringer events. |
 
 ## DeviceState
 
-Package: `com.github.privacystreams.device`
+Package: `io.github.privacystreams.device`
 
 A DeviceEvent item represents a snapshot of device state.
 
@@ -239,13 +307,13 @@ A DeviceEvent item represents a snapshot of device state.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `DeviceState.asUpdates(long interval, int mask)` <br> Provide a live stream of device states, including bluetooth, wifi, battery level, and/or foreground apps etc.<br> - `interval`: the interval between each two device state snapshots<br> - `mask`: the mask of device state type, could be `DeviceState.Masks.BLUETOOTH_DEVICE_LIST`, `DeviceState.Masks.WIFI_AP_LIST`, etc. |
+| `PStreamProvider` | `DeviceState.asUpdates(long interval, int mask)` <br> Provide a live stream of device states, including bluetooth, wifi, battery level, and/or foreground apps etc.<br> - `interval`: the interval between each two device state snapshots<br> - `mask`: the mask of device state type, could be `DeviceState.Masks.BLUETOOTH_DEVICE_LIST`, `DeviceState.Masks.WIFI_AP_LIST`, etc. |
 
 ## Email
 
-Package: `com.github.privacystreams.communication`
+Package: `io.github.privacystreams.communication`
 
-A received or sent email.
+Email.
 
 ### Fields
 
@@ -263,12 +331,12 @@ A received or sent email.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Email.asGmailList(long afterTime, long beforeTime, int maxNumberOfResults)` <br> Provide a list of Email items from the Gmail app.  List will be generated given a time window (in ms) and  a max number of returned results for query. |
-| `MStreamProvider` | `Email.asGmailUpdates()` <br> Provide a live stream of Email items from the Gmail app.  Updates will be generated if there are emails sent or received per hour. |
+| `PStreamProvider` | `Email.asGmailHistory(long afterTime, long beforeTime, int maxNumberOfResults)` <br> Provide a list of Email items from Gmail.<br> - `afterTime`: the minimum timestamp of emails to get<br> - `beforeTime`: the maximum timestamp of emails to get<br> - `maxNumberOfResults`: the max number of emails to get |
+| `PStreamProvider` | `Email.asGmailUpdates(long frequency)` <br> Provide a live stream of Emails from Gmail.  Updates will be generated if there are emails sent or received per hour.<br> - `frequency`: the frequency of checking updates |
 
 ## EmptyItem
 
-Package: `com.github.privacystreams.core.items`
+Package: `io.github.privacystreams.core.items`
 
 An empty item.
 
@@ -282,11 +350,11 @@ An empty item.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `EmptyItem.asUpdates(long interval)` <br> Provide a live stream of EmptyItems. The interval between each two items is a given value. |
+| `PStreamProvider` | `EmptyItem.asUpdates(long interval)` <br> Provide a live stream of EmptyItems. The interval between each two items is a given value. |
 
 ## Geolocation
 
-Package: `com.github.privacystreams.location`
+Package: `io.github.privacystreams.location`
 
 An Geolocation item represents a geolocation value.
 
@@ -306,13 +374,34 @@ An Geolocation item represents a geolocation value.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Geolocation.asUpdates(long interval, String level)` <br> Provide a live stream of Geolocation as the location updates.  This provider requires a location permission based on the location level.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `android.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `android.permission.ACCESS_FINE_LOCATION` permission.<br> - `interval`: The interval between each two location updates.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`, `Geolocation.LEVEL_NEIGHBORHOOD`,               `Geolocation.LEVEL_BUILDING`, or `Geolocation.LEVEL_EXACT`. |
-| `SStreamProvider` | `Geolocation.asLastKnown(String level)` <br> Provide an SStream of a Geolocation item, as the last known location.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `android.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `android.permission.ACCESS_FINE_LOCATION` permission.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`, `Geolocation.LEVEL_NEIGHBORHOOD`,               `Geolocation.LEVEL_BUILDING`, or `Geolocation.LEVEL_EXACT`. |
-| `SStreamProvider` | `Geolocation.asCurrent(String level)` <br> Provide an SStream of a Geolocation item, as the current location.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `android.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `android.permission.ACCESS_FINE_LOCATION` permission.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`,               `Geolocation.LEVEL_NEIGHBORHOOD`, `Geolocation.LEVEL_BUILDING`,               or `Geolocation.LEVEL_EXACT`. |
+| `PStreamProvider` | `Geolocation.asUpdates(long interval, String level)` <br> Provide a live stream of Geolocation as the location updates.  This provider requires a location permission based on the location level.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `android.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `android.permission.ACCESS_FINE_LOCATION` permission.<br> - `interval`: The interval between each two location updates.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`, `Geolocation.LEVEL_NEIGHBORHOOD`,               `Geolocation.LEVEL_BUILDING`, or `Geolocation.LEVEL_EXACT`. |
+| `PStreamProvider` | `Geolocation.asLastKnown(String level)` <br> Provide an PStream of a Geolocation item, as the last known location.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `android.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `android.permission.ACCESS_FINE_LOCATION` permission.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`, `Geolocation.LEVEL_NEIGHBORHOOD`,               `Geolocation.LEVEL_BUILDING`, or `Geolocation.LEVEL_EXACT`. |
+| `PStreamProvider` | `Geolocation.asCurrent(String level)` <br> Provide an PStream of a Geolocation item, as the current location.  If `level` is `Geolocation.LEVEL_EXACT`, this provider requires `android.permission.ACCESS_COARSE_LOCATION` permission.  If `level` is any other level, this provider requires `android.permission.ACCESS_FINE_LOCATION` permission.<br> - `level`: The location granularity level, could be               `Geolocation.LEVEL_COUNTRY`, `Geolocation.LEVEL_CITY`,               `Geolocation.LEVEL_NEIGHBORHOOD`, `Geolocation.LEVEL_BUILDING`,               or `Geolocation.LEVEL_EXACT`. |
+
+## Gravity
+
+Package: `io.github.privacystreams.sensor`
+
+Gravity sensor.
+
+### Fields
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `Gravity.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `Gravity.X` | `"x"` | `Float` | Force of gravity along the x axis. |
+| `Gravity.Y` | `"y"` | `Float` | Force of gravity along the y axis. |
+| `Gravity.Z` | `"z"` | `Float` | Force of gravity along the z axis. |
+
+### Providers
+
+| Type | Reference & Description |
+|----|----|
+| `PStreamProvider` | `Gravity.asUpdates(int sensorDelay)` <br> Provide a live stream of sensor readings from gravity sensor. |
 
 ## GroupItem
 
-Package: `com.github.privacystreams.core.transformations.group`
+Package: `io.github.privacystreams.core.transformations.group`
 
 An item in a stream after grouping operation.
  GroupItem cannot be produced directly, instead, it can be generated using `groupBy` or `localGroupBy` operators.
@@ -328,9 +417,30 @@ An item in a stream after grouping operation.
 | `GroupItem.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 | `GroupItem.GROUPED_ITEMS` | `"grouped_items"` | `List<>` | A list of the grouped items. |
 
+## Gyroscope
+
+Package: `io.github.privacystreams.sensor`
+
+Gyroscope.
+
+### Fields
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `Gyroscope.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `Gyroscope.X` | `"x"` | `Float` | Rate of rotation around the x axis. |
+| `Gyroscope.Y` | `"y"` | `Float` | Rate of rotation around the y axis. |
+| `Gyroscope.Z` | `"z"` | `Float` | Rate of rotation around the z axis. |
+
+### Providers
+
+| Type | Reference & Description |
+|----|----|
+| `PStreamProvider` | `Gyroscope.asUpdates(int sensorDelay)` <br> Provide a live stream of sensor readings from gyroscope. |
+
 ## Image
 
-Package: `com.github.privacystreams.image`
+Package: `io.github.privacystreams.image`
 
 An Image item represents an image, could be an image file from storage, etc.
 
@@ -351,12 +461,12 @@ An Image item represents an image, could be an image file from storage, etc.
 
 | Type | Reference & Description |
 |----|----|
-| `SStreamProvider` | `Image.takeFromCamera()` <br> Provide an SStream with an Image item, which represents a photo taken from camera.  This provider requires `android.permission.CAMERA` permission  and `android.permission.WRITE_EXTERNAL_STORAGE` permission. |
-| `MStreamProvider` | `Image.getFromStorage()` <br> Provide a stream of all Image items in local file system.  This provider requires `android.permission.READ_EXTERNAL_STORAGE` permission. |
+| `PStreamProvider` | `Image.takeFromCamera()` <br> Provide an PStream with an Image item, which represents a photo taken from camera.  This provider requires `android.permission.CAMERA` permission  and `android.permission.WRITE_EXTERNAL_STORAGE` permission. |
+| `PStreamProvider` | `Image.getFromStorage()` <br> Provide a stream of all Image items in local file system.  This provider requires `android.permission.READ_EXTERNAL_STORAGE` permission. |
 
 ## Item
 
-Package: `com.github.privacystreams.core`
+Package: `io.github.privacystreams.core`
 
 An Item is a basic element in a stream.
  This class is the base class of all type of personal data items in PrivacyStream.
@@ -367,29 +477,49 @@ An Item is a basic element in a stream.
 |----|----|----|----|
 | `Item.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 
-## LightEnv
+## Light
 
-Package: `com.github.privacystreams.environment`
+Package: `io.github.privacystreams.sensor`
 
-A LightEnv item represents the data read from light environment sensor.
+Light environment sensor.
 
 ### Fields
 
 | Reference | Name | Type | Description |
 |----|----|----|----|
-| `LightEnv.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
-| `LightEnv.INTENSITY` | `"intensity"` | `Float` | The light intensity, in lumens. |
-| `LightEnv.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the light sensor value is read. |
+| `Light.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `Light.ILLUMINANCE` | `"illuminance"` | `Float` | The light illuminance. Unit: lx. |
 
 ### Providers
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `LightEnv.asUpdates()` <br> Provide a live stream of LightEnv items that are read from the light sensor. |
+| `PStreamProvider` | `Light.asUpdates(int sensorDelay)` <br> Provide a live stream of sensor readings from light sensor. |
+
+## LinearAcceleration
+
+Package: `io.github.privacystreams.sensor`
+
+Linear acceleration.
+
+### Fields
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `LinearAcceleration.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `LinearAcceleration.X` | `"x"` | `Float` | Acceleration force along the x axis (excluding gravity). |
+| `LinearAcceleration.Y` | `"y"` | `Float` | Acceleration force along the y axis (excluding gravity). |
+| `LinearAcceleration.Z` | `"z"` | `Float` | Acceleration force along the z axis (excluding gravity). |
+
+### Providers
+
+| Type | Reference & Description |
+|----|----|
+| `PStreamProvider` | `LinearAcceleration.asUpdates(int sensorDelay)` <br> Provide a live stream of sensor readings from linear acceleration sensor. |
 
 ## Message
 
-Package: `com.github.privacystreams.communication`
+Package: `io.github.privacystreams.communication`
 
 A text message. It could be from SMS, WhatsApp, Facebook, etc.
 
@@ -408,13 +538,13 @@ A text message. It could be from SMS, WhatsApp, Facebook, etc.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Message.asUpdatesInIM()` <br> Provide a live stream of new Message items in Instant Messenger (IM) apps, including WhatsApp and Facebook.  This provider requires Accessibility service turned on. |
-| `MStreamProvider` | `Message.asIncomingSMS()` <br> Provide a live stream of new incoming Message items from the Android Short Message Service (SMS).  This provider requires `android.permission.RECEIVE_SMS` permission. |
-| `MStreamProvider` | `Message.getAllSMS()` <br> Provide all Message items from Android Short Message Service SMS.  This provider requires `android.permission.READ_SMS` permission. |
+| `PStreamProvider` | `Message.asUpdatesInIM()` <br> Provide a live stream of new Message items in Instant Messenger (IM) apps, including WhatsApp and Facebook.  This provider requires Accessibility service turned on. |
+| `PStreamProvider` | `Message.asIncomingSMS()` <br> Provide a live stream of new incoming Message items from the Android Short Message Service (SMS).  This provider requires `android.permission.RECEIVE_SMS` permission. |
+| `PStreamProvider` | `Message.getAllSMS()` <br> Provide all Message items from Android Short Message Service SMS.  This provider requires `android.permission.READ_SMS` permission. |
 
 ## MockItem
 
-Package: `com.github.privacystreams.core.items`
+Package: `io.github.privacystreams.core.items`
 
 A mock item. The content of a MockItem is mocked from another item.
 
@@ -424,15 +554,9 @@ A mock item. The content of a MockItem is mocked from another item.
 |----|----|----|----|
 | `MockItem.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
 
-### Providers
-
-| Type | Reference & Description |
-|----|----|
-| `SStreamProvider` | `MockItem.asRandomItem()` <br> Provide a TestItem item, which is randomly generated. |
-
 ## Notification
 
-Package: `com.github.privacystreams.notification`
+Package: `io.github.privacystreams.notification`
 
 An Notification item represents a received notification.
 
@@ -453,11 +577,71 @@ An Notification item represents a received notification.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Notification.asUpdates()` <br> Provide a list of Notification items from Notification catch result. |
+| `PStreamProvider` | `Notification.asUpdates()` <br> Provide a list of Notification items from Notification catch result. |
+
+## RelativeHumidity
+
+Package: `io.github.privacystreams.sensor`
+
+Ambient relative humidity sensor.
+
+### Fields
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `RelativeHumidity.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `RelativeHumidity.HUMIDITY` | `"humidity"` | `Float` | Ambient relative humidity. Unit: %. |
+
+### Providers
+
+| Type | Reference & Description |
+|----|----|
+| `PStreamProvider` | `RelativeHumidity.asUpdates(int sensorDelay)` <br> Provide a live stream of sensor readings from ambient relative humidity sensor. |
+
+## RotationVector
+
+Package: `io.github.privacystreams.sensor`
+
+Rotation vector sensor.
+
+### Fields
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `RotationVector.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `RotationVector.X` | `"x"` | `Float` | Rotation vector component along the x axis (x * sin(θ/2)). |
+| `RotationVector.Y` | `"y"` | `Float` | Rotation vector component along the y axis (y * sin(θ/2)). |
+| `RotationVector.Z` | `"z"` | `Float` | Rotation vector component along the z axis (z * sin(θ/2)). |
+| `RotationVector.SCALAR` | `"scalar"` | `Float` | (Optional) Scalar component of the rotation vector ((cos(θ/2)). |
+
+### Providers
+
+| Type | Reference & Description |
+|----|----|
+| `PStreamProvider` | `RotationVector.asUpdates(int sensorDelay)` <br> Provide a live stream of sensor readings from rotation vector sensor. |
+
+## StepCounter
+
+Package: `io.github.privacystreams.sensor`
+
+Step counter.
+
+### Fields
+
+| Reference | Name | Type | Description |
+|----|----|----|----|
+| `StepCounter.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
+| `StepCounter.STEPS` | `"steps"` | `Float` | Rotation vector component along the x axis (x * sin(θ/2)). |
+
+### Providers
+
+| Type | Reference & Description |
+|----|----|
+| `PStreamProvider` | `StepCounter.asUpdates(int sensorDelay)` <br> Provide a live stream of sensor readings from the step counter. |
 
 ## TestItem
 
-Package: `com.github.privacystreams.core.items`
+Package: `io.github.privacystreams.core.items`
 
 A random item for testing.
 
@@ -475,16 +659,14 @@ A random item for testing.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `TestItem.asUpdatesFrom(List<TestObject> testObjects, long interval)` <br> Provide a live stream of TestItem items, which are from a given list.<br> - `testObjects`: the list of mock data<br> - `interval`: the interval between each two items, in milliseconds |
-| `MStreamProvider` | `TestItem.asUpdates(int maxInt, double maxDouble, long interval)` <br> Provide a live stream of TestItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `interval`: the interval between each two items, in milliseconds |
-| `MStreamProvider` | `TestItem.getAllFrom(List<TestObject> testObjects)` <br> Provide a stream of existing TestItem items, which are from a given list.<br> - `testObjects`: the list of mock data |
-| `MStreamProvider` | `TestItem.getAllRandom(int maxInt, double maxDouble, int count)` <br> Provide a list of TestItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `count`: the number of random items |
-| `SStreamProvider` | `TestItem.getOneFrom(TestObject testObject)` <br> Provide one TestItem item, which is based on an given TestObject.<br> - `testObject`: the mock data |
-| `SStreamProvider` | `TestItem.getOne()` <br> Provide one TestItem item, which is randomly generated. |
+| `PStreamProvider` | `TestItem.asUpdatesFrom(List<TestObject> testObjects, long interval)` <br> Provide a live stream of TestItem items, which are from a given list.<br> - `testObjects`: the list of mock data<br> - `interval`: the interval between each two items, in milliseconds |
+| `PStreamProvider` | `TestItem.asUpdates(int maxInt, double maxDouble, long interval)` <br> Provide a live stream of TestItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `interval`: the interval between each two items, in milliseconds |
+| `PStreamProvider` | `TestItem.getAllFrom(List<TestObject> testObjects)` <br> Provide a stream of existing TestItem items, which are from a given list.<br> - `testObjects`: the list of mock data |
+| `PStreamProvider` | `TestItem.getAllRandom(int maxInt, double maxDouble, int count)` <br> Provide a list of TestItem items, which are randomly generated.<br> - `maxInt`: the max value of the int field of the random mock items<br> - `maxDouble`: the max value of the double field of the random mock items<br> - `count`: the number of random items |
 
 ## WifiAp
 
-Package: `com.github.privacystreams.device`
+Package: `io.github.privacystreams.device`
 
 A WifiAp item represents the information of a WIFI AP.
 
@@ -504,5 +686,5 @@ A WifiAp item represents the information of a WIFI AP.
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `WifiAp.getScanResults()` <br> Provide a list of WifiAp items from WIFI scan result.  This provider requires `android.permission.ACCESS_COARSE_LOCATION`,  `android.permission.CHANGE_WIFI_STATE`, and `android.permission.ACCESS_WIFI_STATE` permission. |
+| `PStreamProvider` | `WifiAp.getScanResults()` <br> Provide a list of WifiAp items from WIFI scan result.  This provider requires `android.permission.ACCESS_COARSE_LOCATION`,  `android.permission.CHANGE_WIFI_STATE`, and `android.permission.ACCESS_WIFI_STATE` permission. |
 
