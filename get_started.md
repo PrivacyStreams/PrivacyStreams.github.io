@@ -36,7 +36,7 @@ Simply add the following line to `build.gradle` file under you app module.
 
 <pre>
 <code>dependencies {</code>
-    <code class="highlight">compile 'com.github.privacystreams:privacystreams-core:0.0.2'</code>
+    <code class="highlight">compile 'io.github.privacystreams:privacystreams-android-sdk:0.1.5'</code>
     <code>...
 }</code>
 </pre>
@@ -217,7 +217,7 @@ With the simplification, the code in the above example can be written as:
         .getField(Phonecall.CONTACT);</code></pre>
 
 If you use static import, the code can be even briefer.
-For example, with `import static com.github.privacystreams.commons.time.TimeOperators.recent;`, you can simplify `TimeOperators.recent(xxx)` with `recent(xxx)`.
+For example, with `import static io.github.privacystreams.commons.time.TimeOperators.recent;`, you can simplify `TimeOperators.recent(xxx)` with `recent(xxx)`.
 With static import, the above code can be simplified as:
 <pre>
 <code class="line-numbers">String mostCalledContact = 

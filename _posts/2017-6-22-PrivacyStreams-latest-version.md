@@ -1,9 +1,9 @@
 ---
 layout: homepage
-title: privacystreams-core:0.1.4 is released!
+title: privacystreams-android-sdk:0.1.5 is released!
 ---
 
-## privacystreams-core:0.1.4 is released!
+## privacystreams-android-sdk:0.1.5 is released!
 
 Please update your gradle/maven file to import the latest PrivacyStreams library!
 
@@ -12,7 +12,7 @@ In your gradle file, add:
 <pre>
 <code class="language-json">
 dependencies {
-    compile 'com.github.privacystreams:privacystreams-core:0.1.4'
+    compile 'io.github.privacystreams:privacystreams-android-sdk:0.1.5'
 }
 </code>
 </pre>
