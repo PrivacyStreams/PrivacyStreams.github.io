@@ -8,7 +8,7 @@ layout: homepage
     - [Getting microphone loudness periodically](#getting-microphone-loudness-periodically)
     - [Getting recent called contacts](#getting-recent-called-contacts)
 + [PrivacyStreams API](#privacystreams-api)
-    - [Unified query interface (UQI)](#unified-query-interface-uqi)
+    - [Uniform query interface (UQI)](#unified-query-interface-uqi)
     - [PrivacyStreams pipeline](#privacyStreams-pipeline)
     - [Reusing streams](#reusing-streams)
 + [Exceptions and permissions](#exceptions-and-permissions)
@@ -131,7 +131,7 @@ In this example, the provider is `Audio.recordPeriodic()`, which will provide a 
 
 | Type | Reference & Description |
 |----|----|
-| `MStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, <code>recordPeriodic(1000, 4000)</code> will record audio from 0s-1s, 5s-6s, 10s-11s, ...<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
+| `PStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, <code>recordPeriodic(1000, 4000)</code> will record audio from 0s-1s, 5s-6s, 10s-11s, ...<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
 
 The list of all available data types and corresponding providers can be found [here](items.html).
 
@@ -253,10 +253,10 @@ String mostCalledContact =
         .groupBy("contact")  // group by "contact" field (phone number)
         .setGroupField("#calls", StatisticOperators.count())  // create "#calls" field as the number of grouped call logs in each group
         .select(ItemsOperators.getItemWithMax("#calls"))  // select the item with largest "#calls"
-        .getField("contact");  // get the "contact" field of the item
+        .getFirst("contact");  // get the "contact" field of the item
 </code></pre>
 
-### Unified query interface (UQI)
+### Uniform query interface (UQI)
 
 In PrivacyStreams, all types of personal data can be accessed and processed through the unified query interface (**UQI**).
 
@@ -297,7 +297,7 @@ The figure below shows an overview of the **PrivacyStreams pipeline**:
 
 The basic data types in PrivacyStreams include **Item** and **Stream**.
 
-- **Item** is the type of the element in a Stream. An **Item** is a map, in which each key-value pair represents the name and value of a field.
+- **Item** is the type of elements in a Stream. An **Item** is a map, in which each key-value pair represents the name and value of a field.
     - Each kind of personal data has a list of pre-defined fields. Below is an example of call log **Item**:
 
     <pre>
@@ -310,19 +310,7 @@ The basic data types in PrivacyStreams include **Item** and **Stream**.
         Long "duration": 30000
     }</code></pre>
 - **Stream** is what being produced, transformed and outputted in PrivacyStreams pipelines.
-A **Stream** is a sequence of **Item**s. In PrivacyStreams, we have two kinds of Streams:
-    1. **MStream** (short for "multi-item stream") contains multiple items.
-        - For example, the “call log stream” (`Call.getLogs()`) contains many `Call` items,
-        and the stream of location updates contains many `Geolocation` items;
-    2. **SStream** (short for "single-item stream") contains only one item.
-        - For example, the “last-known location stream” (`GeoLocation.asLastKnown()`) only contains one `Geolocation item.
-    
-    The fine-grained data processing state machine is as follows:
-
-<figure>
-<img src="static/figure/state_machine.png" alt="PrivacyStreams data processing state machine." style="min-width: 600px">
-</figure>
-
+A **Stream** is a sequence of **Item**s. In PrivacyStreams, all types of personal data are viewed as streams.
 - **The list of all pipeline functions (Transformation & Action) is at [here](pipeline.html).**
 
 The pipeline of the running example is illustrated as follows (note that some field names are simplified and the field values are mocked):
@@ -332,6 +320,8 @@ The pipeline of the running example is illustrated as follows (note that some fi
 </figure>
 
 ### Reusing streams
+
+(Deprecated)
 
 Sometimes you may need to reuse a stream for different actions.
 For example, in the above example, if we also want to get the phone number that has the longest total duration of calls,
@@ -384,7 +374,8 @@ for building non-blocking pipelines. You can find all non-blocking actions [here
         .filter(recent("timestamp", 365*24*60*60*1000))
         .groupBy("contact")
         .setGroupField("#calls", count())
-        .select(getItemWithMax("#calls"))
+        .sortBy("#calls")
+        .reverse()
         .ifPresent("contact", new Callback&lt;String&gt;() {
             @Override
             protected void onInput(String contact) {
@@ -489,7 +480,7 @@ For more information about PrivacyStreams APIs, please refer to:
 - [Transformations and Actions](pipeline.html);
 - [All built-in operators](operators.html);
 - [Walk-through slides](pages/walkthrough.pdf);
-- [More examples](https://github.com/PrivacyStreams/PrivacyStreams/blob/master/app/src/main/java/com/github/privacystreams/Examples.java).
+- [More examples](https://github.com/PrivacyStreams/PrivacyStreams/blob/master/test/src/main/java/io/github/privacystreams/test/Examples.java).
 
 
 ### News & Posts

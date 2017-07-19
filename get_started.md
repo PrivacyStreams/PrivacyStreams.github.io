@@ -12,7 +12,7 @@ Table of contents:
     - [Querying random data](#querying-random-data)
     - [Getting recent called contacts](#getting-recent-called-contacts)
 + [PrivacyStreams API](#privacystreams-api)
-    - [Unified query interface (UQI)](#unified-query-interface-uqi)
+    - [Uniform query interface (UQI)](#unified-query-interface-uqi)
     - [Simplifying the code](#simplifying-the-code)
     - [PrivacyStreams pipeline](#privacyStreams-pipeline)
     - [Reusing streams](#reusing-streams)
@@ -173,7 +173,7 @@ The code to do the task with PrivacyStreams is as follows:
 
 Looks messy? Don't worry, next I will show you what happened and how to simplify it.
 
-### Unified query interface (UQI)
+### Uniform query interface (UQI)
 
 In PrivacyStreams, all types of personal data can be accessed and processed through the unified query interface (**UQI**).
 
