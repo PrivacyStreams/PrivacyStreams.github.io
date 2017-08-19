@@ -7,7 +7,6 @@ title: Available data types in PrivacyStreams
 - [AirPressure](#airpressure)
 - [AmbientTemperature](#ambienttemperature)
 - [Audio](#audio)
-- [BatteryInfo](#batteryinfo)
 - [BluetoothDevice](#bluetoothdevice)
 - [BrowserSearch](#browsersearch)
 - [BrowserVisit](#browservisit)
@@ -117,26 +116,6 @@ An Audio item represents an audio, could be an audio record from microphone,
 | `PStreamProvider` | `Audio.recordPeriodic(long durationPerRecord, long interval)` <br> Provide a live stream of Audio items.  The audios are recorded from microphone periodically every certain time interval,  and each Audio item is a certain duration of time long.  For example, `recordPeriodic(1000, 4000)` will record audio from 0s-1s, 5s-6s, 10s-11s, ...  This provider requires `android.permission.RECORD_AUDIO` permission.<br> - `durationPerRecord`: the time duration of each audio record, in milliseconds.<br> - `interval`: the time interval between each two records, in milliseconds. |
 | `PStreamProvider` | `Audio.getFromStorage()` <br> Provide all Audio items in local file system.  This provider requires `android.permission.READ_EXTERNAL_STORAGE` permission. |
 
-## BatteryInfo
-
-Package: `io.github.privacystreams.device`
-
-A BatteryInfo item represents an event about the device.
-
-### Fields
-
-| Reference | Name | Type | Description |
-|----|----|----|----|
-| `BatteryInfo.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
-| `BatteryInfo.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the state is requested. |
-| `BatteryInfo.LEVEL` | `"level"` | `Float` | The level of when the state is requested. |
-
-### Providers
-
-| Type | Reference & Description |
-|----|----|
-| `PStreamProvider` | `BatteryInfo.asSnapshot()` <br> Provide current battery info. |
-
 ## BluetoothDevice
 
 Package: `io.github.privacystreams.device`
@@ -212,7 +191,8 @@ The meta information for a calendar event.
 | `CalendarEvent.ID` | `"id"` | `String` | Event ID. |
 | `CalendarEvent.TITLE` | `"title"` | `String` | Event title. |
 | `CalendarEvent.START_TIME` | `"start_time"` | `Long` | Event start time. |
-| `CalendarEvent.DURATION` | `"duration"` | `Long` | Duration of the event. |
+| `CalendarEvent.END_TIME` | `"end_time"` | `Long` | Event end time. |
+| `CalendarEvent.DURATION` | `"duration"` | `String` | Duration of the event, in RFC2445 format. |
 | `CalendarEvent.EVENT_LOCATION` | `"event_location"` | `String` | Event location. |
 
 ### Providers
@@ -277,7 +257,6 @@ A DeviceEvent item represents an event about the device.
 | Reference | Name | Type | Description |
 |----|----|----|----|
 | `DeviceEvent.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
-| `DeviceEvent.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the event is happened. |
 | `DeviceEvent.TYPE` | `"type"` | `String` | The type of the event, could be "screen", "boot", "battery", or "ringer". |
 | `DeviceEvent.EVENT` | `"event"` | `String` | The event name. For screen events, could be "on", "off", or "user_present";  For boot events, could be "boot_completed", or "shutdown";  For battery events, could be "low", "okay", "ac_connected", or "ac_disconnected";  For ringer events, could be "silent", "vibrate", or "normal". |
 
@@ -298,10 +277,12 @@ A DeviceEvent item represents a snapshot of device state.
 | Reference | Name | Type | Description |
 |----|----|----|----|
 | `DeviceState.TIME_CREATED` | `"time_created"` | `Long` | The timestamp of when this item is created.  It is a general field for all items. |
-| `DeviceState.TIMESTAMP` | `"timestamp"` | `Long` | The timestamp of when the state is requested. |
 | `DeviceState.BLUETOOTH_DEVICE_LIST` | `"bluetooth_device_list"` | `List<>` | The list of currently scanned bluetooth device. |
 | `DeviceState.WIFI_AP_LIST` | `"wifi_ap_list"` | `List<>` | The list of currently scanned Wifi APs. |
 | `DeviceState.BATTERY_LEVEL` | `"battery_level"` | `Float` | The current battery level. |
+| `DeviceState.IS_CONNECTED` | `"is_connected"` | `Boolean` | Whether the current device is connected to network |
+| `DeviceState.WIFI_BSSID` | `"wifi_bssid"` | `String` | The connected WiFi AP BSSID, could be null if the device is not connected to WiFi |
+| `DeviceState.IS_SCREEN_ON` | `"is_screen_on"` | `String` | Whether the screen is on |
 
 ### Providers
 
@@ -571,6 +552,7 @@ An Notification item represents a received notification.
 | `Notification.PACKAGE_NAME` | `"package_name"` | `String` | The package name of the notification. |
 | `Notification.TITLE` | `"title"` | `String` | The title of the notification. |
 | `Notification.TEXT` | `"text"` | `String` | The text of the notification. |
+| `Notification.SUB_TEXT` | `"sub_text"` | `String` | The subtext of the notification. |
 | `Notification.EXTRA` | `"extra"` | `Bundle` | The extra bundle of the notification. |
 
 ### Providers

@@ -14,14 +14,11 @@ io.github.privacystreams.commons.string
 io.github.privacystreams.commons.time
 io.github.privacystreams.communication
 io.github.privacystreams.core
-io.github.privacystreams.core.actions
 io.github.privacystreams.core.actions.callback
 io.github.privacystreams.core.actions.collect
 io.github.privacystreams.core.exceptions
 io.github.privacystreams.core.items
-io.github.privacystreams.core.providers
 io.github.privacystreams.core.purposes
-io.github.privacystreams.core.transformations
 io.github.privacystreams.core.transformations.filter
 io.github.privacystreams.core.transformations.group
 io.github.privacystreams.core.transformations.limit

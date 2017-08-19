@@ -36,7 +36,7 @@ Simply add the following line to `build.gradle` file under you app module.
 
 <pre>
 <code>dependencies {</code>
-    <code class="highlight">compile 'io.github.privacystreams:privacystreams-android-sdk:0.1.6'</code>
+    <code class="highlight">compile 'io.github.privacystreams:privacystreams-android-sdk:0.1.7'</code>
     <code>...
 }</code>
 </pre>

@@ -12,7 +12,7 @@ First, add Dropbox SDK dependency to `build.gradle`.
 
 <pre>
 <code>dependencies {
-    compile 'io.github.privacystreams:privacystreams-android-sdk:0.1.6'</code>
+    compile 'io.github.privacystreams:privacystreams-android-sdk:0.1.7'</code>
     <code class="highlight">compile 'com.dropbox.core:dropbox-core-sdk:2.1.1'</code>
     <code>...
 }</code>
