@@ -1,3 +1,8 @@
+---
+layout: homepage
+title: Available pipeline (Transformation and Action) functions in PrivacyStreams
+---
+
 
 ## Transformations
 
